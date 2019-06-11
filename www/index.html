@@ -14,7 +14,7 @@
 
 		<!-- Begin: Apple Meta Tags -->
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
-		<meta name="apple-mobile-web-app-title" content="Spume | Real Time"/>
+		<meta name="apple-mobile-web-app-title" content="Apps"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 		<meta name="format-detection" content="telephone=no"/>
 		<link rel="apple-touch-icon" sizes="180x180" href="src/img/favicon/apple-touch-icon-180x180.png"/> <!-- iPhone -->
@@ -33,7 +33,7 @@
 		<link rel="apple-touch-startup-image" href="src/img/favicon/apple-touch-startup-image-ipad-pro-12-9.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"/> <!-- 12.9" iPad Pro -->
 
 		<!-- Begin: Windows Meta Tags -->
-		<meta name="application-name" content="Spume | Real Time"/>
+		<meta name="application-name" content="Apps"/>
 		<meta name="msapplication-navbutton-color" content="#343A40"/>
 		<meta name="msapplication-TileColor" content="#343A40"/>
 		<meta name="msapplication-TileImage" content="src/img/favicon/mstile-144x144.png"/>
@@ -55,28 +55,22 @@
 		<!-- <script type="text/javascript" src="js/faau.js"></script> -->
 
 		<!-- Begin: Scripts MINIFYIED-->
-		<script type="text/javascript" src="js/svg.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+		<script type="text/javascript" src="js/svg.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/faau.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/presets.js"></script>
 
-		<title>Spume | Real Time</title>
+		<title>Apps</title>
 	</head>
 	<body id="app" class="-view -zero">
 		
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<section class="-fixed -view --screen --home" data-role='keep' data-hideposx='left'></section>
-		<!-- <section class="-fixed -view --screen --spheres" data-role='keep' data-hidepos='left'></section> -->
-		<aside class="-fixed -view --screen --feeds" data-role='keep' data-hideposx='left'></aside>
-		<header class="-fixed -wd-full -zero-top -flex --first"></header>
-		<section class="-fixed -view --screen --children" data-role='keep' data-hideposx='right'></section>
-		<header class="-fixed -wd-full -zero-top --second"></header>
+		<header class="-fixed -wd-full -zero-top -flex"></header>
 		<footer class="-fixed -wd-full -zero-bottom -flex"></footer>
-		<aside class="-fixed -view --screen --right-menu" data-role='keep' data-hideposx='right'></aside>
 		<section class="-fixed -view --screen --lightbox --login" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --whoweare" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --about" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --chartchange" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --nochart" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --policy" data-role='keep' data-hideposx='right'></section>
 		<section class="-fixed -view --screen --splash" data-role='dismiss'></section>
 
 		<!-- Begin: Stylesheets -->
@@ -88,11 +82,22 @@
 		</style>
 
 		<!-- Begin: Scripts -->
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
-		<script type="text/javascript" src="js/presets.js"></script>
 		<script type="text/javascript">
+			
+			var // Your web app's Firebase configuration
+			firebaseConfig = {
+			    apiKey: "AIzaSyDGCBaCOuAuyp0QH5aC8fIK0gz5htVj-6M",
+			    authDomain: "rafsb-apps.firebaseapp.com",
+			    databaseURL: "https://rafsb-apps.firebaseio.com",
+			    projectId: "rafsb-apps",
+			    storageBucket: "rafsb-apps.appspot.com",
+			    messagingSenderId: "279336801488",
+			    appId: "1:279336801488:web:e2cf1dd155bcb42d"
+			};
 			(function(){
+				// Initialize Firebase
+				firebase.initializeApp(firebaseConfig);
+				// Initialize your app
 				app.initialize()
 			})()
 		</script>

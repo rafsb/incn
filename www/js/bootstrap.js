@@ -1,9 +1,7 @@
-window.
 bootstrap = {
 	screens : {
-		// secreens
-		splash    	 : false
-		, home    	 : false
+		splash    	 : null
+		, login 	 : null
 	}
 	, pace : function(){
 		let
@@ -13,7 +11,7 @@ bootstrap = {
 	}
 	, percent: function(){
 		let
-		count = 0;
+		count = 1;
 		for(var i in this.screens) if(this.screens[i]) count++;
 		return count*this.pace();
 	}
@@ -21,7 +19,14 @@ bootstrap = {
 		return this.screens[scr]
 	}
 	, ready: function(scr){
-		if(scr) this.screens[scr] = true;
-		return this.percent()>99?true:false
+		let
+		__progress = this.percent();
+		if(scr) this.screens[scr] = true
+		$(".--progress").anime({width:__progress+"%"})
+		if(__progress>99){
+			$(".--screen.--splash").desappear(ANIMATION_LENGTH, REMOVE);
+			return true
+		}
+		return false
 	}
 };
