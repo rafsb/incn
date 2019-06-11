@@ -1,0 +1,44 @@
+<div class="-wrapper" style="background:black">
+	<div class="-wd-full -content-center"><img src="src/img/logos/logo-w.svg" style="height:1.5em;padding:1em 0" /></div>
+	<div  class="-pointer -absolute" style="top:0;left:100%;margin-left:-4em" onclick="window.app.pragma = HOME">
+		<img src="src/img/icons/nav-back.svg" style="opacity:.8;height:1em;padding:1.5em;transform:rotate(180deg)"/>
+	</div>
+
+	<!-- <div class="-row -pointer -content-left --login"  onclick="window.app.pragma = LOGIN">Login</div> -->
+	<div class="-row -pointer -content-left" onclick="window.app.pragma = CHARTCHANGE">Trocar gráfico</div>
+	<div class="-row -pointer -content-left" onclick="window.app.pragma = WHOWEARE">Quem somos</div>
+	<div class="-row -pointer -content-left" onclick="window.app.pragma = POLICY">Política de privacidade</div>
+	<div class="-row -pointer -content-left" onclick="window.app.pragma = ABOUT">Sobre</div>
+	<div class="-row -pointer -content-left --logout" style="color:gray" onclick="window.localStorage.removeItem('hash');location.reload()">Logout</div>
+
+	<div class="-row -content-center">
+		<div>
+			<img 
+				class="-left -pointer" 
+				style="padding:.5em; height:1.5em;" 
+				src="src/img/icons/youtube.svg"
+				onclick="window.open('https://www.youtube.com/channel/UCixZC-42ZMB0LGH9-DXIcqQ','_system')"/>
+			<img 
+				class="-left -pointer" 
+				style="padding:.5em; height:1.5em;" 
+				src="src/img/icons/facebook.svg"
+				onclick="window.open('https://www.facebook.com/Spume.co/','_system')"/>
+			<img 
+				class="-left -pointer" 
+				style="padding:.5em; height:1.5em;" 
+				src="src/img/icons/linkedin.svg"
+				onclick="window.open('https://www.linkedin.com/company/spumenews/','_system')"/>
+		</div>
+	</div>
+
+	<style type="text/css">
+		.--right-menu .-row { padding:1em 1.5em; width: calc(100% - 2em); color: white; transform-origin: left center}
+	</style>
+
+	<script type="text/javascript">
+		(function(){
+			// if(app.hash) $(".--login").remove();
+			// else $(".--logout").remove();
+		})()
+	</script>
+</div>

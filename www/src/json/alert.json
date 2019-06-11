@@ -1,0 +1,18 @@
+[
+	{
+		"parent" : { 
+			"name" : "Nubank"
+			, "index" : 0
+		}
+		, "content" : "representa mais da metade"
+		, "icon" : 1
+	}
+	, {
+		"parent" : { 
+			"name" : "Pagseguro"
+			, "index" : 2
+		}
+		, "content" : "único que apresenta queda"
+		, "icon" : 0
+	}
+]

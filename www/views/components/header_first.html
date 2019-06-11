@@ -1,0 +1,31 @@
+<div class="--header -wrapper -flex" style="color:whitesmoke;background:black;padding:.5em 0">
+	<div  class="-pointer" onclick="window.app.fw.apply(()=>{
+		window.app.pragma = HOME;
+		setTimeout(()=>{ __scroll.__UP__.fire() },ANIMATION_LENGTH/4)
+	})">
+		<img src="src/img/icons/nav-spheres.svg" style="opacity:1;height:2em;padding:.5em"/>
+	</div>
+	<!-- <div class="-pointer" onclick="app.pragma = SPHERES"><img src="src/img/icons/spheres.svg" style="height:1.5em;padding:.75em .5em"/></div> -->
+	<!-- <span class="-left -content-left --app-title" onclick="window.faau.error('last'+window.app.last)" style="line-height:3;font-size:1em;text-overflow: ellipsis; padding: 0 .75em;flex-grow: 10"></span> -->
+	<span
+		class="-left -content-left --app-title" 
+		style="line-height:3;font-size:1em;text-overflow: ellipsis; padding: 0 .75em;flex-grow: 10">
+	</span>
+	
+	<div 
+		class="-pointer"
+		style="display:none"
+		onclick="this.get('img').at().anime({rotate:this.dataset.state=='1'?'0deg':'180deg'});this.dataset.state=this.dataset.state=='1'?'0':'1';">
+		<img src="src/img/icons/nav-down.svg" style="opacity:.8;height:1em;padding:1em .5em"/>
+	</div>
+
+	<div 
+		class="-pointer-and-spin" 
+		onclick="window.app.pragma = MENU">
+		<img src="src/img/icons/menu-hbg.svg" style="height:2em;padding:.5em;opacity:.8"/>
+	</div>
+	
+	<style type="text/css">
+		.--header > *:not(span) { text-align: center; }
+	</style>
+</div>

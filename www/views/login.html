@@ -1,0 +1,30 @@
+<div class="-row">
+	<div class="-wd-full -content-center"><img src="src/img/logos/logo-w.svg" style="height:1.5em;padding:1em 0" alt='logo'/></div>
+	<div  class="-pointer -absolute --backbutton" style="top:0;left:100%;margin-left:-4em" onclick="window.app.pragma = MENU">
+		<img src="src/img/icons/nav-back.svg" style="opacity:.8;height:1em;padding:1.5em;transform:rotate(180deg)"/>
+	</div>
+
+	<form name="login" action="javascript:void(0)" class="-row -keep -content-center" onsubmit='__usercheck(this)' style="padding:8em 0;">
+		<h1>Login</h1>
+		<br/>
+		<div class='-wd-full -content-center'>
+			<input style="width:60%;" class='-input' type="user" name="user" placeholder="Usuário" value=""/>
+		</div>
+		<div class='-wd-full -content-center' style="margin:.75em 0">
+			<input style="width:60%;" class='-input' type="password" name="passwd" placeholder="Senha" value=""/>
+		</div>
+		<input type="submit" class='-bt -keep' style="font-weight:bolder !important;width:calc(60% + 1.1em);padding:1em 0;background:#DC2431" value="ENVIAR"/>
+	</form>
+
+	<style type="text/css">
+		.--screen.--login input { color: white; }
+	</style>
+
+	<script>
+		(function(){
+			if(!app.hash){
+				$(".--backbutton").remove()
+			}
+		})()
+	</script>
+</div>

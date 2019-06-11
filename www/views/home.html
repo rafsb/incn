@@ -1,0 +1,273 @@
+<div class="-wrapper --home" style="height:calc(100% - 8em);margin-top:4em">
+	<div class="-wd-full -content-center" style="margin-top:4em">
+		<img src="src/img/icons/icon-w.svg" style="width:40vw;margin:0 30vw"><br/>
+		<img src="src/img/spume-text-w.svg" style="width:40vw;margin:-1.5em 30vw 0 30vw"/>
+	</div>
+	<div class="-wd-full -content-center" style="padding:2em 0;">
+		<!-- 
+		<div class="--alerts" style="width:80%;color:whitesmoke">
+			<nav class="-wd-full"><img/><span></span><img src='src/img/icons/nav-back.svg' class='-pointer'/></nav>
+			<nav class="-wd-full"><img/><span></span><img src='src/img/icons/nav-back.svg' class='-pointer'/></nav>
+			<nav class="-wd-full"><img/><span></span><img src='src/img/icons/nav-back.svg' class='-pointer'/></nav>
+			<nav class="-wd-full"><img/><span></span><img src='src/img/icons/nav-back.svg' class='-pointer'/></nav>
+		</div>
+		-->
+	</div>
+	<div class="-wd-full -content-center" style="height:calc(100vh - 34em)">
+		<div class="-pointer -jumping-icon" onclick="$('.--home .--spheres').at().anime({translateY:0},ANIMATION_LENGTH)">
+			<img src="src/img/icons/arrow-down.svg" style="height:2em;;padding:.5em;opacity:.3;transform:rotate(180deg)"/>
+		</div>
+	</div>
+
+	<div class="-wd-full --spheres -absolute" style="left:0;top:0;transform:translateY(75vh);background:#1F1F1F">
+		<div class="-wd-full --stage"></div>		
+	</div>
+	<style type="text/css">
+		.--alerts div, .--alerts span { float:  left; margin: 1px; background: rgba(0,0,0,.05); font-size: 1em; }
+		.--alerts div { text-align: center; line-height: 1.5 }
+		.--alerts .-wd-full img:not(.-pointer) { float:  left;height: 1.5em; }
+		.--alerts .-wd-full img.-pointer { padding:.5em;transform:rotate(180deg);height:1em;opacity:.3;float:right;height: 1em; }
+		.--alerts span { text-align: left; flex-grow: 5; line-height: 2; text-overflow: ellipsis; overflow-x: hidden; white-space: nowrap; max-width: calc(100% - 4em);}
+		.--alerts span b { color: white;  padding:0 .5em }
+		.--parent-tile * { text-align: center } 
+	</style>
+	<script>
+		// /* ALERTS */
+		// app.fw.call("src/json/alert.json", { hash: app.hash }, function(){
+		// 	let
+		// 	x = this;
+		// 	if(x.status){
+		// 		let
+		// 		json = JSON.parse(x.data);
+		// 		$(".--alerts .-wd-full").each(function(i){
+		// 			if(json[i]){
+		// 				this.get("img")[0].src = "src/img/icons/"+(["alert-red","alert-yellow","warning-red","warning-yellow"][json[i].icon])+".svg";
+		// 				this.get("span")[0].innerHTML = "<b>"+json[i].parent.name+"</b><f>"+json[i].content+"</f>";
+		// 				this.get("img")[1].on("click",()=>{ app.which = json[i].parent.index; app.pragma = CHILDREN });
+		// 				this.get("span")[0].on("click",function(){ app.fw.notify(this.get("b")[0].textContent+"("+(json[i].parent.index+1)+"º) "+this.get("f")[0].textContent) })
+		// 			}else this.remove();
+		// 		})
+		// 	}else app.fw.error("Alertas não encontrados...");
+			bootstrap.ready("alerts");
+		// })
+
+		/* MOST RANKED CONTENT */
+		// app.fw.call("src/json/mrc.json",{hash:app.hash},function(){
+		// if(app.current||app.fw.storage("current")){
+		// 	let
+		// 	json = app.current||app.fw.storage("current").json()
+		// 	, fsph = $(".--footer .--sphere");
+		// 	if(json.length){
+		// 		app.colors.each(function(i){
+		// 			if(json[i]&&fsph[i])
+		// 				fsph[i].anime(
+		// 					{ background:this, scale:1.1 }
+		// 					, ANIMATION_LENGTH
+		// 					, ANIMATION_LENGTH+(ANIMATION_LENGTH/2*i)
+		// 					, function(){ 
+		// 						this.anime({scale:1},ANIMATION_LENGTH/2)
+		// 					}
+		// 				)
+		// 		});
+		// 		$(".--app-title")[0].textContent = json.chart_title;
+		// 		app.spheres.content = json;
+		// 		app.spheres.ready = true;
+		// 		bootstrap.ready("mrc");
+		// 	} else app.fw.error("Conteúdo não disponível...(-1)");
+		// }else app.fw.error("Conteúdo não disponível...(-2)");
+
+		/* SPHERE SVG */
+		app.fw.call("src/img/icons/sphere.svg",null,function(){
+			let
+			x = this;
+			if(x.status){
+				app.spheres.sphereSVG = x.data.morph().setStyle({height:"4em", width:"4em"});
+				app.spheres.ready = true;
+			} else app.fw.error("Imagem da esfera não disponível...");
+		});
+
+		/* PARENT TILE */
+		app.fw.call("views/tiles/parent.html",null,function(){
+			let
+			x = this;
+			if(x.status){
+				app.spheres.parentTile = x.data.morph();
+				app.spheres.ready = true;
+			} else app.fw.error("Quadro da esfera pai não disponível...");
+		});
+
+		/* CHILD TILE */
+		app.fw.call("views/tiles/child.html",null,function(){
+			let
+			x = this;
+			if(x.status){
+				app.spheres.childTile = x.data.morph();
+				app.spheres.ready = true;
+			} else app.fw.error("Quadro da esfera pai não disponível...");
+		});
+
+		/* ARTICLE TILE */
+		app.fw.call("views/tiles/article.html",null,function(){
+			let
+			x = this;
+			if(x.status){
+				app.spheres.articleTile = x.data.morph();
+				app.spheres.ready = true;
+			} else app.fw.error("Quadro de artigos não encontrado...");
+		});
+
+		app.spheres.stageTile = document.createElement("section").addClass("-fixed -scrolls --child-stage").setStyle({
+			height:"calc(100vh - 14.5em)"
+			, top:"10.5em"
+			, left:"0"
+			, width: "100vw"
+			, translateX: "100vw"
+			// , width: "calc(100% - 2px)"
+			// , borderLeft: "2px solid black"
+			// , borderRight: "1px solid whitesmoke"
+		});
+
+		app.spheres.spy("ready",function(){
+			let
+			ready = true;
+			for(i in this) if(!this[i]) ready=false;
+			if(!ready) return;
+
+			let
+			json = app.spheres.content
+			, fsph = $(".--footer .--sphere");
+			if(json){
+				app.colors.each(function(i){
+					if(json.data[i]&&fsph[i])
+						fsph[i].anime(
+							{ background:this, scale:1.1 }
+							, ANIMATION_LENGTH
+							, ANIMATION_LENGTH+(ANIMATION_LENGTH/2*i)
+							, function(){ 
+								this.anime({scale:1},ANIMATION_LENGTH/2)
+							}
+						)
+				});
+				$(".--app-title")[0].textContent = json.chart_title;
+			} else app.fw.error("Conteúdo não disponível...(-1)");
+
+			let
+			stage = $(".--spheres .--stage")[0];
+			app.colors.each(function(pid){
+
+				let
+				color = this,
+				data = app.spheres.content.data[pid];
+				if(!data) return;
+
+				let
+				tile = app.spheres.parentTile.cloneNode(true),//.setData({which:i}),
+				img  = app.spheres.sphereSVG.cloneNode(true),
+
+				size = data.sphere_coefficient_percent/app.spheres.content.data[0].sphere_coefficient_percent;
+
+				if(size < .6) size+=.4;
+
+				img.setStyle({scale:size})
+				img.get(".--main-sphere")[0].setStyle({fill:color}).setData({size:size});
+
+				tile.get(".--rank b")[0].textContent = (pid+1)+"º";
+				tile.get(".--rank span")[0].textContent = Math.ceil(data.sphere_coefficient_percent*100)+"%";
+				tile.get(".--sphere")[0].app(img);
+				tile.get(".--indicator")[0].src = "src/img/icons/mood-"+(data.mood.mood_indicator>2?"up":(data.mood.mood_indicator<2?"down":"neutral"))+".svg";
+
+				let
+				parnt = tile.get(".--parent")[0]
+				, name = data.name.trim().replace(/\s+/g," ")
+				, cont = (name.match(/\s/g) || []).length;
+				// console.log(name,cont);
+				parnt.setStyle({paddingTop:(cont?2/(cont+1)+"em":"1.75em")});
+				parnt.innerHTML = name.split(/\s+/g).join("<br/>");
+
+				let
+				pos = Math.ceil(data.mood.positive.mood_score_sum/data.mood.total_score*100)
+				, neg = Math.ceil(data.mood.negative.mood_score_sum/data.mood.total_score*100);
+				tile.get(".--mood-positive")[0].textContent = (pos?(pos>100?100:pos):0)+"%";
+				tile.get(".--mood-negative")[0].textContent = (neg?(neg>100?100:neg):0)+"%";
+				tile.on("click",function(){ app.which = pid; app.pragma = CHILDREN });
+
+				stage.app(tile);
+
+				let
+				zone = app.spheres.stageTile.cloneNode(true);
+
+				data.child_nodes.each(function(cid){
+					if(cid>4) return;
+
+					let
+					node = app.spheres.childTile.cloneNode(true),
+					svg = app.spheres.sphereSVG.cloneNode(true),
+					tile = app.spheres.articleTile.cloneNode(true),
+					perc = this.percent*100;
+
+					node.get(".--rank b")[0].textContent = Math.ceil(perc>100?perc/100:perc)+"%";
+
+					svg.get(".--main-sphere")[0].setStyle({fill:"rgba(0,0,0,.25)"}).parent().setStyle({scale:$(".--main-sphere")[pid].dataset.size});
+					svg.get(".--child-sphere").each(function(sid){ this.setStyle({fill:color,opacity:cid==4-sid?1:.2}) });
+
+					node.get(".--sphere")[0].app(svg);
+					node.get(".--parent")[0].textContent = this.name;
+					node.on("click",function(){
+
+						$(".--child-tile").not(this).each(function(){ this.setData({open:"0"}).get(".-keep.--bullet").setStyle({display:"none"}) });
+						$(".--accordeon",zone).anime({maxHeight:0, marginTop:0},ANIMATION_LENGTH/4);
+
+						if(this.dataset.open!=="1"){
+							this.get(".-keep.--bullet")[0].setStyle({display:"inline-block"});
+							$(".--accordeon",zone)[cid].anime({maxHeight:"100em",marginTop:"1em"},ANIMATION_LENGTH/2);
+							// $(".--article",zone).setStyle({opacity:0, margin:"2em 4em"});
+							setTimeout((el,zone)=>{ zone.scrollTo(el) },ANIMATION_LENGTH/2,this,zone);
+							// setTimeout((art)=>{ 
+							// 	art.each(function(aid)=>{ this.anime({ opacity:1, margin:0 }, ANIMATION_LENGTH, 100*j) }) 
+							// }, ANIMATION_LENGTH/8, $(".--article",$(".--accordeon",zone)[cid]));
+							this.dataset.open = "1";
+						}else{
+							this.get(".-keep.--bullet")[0].setStyle({display:"none"});
+							this.dataset.open = "0";
+						}
+						// $(".--child-stage",zone)[cid].scrollTo(this)
+
+					});
+
+					zone.app(node);
+					zone.app("<div class='--accordeon -wd-full' style='transform-origin:top center;max-height:0;background:#1F1F1F;overflow:hidden;z-index:100;'></div>".morph());
+					
+					let
+					acc = zone.get(".--accordeon").last()
+					, sum = 0;
+
+					// articles
+					this.articles.each(function(aid){
+						if(aid>=5) return;
+						let
+						link = this.link
+						, t = tile.cloneNode(true);
+
+						sum += Math.ceil(Math.random()*3-1);
+						t.get(".--title")[0].textContent   = this.titulo;
+						t.get(".--content")[0].textContent = this.resumo;
+						t.get(".--likes")[0].textContent   = this.qtdLike;
+						t.get(".--shares")[0].textContent  = this.qtdShare;
+						t.get(".--after")[0].textContent   = sum ? sum : Math.ceil(Math.random()*59);
+						t.get(".--time-random")[0].textContent = sum ? (sum>1?"horas":"hora") : "minutos";
+						t.get(".--link")[0].on("click", function(){ window.open(link,"_system") });
+						acc.app(t);
+					});
+
+					// Accordeon bullet
+					acc.pre(("<div class='-absolute -keep' style='left:6em;top:-1.5em;border-top:1em solid #323232;border-right:1em solid transparent;border-bottom:1em solid transparent;border-left:1em solid transparent;'></div>").morph());
+
+					acc.get(".--article").last().get(".--feed-tile").at().setStyle({border:"none"});
+					
+					$(".--screen.--children").at().app(zone);
+				})
+			});
+			bootstrap.ready("sphere_script");
+		})
+	</script>
+</div>
