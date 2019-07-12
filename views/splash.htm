@@ -1,0 +1,10 @@
+<div class="-wrapper --splash-screen -content-center">
+	<!-- scripts -->
+	<script>
+		app.fw.load("src/img/splash.svg",null,$(".--splash-screen")[0],function(){ bootstrap.ready("splash_svg") });
+		bootstrap.finishPool.add(()=>{ $(".--splash-screen")[0].remove() });
+		
+		__init_components()
+		
+	</script>
+</div>

@@ -20,5 +20,18 @@
 .-sourcesans{ font-family: 'SourceSans', cursive; }
 .-sourcesans-bold   { font-family: 'SourceSans-bold', cursive; }
 
-@font-face { font-family: "Bubbler";          src: url("../src/fonts/BubblerOne.ttf")       format("truetype"); }
-.-bubbler { font-family: 'Bubbler', cursive; }
+@font-face { font-family: "BubblerOne"; src: url("../src/fonts/BubblerOne/Regular.ttf") format("truetype"); }
+.-bubblerone { font-family: 'BubblerOne', cursive; }
+
+@font-face { font-family: "DancingScript";src: url("../src/fonts/DancingScript/Regular.ttf")format("truetype"); }
+@font-face { font-family: "DancingScript-bold";   src: url("../src/fonts/DancingScript/Bold.ttf")   format("truetype"); }
+.-dancingscript{ font-family: 'DancingScript', cursive; }
+.-dancingscript-bold { font-family: 'DancingScript-bold', cursive; }
+
+@font-face { font-family: "ShadowsIntoLight"; src: url("../src/fonts/ShadowsIntoLight/Regular.ttf") format("truetype"); }
+.-shadowsintolight { font-family: 'ShadowsIntoLight', cursive; }
+
+@font-face { font-family: "Caveat";src: url("../src/fonts/Caveat/Regular.ttf")format("truetype"); }
+@font-face { font-family: "Caveat-bold";   src: url("../src/fonts/Caveat/Bold.ttf")   format("truetype"); }
+.-caveat{ font-family: 'Caveat', cursive; }
+.-caveat-bold { font-family: 'Caveat-bold', cursive; }

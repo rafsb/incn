@@ -52,49 +52,24 @@
 
 		<!-- Begin: Scripts -->
 		<script type="text/javascript" src="js/svg.js"></script>
-		<script type="text/javascript" src="js/firebase.js"></script>
 		<script type="text/javascript" src="js/faau.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/presets.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+		<!-- <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script> -->
 		<!-- <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script> -->
 
 		<title>Apps</title>
 	</head>
-	<body id="app" class="-view -zero">
-		
+	<body id="app" class="-view -zero -opensans">
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-		<section class="-fixed -view --screen --home" data-role='keep' data-hideposx='left'></section>
-		<header class="-fixed -wd-full -zero-top -flex"></header>
-		<footer class="-fixed -wd-full -zero-bottom -flex"></footer>
-		<section class="-fixed -view --screen --lightbox --login" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --splash" data-role='dismiss'></section>
-
+		
 		<!-- Begin: Stylesheets -->
-		<style type="text/css">
-			#app { background:  #1f1f1f; }
-			#app>.--screen { background: #1f1f1f; top:0; left:0; margin:0; padding:0; }
-			#app>header{ transform: translateY(-4em); height:4em; padding:0; overflow: hidden}
-			#app>.--lightbox { background: #121212;color: whitesmoke; }
-		</style>
+		<style type="text/css"></style>
 
 		<!-- Begin: Scripts -->
-		<script type="text/javascript">
-			
-			var // Your web app's Firebase configuration
-			firebaseConfig = {
-			    apiKey: "AIzaSyDGCBaCOuAuyp0QH5aC8fIK0gz5htVj-6M",
-			    authDomain: "rafsb-apps.firebaseapp.com",
-			    databaseURL: "https://rafsb-apps.firebaseio.com",
-			    projectId: "rafsb-apps",
-			    storageBucket: "rafsb-apps.appspot.com",
-			    messagingSenderId: "279336801488",
-			    appId: "1:279336801488:web:e2cf1dd155bcb42d"
-			};
+		<script type="text/javascript">			
 			(function(){
-				// Initialize Firebase
-				firebase.initializeApp(firebaseConfig);
 				// Initialize your app
 				app.initialize()
 			})()

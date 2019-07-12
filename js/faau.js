@@ -8,14 +8,13 @@
 
 ****************************************************************************/
 const
-RESPONSIVE_TRESHOLD = 1366
-, ANIMATION_LENGTH = 800
+ANIMATION_LENGTH = 800
 , DEBUG = true
 , REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
 , SUM       = 0
 , MEDIAN    = 1
 , HARMONIC  = 2
-;
+, REMOVE    = true;
 
 HTMLInputElement.prototype.up = function(name, path, fn=null, mini=false) {
     let
@@ -53,6 +52,8 @@ HTMLInputElement.prototype.up = function(name, path, fn=null, mini=false) {
     xhr.open("POST", "image/upload");
     xhr.send(form);
 }
+
+Element.prototype.do = function(ev){ this.dispatchEvent(ev) };
 
 Element.prototype.anime = function(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
     len/=1000;
@@ -338,7 +339,7 @@ Element.prototype.desappear = function(len = ANIMATION_LENGTH, remove = false) {
     this.anime({opacity:0},len,0,function() { if(remove) this.remove(); else this.style.display = "none" });
 }
 
-Element.prototype.remove = function() { this&&this.parent()&&this.parent().removeChild(this) }
+Element.prototype.remove = function() { this.parent()&&this.parent().removeChild(this) }
 
 Element.prototype.at = function(i=0) {
     return this.nodearray.at(i)
@@ -633,7 +634,7 @@ class Swipe {
         this.len = len;
         this.x = null;
         this.y = null;
-        this.e = typeof(el) === 'string' ? $(el).at() : el;
+        this.e = (typeof(el) === 'string' ? $(el).at() : el) || $("body")[0];
 
         this.e.on('touchstart', function(v) {
             this.x = v.touches[0].clientX;
@@ -754,6 +755,7 @@ class FAAU {
     }
 
     load(url, args=null, element=null, fn=false, sync=false) {
+        if(!element) return;
     	this.call(url, args, function(target=element) {
     		let r;
             if(this.status==200) r = this.data.morph();
@@ -761,7 +763,7 @@ class FAAU {
             if(!r.id) r.id = faau.nuid();
     		let
     		tmp = r.get("script");
-    		if(!target) target = faau.get('body')[0];
+    		if(!target) target = $('body')[0];
             target.app(r);
     		if(tmp.length) for(let i=0;i++<tmp.length;) { eval(tmp[i-1].textContent); }
     		if(fn) fn.bind(r)();
@@ -770,6 +772,10 @@ class FAAU {
     }
 
 	get(el,scop=null) { return scop ? scop.querySelectorAll(el) : this.nodes.querySelectorAll(el); }
+
+    isMobile(){
+        return ( /iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Android|webOS/i.test(navigator.userAgent) )
+    }
 
 	nuid(n=8) { let a = "FA"; n-=2; while(n-->0) { a+="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split('')[parseInt((Math.random()*36)%36)]; } return a; }
 
@@ -787,7 +793,7 @@ class FAAU {
             opacity:0,
             position:"fixed"
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
-        if(window.innerWidth>RESPONSIVE_TRESHOLD) {
+        if(!faau.isMobile()) {
             toast.setStyle({
                 top:0,
                 left:"80vw",
@@ -809,7 +815,7 @@ class FAAU {
         toast.onmouseleave = function() {
             this.dataset.delay = setTimeout(function(t) { t.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH, this);
         };
-        document.getElementsByTagName('body')[0].appendChild(toast);
+        $("body")[0].appendChild(toast);
         let
         notfys = faau.get("toast");
 
@@ -823,7 +829,7 @@ class FAAU {
             $(".--default-loading").each(function(){ clearInterval(this.dataset.animation); this.remove() });
             return;
         }
-        app.body.app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
+        $("body")[0].app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
 
         app.fw.load("src/img/loading.svg",null,$(".--default-loading")[0],function(){
             let
@@ -874,7 +880,7 @@ class FAAU {
         if(!keep) toast.on("mouseleave",function() {$(".--hintifyied"+(special?", .--hintifyied-sp":"")).remove() });
 
         toast.anime({scale:1,opacity:1});
-        $('body')[0].app(toast);
+        $("body")[0].app(toast);
     }
 
     apply(fn,obj=null) { return (fn ? fn.bind(this)(obj) : null) }
@@ -909,6 +915,18 @@ class FAAU {
         if(!value) return window.localStorage.getItem(field);
         window.localStorage.setItem(field,value);
         return true;
+    }
+
+    clip(str){
+        let 
+        el = this.new('textarea');
+        el.value = str;
+        $("body")[0].app(el);
+        el.select();
+        document.execCommand('copy');
+        el.remove();
+        this.notify("Copied to clipboard");
+        return this
     }
 
     constructor(wrapper,context) {
