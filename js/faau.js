@@ -8,13 +8,14 @@
 
 ****************************************************************************/
 const
-ANIMATION_LENGTH = 800
+RESPONSIVE_TRESHOLD = 1366
+, ANIMATION_LENGTH = 800
 , DEBUG = true
 , REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
 , SUM       = 0
 , MEDIAN    = 1
 , HARMONIC  = 2
-, REMOVE    = true;
+;
 
 HTMLInputElement.prototype.up = function(name, path, fn=null, mini=false) {
     let
@@ -52,8 +53,6 @@ HTMLInputElement.prototype.up = function(name, path, fn=null, mini=false) {
     xhr.open("POST", "image/upload");
     xhr.send(form);
 }
-
-Element.prototype.do = function(ev){ this.dispatchEvent(ev) };
 
 Element.prototype.anime = function(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
     len/=1000;
@@ -196,7 +195,8 @@ Element.prototype.index = function() {
 }
 
 Element.prototype.evalute = function() {
-    this.get("script").each((x)=>{ eval(x.textContent) })
+    this.get("script").each(function(){ eval(this.textContent) })
+    return this
 };
 
 HTMLInputElement.prototype.setValue = function(v="") {
@@ -238,6 +238,18 @@ String.prototype.morph = function() {
     x.innerHTML = this.replace(/\t+/g, "").trim();
     return x.firstChild;
 };
+
+String.prototype.prepare = function(obj=null){
+    if(!obj) return this;
+    let
+    str = this;
+    for(i in obj){
+        let
+        rgx = new RegExp("@"+i,"g");
+        str = str.replace(rgx,obj[i])
+    }
+    return str
+}
 
 Element.prototype.on = function(action,fn,passive=true) {
     this.addEventListener(action,fn, {passive:passive})
@@ -336,10 +348,10 @@ Element.prototype.appear = function(len = ANIMATION_LENGTH) {
 }
 
 Element.prototype.desappear = function(len = ANIMATION_LENGTH, remove = false) {
-    this.anime({opacity:0},len,0,function() { if(remove) this.remove(); else this.style.display = "none" });
+    this.anime({opacity:0},len,1,function() { if(remove) this.remove(); else this.style.display = "none" });
 }
 
-Element.prototype.remove = function() { this.parent()&&this.parent().removeChild(this) }
+Element.prototype.remove = function() { this&&this.parent()&&this.parent().removeChild(this) }
 
 Element.prototype.at = function(i=0) {
     return this.nodearray.at(i)
@@ -436,6 +448,10 @@ NodeList.prototype.each = function(fn) {
     return this
 };
 
+NodeList.prototype.appear = function(len=null) {
+    this.each(function() { this.appear(len) })
+};
+
 NodeList.prototype.desappear = function(len=null,rem=null) {
     this.each(function() { this.desappear(len,rem) })
 };
@@ -517,6 +533,14 @@ HTMLFormElement.prototype.json = function() {
         if(!this.has('-skip')) json[this.name] = (this.tagName.toUpperCase()=="TEXTAREA"&&this.has("-list") ? this.value.split('\n') : this.value);
     })
     return json
+};
+
+HTMLFormElement.prototype.appear = function(len=null) {
+    this.each(function() { this.appear(len) })
+};
+
+HTMLFormElement.prototype.desappear = function(len=null,rem=null) {
+    this.each(function() { this.desappear(len,rem) })
 };
 
 Object.defineProperty(Object.prototype, "spy", {
@@ -630,11 +654,11 @@ class Pool {
 }
 
 class Swipe {
-    constructor(el,len=128) {
+    constructor(el,len=10) {
         this.len = len;
         this.x = null;
         this.y = null;
-        this.e = (typeof(el) === 'string' ? $(el).at() : el) || $("body")[0];
+        this.e = typeof(el) === 'string' ? $(el).at() : el;
 
         this.e.on('touchstart', function(v) {
             this.x = v.touches[0].clientX;
@@ -755,17 +779,16 @@ class FAAU {
     }
 
     load(url, args=null, element=null, fn=false, sync=false) {
-        if(!element) return;
     	this.call(url, args, function(target=element) {
     		let r;
-            if(this.status==200) r = this.data.morph();
+            if(this.status==200) r = this.data.morph().evalute();
             else return DEBUG ? faau.error("error loading "+url) : null;
             if(!r.id) r.id = faau.nuid();
-    		let
-    		tmp = r.get("script");
-    		if(!target) target = $('body')[0];
+    		// let
+    		// tmp = r.get("script");
+    		if(!target) target = faau.get('body')[0];
             target.app(r);
-    		if(tmp.length) for(let i=0;i++<tmp.length;) { eval(tmp[i-1].textContent); }
+    		// if(tmp.length) for(let i=0;i++<tmp.length;) { eval(tmp[i-1].textContent); }
     		if(fn) fn.bind(r)();
             // else faau.get("#"+r.id).first().anime({opacity:1},600);
     	}, sync);
@@ -773,11 +796,7 @@ class FAAU {
 
 	get(el,scop=null) { return scop ? scop.querySelectorAll(el) : this.nodes.querySelectorAll(el); }
 
-    isMobile(){
-        return ( /iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Android|webOS/i.test(navigator.userAgent) )
-    }
-
-	nuid(n=8) { let a = "FA"; n-=2; while(n-->0) { a+="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split('')[parseInt((Math.random()*36)%36)]; } return a; }
+	nuid(n=8) { let a = "FA"; n-=2; while(n-->0) { a+="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split('')[parseInt((Math.random()*36)%36)] } return a }
 
     notify(n, c=null) {
         let
@@ -793,7 +812,7 @@ class FAAU {
             opacity:0,
             position:"fixed"
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
-        if(!faau.isMobile()) {
+        if(window.innerWidth>RESPONSIVE_TRESHOLD) {
             toast.setStyle({
                 top:0,
                 left:"80vw",
@@ -815,7 +834,7 @@ class FAAU {
         toast.onmouseleave = function() {
             this.dataset.delay = setTimeout(function(t) { t.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH, this);
         };
-        $("body")[0].appendChild(toast);
+        document.getElementsByTagName('body')[0].appendChild(toast);
         let
         notfys = faau.get("toast");
 
@@ -829,7 +848,7 @@ class FAAU {
             $(".--default-loading").each(function(){ clearInterval(this.dataset.animation); this.remove() });
             return;
         }
-        $("body")[0].app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
+        app.body.app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
 
         app.fw.load("src/img/loading.svg",null,$(".--default-loading")[0],function(){
             let
@@ -880,7 +899,7 @@ class FAAU {
         if(!keep) toast.on("mouseleave",function() {$(".--hintifyied"+(special?", .--hintifyied-sp":"")).remove() });
 
         toast.anime({scale:1,opacity:1});
-        $("body")[0].app(toast);
+        $('body')[0].app(toast);
     }
 
     apply(fn,obj=null) { return (fn ? fn.bind(this)(obj) : null) }
@@ -915,18 +934,6 @@ class FAAU {
         if(!value) return window.localStorage.getItem(field);
         window.localStorage.setItem(field,value);
         return true;
-    }
-
-    clip(str){
-        let 
-        el = this.new('textarea');
-        el.value = str;
-        $("body")[0].app(el);
-        el.select();
-        document.execCommand('copy');
-        el.remove();
-        this.notify("Copied to clipboard");
-        return this
     }
 
     constructor(wrapper,context) {

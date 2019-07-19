@@ -1,46 +1,35 @@
+window.
 bootstrap = {
-	screens : {
-		splash_screen   : null
-		, splash_svg	: null
-		, header 		: null
-		, footer		: null
-		, home			: null
-		, rmenu 		: null
-		, lmenu 		: null
-		, whoweare 		: null
-		, about 		: null
-		, policy 		: null
-		, finish		: null
-		// , lock 			: null
-	}
-	, finishPool : new Pool()
-	, changePool: new Pool()
-	, pace : function(){
+	screens : [ 
+	
+		"splash"
+		, "home" 
+	
+	]
+	, screen_statuses : {}
+	, pace : function(){ return 100/this.screens.length }
+	, percent: function(){
 		let
 		count = 0;
-		for(var i in this.screens) count++;
-		return 100/count;
+		for(var i in this.screens) if(this.screen_statuses[this.screens[i]]) count++;
+		return count*this.pace();
 	}
-	, percent : function(){
+	, status: function(scr){
+		return this.screen_statuses[scr]
+	}
+	, ready: function(scr){
+		if(scr){
+			// set screen to true
+			this.screen_statuses[scr] = true;
+			return this.ready()
+		}
 		let
-		count = 1;
-		for(var i in this.screens) if(this.screens[i]) count++;
-		return count * this.pace();
-	}
-	, status : function(scr){
-		return this.screens[scr]
-	}
-	, ready : function(scr){
-		// console.log(scr)
-		if(this.lock) return;
-		let
-		__progress = this.percent();
-		if(scr) this.screens[scr] = true
-		if(Math.ceil(__progress)==100) {
-			this.finishPool.fire();
-			return true
-		} else this.changePool.fire();
+		perc = this.percent();
+		// update progress bar
+		$(".--screen.--splash .--progress").anime({width:perc+"%"}, ANIMATION_LENGTH);
+		// init only on 100%
+		if(perc>=99) setTimeout(__renderize,ANIMATION_LENGTH)
 
-		return false
+		return this.percent()>99?true:false
 	}
 };

@@ -1,2 +1,7 @@
-# Logs
-var/logs*
+var/
+lib/
+logs/
+# platforms/
+# node_modules/
+# plugins/
+# res/
