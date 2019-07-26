@@ -611,11 +611,11 @@ class Pool {
     }
 
     plus(t=0) { return this.at(this.moment +t) }
-    fire() {
+    fire(x=null) {
         let
         pool = this;
         this.execution.each(function(i){ 
-            if(typeof this == 'function') setTimeout(this,pool.moment+1,pool.setup);
+            if(typeof this == 'function') setTimeout(this, pool.moment+1, x, pool.setup);
         });
         return this
     }
@@ -803,7 +803,6 @@ class FAAU {
         toast = document.createElement("toast");
         toast.setStyle({
             fontSize: "1rem",
-            fontFamily: 'OpenSans',
             background: c&&c[0] ? c[0] : "rgba(255,255,255,.8)",
             color: c&&c[1] ? c[1] : "black",
             boxShadow:"0 0 8px gray",
@@ -812,7 +811,7 @@ class FAAU {
             opacity:0,
             position:"fixed"
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
-        if(window.innerWidth>RESPONSIVE_TRESHOLD) {
+        if(!this.isMobile()) {
             toast.setStyle({
                 top:0,
                 left:"80vw",
@@ -825,7 +824,7 @@ class FAAU {
                 opacity:0,
                 top:".5rem",
                 left:".5rem",
-                width:"calc(100% - 4rem)",
+                width:"calc(100% - 1rem)",
                 padding:"1.5rem",
             });
         }
@@ -912,9 +911,9 @@ class FAAU {
 
     at(n=0) { return this.nodearray.at(n) }
 
-    first() {return this.nodearray.first()}
+    first() {return this.nodearray.first() }
 
-    last() {return this.nodearray.last()}
+    last() {return this.nodearray.last() }
 
     empty(except=null) { this.nodearray.each(function() {this.empty(except)})}
 
@@ -934,6 +933,10 @@ class FAAU {
         if(!value) return window.localStorage.getItem(field);
         window.localStorage.setItem(field,value);
         return true;
+    }
+
+    isMobile(){
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     }
 
     constructor(wrapper,context) {
