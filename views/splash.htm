@@ -1,44 +1,13 @@
 <div class="-wrapper --splash-screen">
-	
-	<!-- logo baloons -->
-	<img src="src/img/icons/icon-w.svg" style="margin:8em 0 0 30vw; width:40vw;"/>
-
-	<!-- logo text -->
-	<img src="src/img/spume-text-w.svg" style="margin:-1.75em 0 0 30vw; width:40vw;"/>
-
-	<!-- progress bar -->
+		<!-- progress bar -->
 	<div style="position:fixed;width:60vw;top:22em;left:20vw">
 		<div class="--progress -left" style="width:0;background:#a2a2a2;height:.25em;"></div>
 	</div>
 
 	<!-- scripts -->
 	<script>
-		let
-		splash = $(".--splash-screen")[0];
-		splash.get("img")[0].setStyle({opacity:0, translateY:"8vh"}, function(){ this.anime({translateY:0, opacity:1},ANIMATION_LENGTH) });
-		splash.get("img")[1].setStyle({opacity:0, translateY:"10vh"},function(){ this.anime({translateY:0, opacity:1},ANIMATION_LENGTH,ANIMATION_LENGTH/4) });
-		//app.fw.load("views/login.html", null, $(".--screen.--login")[0], ()=>{ bootstrap.ready("login") });
-		
 		app.hash = app.fw.storage("hash") || "@";
-
-		if(app.hash&&app.hash!="@"){
-			if(!app.fw.storage("current")) {
-				app.fw.call("http://api.spumedata.com/charts/list", { hash: app.hash }, function() {
-					this.data = this.data.json();
-					if(this.status==200 && this.data.length){
-						app.fw.storage("charts",this.data.stringify());
-						app.fw.storage("current", this.data[0].id);
-						app.charts = this.data;
-						if(app.device_id) app.fw.call("http://api.spumedata.com/push/add",{hash:btoa({device:app.device_id,list:app.charts}.json())});
-						__init_components()
-					} else app.fw.error("Não foi possível carregar a lista de gráficos disponíveis...")
-				})
-			} else __init_components()
-		} else if(app.hash&&app.hash=="@"){
-			app.fw.storage("charts",'[{"id":"22","name":"Fintechs"}]');
-			app.fw.storage("current", 22);
-			__init_components()
-		} else $(".--splash-screen .--progress")[0].anime({width:"100%"},ANIMATION_LENGTH,1,()=>{ app.pragma = LOGIN })
+		__renderize()
 	</script>
 
 </div>

@@ -14,7 +14,7 @@
 
 		<!-- Begin: Apple Meta Tags -->
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
-		<meta name="apple-mobile-web-app-title" content="Spume | Real Time"/>
+		<meta name="apple-mobile-web-app-title" content=""/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 		<meta name="format-detection" content="telephone=no"/>
 		<link rel="apple-touch-icon" sizes="180x180" href="src/img/favicon/apple-touch-icon-180x180.png"/> <!-- iPhone -->
@@ -57,30 +57,18 @@
 		<title></title>
 	</head>
 	<body id="app" class="-view -zero">
-		
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<section class="-fixed -view --screen --home" data-role='keep' data-hideposy='bottom'></section>
-		<!-- <section class="-fixed -view --screen --lightbox --login" data-role='keep' data-hideposx='right'></section> -->
-		<!-- <section class="-fixed -view --screen --lightbox --whoweare" data-role='keep' data-hideposx='right' style="padding-top:3em"></section> -->
-		<!-- <section class="-fixed -view --screen --lightbox --about" data-role='keep' data-hideposx='right' style="padding-top:3em"></section> -->
-		<!-- <section class="-fixed -view --screen --lightbox --chartchange" data-role='keep' data-hideposx='right' style="padding-top:3em"></section> -->
-		<!-- <section class="-fixed -view --screen --lightbox --nochart" data-role='keep' data-hideposx='right' style="padding-top:3em"></section> -->
-		<!-- <section class="-fixed -view --screen --lightbox --policy" data-role='keep' data-hideposx='right' style="padding-top:3em"></section> -->
-		<aside class="-fixed -view --screen --right-menu" data-role='keep' style="padding-top:3em" data-hideposx='right'></aside>
-		<header class="-fixed -wd-full -zero-top -flex" style="height:3em"></header>
-		<section class="-fixed -view --screen --splash" data-role='dismiss'></section>
-
 		<!-- Begin: Stylesheets -->
-		<style type="text/css"></style>
+		<style type="text/css">
+			#app { background:  #2a2a2a; color:#7F7F7F }
+			#app>.--screen { background: #2a2a2a; top:0; left:0; margin:0; padding:0; padding-top: 4em; overflow:hidden;}
+		</style>
 
 		<!-- Begin: Scripts -->
-		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/presets.js"></script>
-		<script type="text/javascript">
-			(function(){
-				app.initialize()
-			})()
-		</script>
+		<script type="text/javascript"> (function(){ app.initialize() })() </script>
 	</body>
 </html>

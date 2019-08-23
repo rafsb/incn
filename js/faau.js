@@ -10,7 +10,7 @@
 const
 RESPONSIVE_TRESHOLD = 1366
 , ANIMATION_LENGTH = 800
-, DEBUG = true
+, DEBUG = false
 , REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
 , SUM       = 0
 , MEDIAN    = 1
@@ -133,7 +133,7 @@ Element.prototype.setData = function(o=null, fn = null) {
 
 Element.prototype.setText = function(t=null, fn = null) {
     if (t===null) return this;
-    this.innerHTML = t;
+    this.textContent = t;
     if(fn!==null&&typeof fn=="function") fn.bind(this)();
     return this;
 }
@@ -363,6 +363,18 @@ Array.prototype.clone = function() {
 
 Array.prototype.each = function(fn) { if(fn) { for(let i=0;i++<this.length;) fn.bind(this[i-1])(i-1); } return this }
 
+Array.prototype.dehydrate = function(fn=null){
+    if(!fn||!this.length) return this;
+    let
+    narr = [];
+    this.each(function(){ 
+        let
+        x = fn.bind(this)();
+        if(x) narr.push(x) 
+    });
+    return narr;
+};
+
 Array.prototype.calc = function(type=SUM){
     let
     res = 0;
@@ -381,45 +393,6 @@ Array.prototype.last = function() { return this.length ? this[this.length-1] : n
 Array.prototype.first = function() { return this.length ? this[0] : null; }
 
 Array.prototype.at = function(n=0) { return this.length>=n ? this[n] : null; }
-
-Array.prototype.setStyle = function(obj,fn=null) {
-    this.each(function() {this.setStyle(obj,fn)});
-    return this
-}
-
-Array.prototype.setData = function(txt,fn=null) {
-    this.each(function() {this.setText(txt,fn)});
-    return this
-}
-
-Array.prototype.setText = function(obj,fn=null) {
-    this.each(function() {this.setData(obj,fn)});
-    return this
-}
-
-Array.prototype.addClass = function(cl=null) {
-    if(cl) this.each(function() {this.addClass(cl)});
-    return this
-}
-
-Array.prototype.remClass = function(cl=null) {
-    if(cl) this.each(function() {this.remClass(cl)});
-    return this
-}
-
-Array.prototype.toggleClass = function(cl=null) {
-    if(cl) this.each(function() {this.toggleClass(cl)});
-    return this
-}
-
-Array.prototype.remove = function() {
-    this.each(function() {this.parentElement.removeChild(x)});
-    return this
-}
-Array.prototype.setValue = function(v='') {
-    this.each(function(){this.value=v});
-    return this
-}
 
 Array.prototype.stringify = function() {
     return JSON.stringify(this);
@@ -483,7 +456,7 @@ NodeList.prototype.setData = function(obj,fn=null) {
 }
 
 NodeList.prototype.setText = function(txt,fn=null) {
-    this.each(function() {this.setData(txt,fn)});
+    this.each(function() {this.setText(txt,fn)});
     return this
 }
 
@@ -611,17 +584,21 @@ class Pool {
     }
 
     plus(t=0) { return this.at(this.moment +t) }
-    fire() {
+    fire(x=null) {
+        if(typeof x == "function"){
+            this.add(x,this.moment+1);
+            x=null
+        }
         let
-        pool = this;
+        pool=this;
         this.execution.each(function(i){ 
-            if(typeof this == 'function') setTimeout(this,pool.moment+1,pool.setup);
+            pool.timeserie[i] = setTimeout(this, pool.timeline[i], x, pool.setup);
         });
         return this
     }
     stop(i=null) {
         if(i!==null) { if(this.timeserie[i]) clearInterval(this.timeserie[i]) }
-        else this.timeserie.each((i,x)=>{ clearInterval(x) })
+        else this.timeserie.each(function(){ clearInterval(this) })
         return this
     }
     clear() {
@@ -756,6 +733,18 @@ class THROTTLE {
 
 class FAAU {
 	call(url, args=null, fn=false, head=null, method='POST', sync=false) {
+        // fetch(url,{ 
+        //     method: method
+        //     , headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'plain/text'
+        //     }
+        //     , body: args ? JSON.stringify(args) : "{}" 
+        // }).then(function(x){ return x.text(); }).then(function(x){
+        //     let
+        //     o = { status: 200, data: x.trim(), url:url, args:args };
+        //     return fn ? fn.bind(o)() : o;
+        // })
         let
         xhr = new XMLHttpRequest();
         args = args ? args : {};
@@ -781,13 +770,14 @@ class FAAU {
     load(url, args=null, element=null, fn=false, sync=false) {
     	this.call(url, args, function(target=element) {
     		let r;
-            if(this.status==200) r = this.data.morph().evalute();
+            if(this.status==200) r = this.data.morph();
             else return DEBUG ? faau.error("error loading "+url) : null;
             if(!r.id) r.id = faau.nuid();
     		// let
     		// tmp = r.get("script");
     		if(!target) target = faau.get('body')[0];
             target.app(r);
+            r.evalute();
     		// if(tmp.length) for(let i=0;i++<tmp.length;) { eval(tmp[i-1].textContent); }
     		if(fn) fn.bind(r)();
             // else faau.get("#"+r.id).first().anime({opacity:1},600);
@@ -803,7 +793,6 @@ class FAAU {
         toast = document.createElement("toast");
         toast.setStyle({
             fontSize: "1rem",
-            fontFamily: 'OpenSans',
             background: c&&c[0] ? c[0] : "rgba(255,255,255,.8)",
             color: c&&c[1] ? c[1] : "black",
             boxShadow:"0 0 8px gray",
@@ -812,7 +801,7 @@ class FAAU {
             opacity:0,
             position:"fixed"
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
-        if(window.innerWidth>RESPONSIVE_TRESHOLD) {
+        if(!this.isMobile()) {
             toast.setStyle({
                 top:0,
                 left:"80vw",
@@ -825,7 +814,7 @@ class FAAU {
                 opacity:0,
                 top:".5rem",
                 left:".5rem",
-                width:"calc(100% - 4rem)",
+                width:"calc(100% - 1rem)",
                 padding:"1.5rem",
             });
         }
@@ -912,9 +901,9 @@ class FAAU {
 
     at(n=0) { return this.nodearray.at(n) }
 
-    first() {return this.nodearray.first()}
+    first() {return this.nodearray.first() }
 
-    last() {return this.nodearray.last()}
+    last() {return this.nodearray.last() }
 
     empty(except=null) { this.nodearray.each(function() {this.empty(except)})}
 
@@ -934,6 +923,10 @@ class FAAU {
         if(!value) return window.localStorage.getItem(field);
         window.localStorage.setItem(field,value);
         return true;
+    }
+
+    isMobile(){
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     }
 
     constructor(wrapper,context) {
