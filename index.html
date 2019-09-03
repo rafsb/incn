@@ -6,15 +6,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-eval' data: blob: filesystem: ws: gap: cdvfile: https://ssl.gstatic.com *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; child-src *; media-src *;"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, minimal-ui, viewport-fit=cover"/>
-		<!-- Google Analytics -- >
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143883967-1"></script>
-		<script>
-		  	window.dataLayer = window.dataLayer || [];
-		  	function gtag(){dataLayer.push(arguments);}
-		  	gtag('js', new Date());
-		  	gtag('config', 'UA-143883967-1');
-		</script>
-		<! -- Begin: Android Meta Tags -->
 		<meta name="mobile-web-app-capable" content="yes"/>
 		<meta name="theme-color" content="#343A40"/>
 		<link rel="manifest" href="manifest.json"/>
@@ -55,34 +46,27 @@
 		<!-- Begin: Scripts -->
 		<script type="text/javascript" src="js/svg.min.js"></script>
 		<script type="text/javascript" src="js/faau.js"></script>
-		<title>Spume | Real Time</title>
+		<title>App</title>
 	</head>
 	<body id="app" class="-view -zero">
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-		<section class="-fixed -view --screen --clippings --start --home" data-role='keep' data-hideposy='top'></section>
-		<section class="-fixed -view --screen --feeds --start --home" data-role='keep' data-hideposy='bottom'></section>
-		<aside class="-fixed -view --screen --menu" data-role='keep' data-hideposx='right'></aside>
-		<section class="-fixed -view --screen --lightbox --whoweare" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --about" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --chartchange" data-role='keep' data-hideposy='top'></section>
-		<section class="-fixed -view --screen --lightbox --policy" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --lightbox --notifications" data-role='keep' data-hideposx='right'></section>
-		<header class="-fixed -wd-full -zero-top -flex -no-scrolls" style="height:2.5em;"></header>
-		<footer class="-fixed -wd-full -zero-bottom -flex -no-scrolls" style="height:3.5em;"></footer>
-		<section class="-fixed -view --screen --lightbox --login" data-role='keep' data-hideposx='right'></section>
-		<section class="-fixed -view --screen --splash" data-role='dismiss'></section>
+		<section class="--screen --home" data-role='keep'></section>
+		<aside class="--screen --menu" data-role='keep' data-hideposx='right'></aside>
+		<footer  style="height:3.5em;"></footer>
+		<section class="--screen --notification" data-role='keep' data-hideposy='top'></section>
+		<header  style="height:2.5em;"></header>
+		<section class="--screen --login" data-role='keep' data-hideposy='bottom'></section>
+		<section class="--screen --splash" data-role='dismiss'></section>
 		<!-- Begin: Stylesheets -->
 		<style type="text/css">
-			#app { background:  #424242; color: #ECF0F1 }
-			#app>.--screen:not(.--splash) { top:2.5em; left:0; margin:0; padding:0; overflow:hidden; height: calc(100vh - 6em); }
-			#app>.--screen.--splash 	  { top:0; left:0; margin:0; padding:0; overflow:hidden; height: 100vh;}
-			#app>header, #app>footer { box-shadow: 0 0 8px rgba(0,0,0,.64);}
-			#app>.--screen.--home { box-shadow: 0 0 64px black; }
+			#app { background: white; color: black; }
+			#app>.--screen { position:fixed; top:0; left:0; margin:0; padding:0; overflow:hidden; height: 100vh; width:100vw; }
+			#app>.--screen:not(.--splash) { padding:4em 1em; }
+			#app>header, #app>footer { left:0; width:100vw; height:4em;}
+			#app>header { top: 0;   }
+			#app>footer { bottom:0; }
 		</style>
 		<!-- Begin: Scripts -->
-		<script type="text/javascript" src="js/wordcloud2.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/presets.js"></script>
 		<script type="text/javascript">(function(){ app.initialize(); })()</script>
 	</body>
