@@ -2,35 +2,15 @@
 header("Access-Control-Allow-Origin: *");
 // header('Content-type: text/html; charset=utf-8');
 header('Content-type: application/json; charset=utf-8');
+
 session_start();
 
-spl_autoload_register(function($class)
-{
-    $class = preg_replace("/\\\\/",'/',$class);
-    $path  = __DIR__ . DIRECTORY_SEPARATOR . "webroot" . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR . ucfirst($class) . ".class.php";
+require "lib" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "autoload.php";
 
-    if(is_file($path)) include_once $path;
-    else
-    {
-        $path = __DIR__ . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . ucfirst($class) . ".class.php";
-        if(is_file($path)) include_once $path;
-        else Core::response(0, $class . ": not found...");
-    }
-    
-    if(!is_file($path)){
-        $class = explode("/",$class);
-        $namespaces = array_slice($class, 0, sizeof($class)-1);
-        foreach($namespaces as &$ns) $ns=strtolower($ns); 
-        $tmp = array_merge(["src"],array_slice($class, sizeof($class)-1));
-        $class = implode("/", array_merge($namespaces,$tmp));
-        $path = __DIR__ . DIRECTORY_SEPARATOR . "modules" . DIRECTORY_SEPARATOR . $class . ".php";
-        // echo $path . " || " . (is_file($path) ? "exists" : "not exists"); die;
-        if(is_file($path)) include_once $path;
-        else Core::response(0, $class . ": not found...");
-    }
-});
+//spl_autoload_register($autoLoadFunction);
 
-require "lib" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "Constants.php";
+require "lib" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "constants.php";
+
 require "webroot" . DS . "App.php";
 
 if(!User::logged()) if(Request::cook("USER") && Request::cook("ACTIVE")) Request::sess("USER",Request::cook("USER"));

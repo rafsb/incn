@@ -1,5 +1,5 @@
 <?php
-if(!defined("DEBUG")) define("DEBUG",  false);
+if(!defined("DEBUG")) define("DEBUG", true);
 if(!defined("LOGIN_REQUIRED")) define("LOGIN_REQUIRED",  false);
 
 class App

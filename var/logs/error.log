@@ -1,0 +1,11 @@
+2019/09/04 20:00:56 [error] 311115#311115: *282 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 127.0.0.1, server: incn-api, request: "GET /news/parse HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock:", host: "incn-api"
+2019/09/04 20:02:12 [error] 311115#311115: *282 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: Call to undefined method Async::eac() in /opt/srv/http/incn/server/v1/webroot/classes/News.class.php:14
+Stack trace:
+#0 /opt/srv/http/incn/server/v1/index.php(26) : eval()'d code(1): News::parse('')
+#1 /opt/srv/http/incn/server/v1/index.php(26): eval()
+#2 {main}
+  thrown in /opt/srv/http/incn/server/v1/webroot/classes/News.class.php on line 14" while reading response header from upstream, client: 127.0.0.1, server: incn-api, request: "GET /news/parse HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock:", host: "incn-api"
+2019/09/04 20:02:23 [error] 311115#311115: *282 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 127.0.0.1, server: incn-api, request: "GET /news/parse HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock:", host: "incn-api"
+2019/09/04 20:02:34 [error] 311115#311115: *282 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 127.0.0.1, server: incn-api, request: "GET /news/parse HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock:", host: "incn-api"
+2019/09/04 20:03:43 [error] 311115#311115: *282 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 127.0.0.1, server: incn-api, request: "GET /news/parse HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock", host: "incn-api"
+2019/09/04 20:04:58 [error] 311115#311115: *306 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 127.0.0.1, server: incn-api, request: "GET /news/parse HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock:", host: "incn-api"

@@ -3,8 +3,8 @@
 set -e
 
 SRC=$(pwd)"/../../var/rss/"
-FILE=$SRC"global"
-TMP=$SRC"/tmp"
+FILE=$SRC"/"$1
+TMP=$SRC"/tmp/"$1
 
 rm -rf $TMP
 mkdir -p $TMP
