@@ -1,0 +1,25 @@
+#!/bin/bash -e
+
+set -e
+
+echo ${@}
+
+option=true
+query_string=""
+for arg in "${@}" ; do
+  if $option ; then
+    query_string="$query_string""${arg}="
+    option=false
+  else
+    if [[ "${arg}" =~ "-" ]] ; then
+      query_string="$query_string""blank&${arg}="
+    else
+      query_string="$query_string""${arg}&"
+      option=true
+    fi
+  fi
+done
+
+echo "${query_string::-1}" | tr -d '-'
+#PAGE=$(curl https://www.jusbrasil.com.br/diarios/busca?q="claro+s/a"+sentença+r\$&idtopico=T10001816&l=30dias)
+#echo $PAGE | tee index.html
