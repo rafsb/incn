@@ -1,45 +1,7 @@
-<div class="--header -wrapper -flex" style="background:black">
-	<div  class="-cursor --backbutton" style="opacity:0" onclick="window.app.pragma = START">
-		<img src="src/img/icons/home.svg" style="opacity:.8;height:1em;margin:1em .5em"/>
-	</div>
-	<!-- <div class="-pointer" onclick="app.pragma = SPHERES"><img src="src/img/icons/spheres.svg" style="height:1.5em;padding:.75em .5em"/></div> -->
-	<!-- <span class="-left -content-left --app-title" onclick="window.faau.error('last'+window.app.last)" style="line-height:3;font-size:1em;text-overflow: ellipsis; padding: 0 .75em;flex-grow: 10"></span> -->
-	<span
-		class="-left -content-left -ellipsis --app-title" 
-		style="line-height:3;font-size:1em;text-overflow: ellipsis; padding: 0;flex-grow: 10">
-		@main_title
-	</span>
-	
-	<!-- CLIPPING -->
-	<div 
-		class="-cursor --tab"
-		onclick="window.app.pragma = CLIPPINGHOME">
-		<div style="background:#7030A0;padding:.5em;border-radius:50%;height:2em;width:2em;">
-			<img src="src/img/icons/clipping.svg" style="height:1em;"/>
-		</div>
-	</div>
-
-	<!-- FEEDS -->
-	<div 
-		class="-cursor --tab"
-		onclick="window.app.pragma = FEEDSHOME">
-		<div style="background:#00B0F0;padding:.5em;border-radius:50%;height:2em;width:2em;">
-			<img src="src/img/icons/feeds.svg" style="height:1em;"/>
-		</div>
-	</div>
-
-	<!-- SETTINGS -->
-	<div 
-		class="-cursor --tab"
-		onclick="window.app.pragma = MENU">
-		<div style="background:#595959;padding:.5em;border-radius:50%;height:2em;width:2em;">
-			<img src="src/img/icons/settings.svg" style="height:1em;"/>
-		</div>
-	</div>
-	
-	<style type="text/css">
-		.--header > *:not(span) { text-align: center; }
-		.--header .--tab { padding:.5em 0;border-radius: 50% 50% 0 0; transform: translateY(1px) }
-		.--header .--tab.--active { background: #2A2A2A; }
-	</style>
-</div>
+<template>
+	<script type="text/javascript">
+		let
+		header = $("body>header").at().setStyle({opacity:0},me => me.anime({opacity:1,background:"@CLR_FOREGROUND"}));
+		bootstrap.ready("header");
+	</script>
+</template>

@@ -25,6 +25,9 @@ bind = (e,o)=>{
 NodeList.prototype.array = function() {
     return [].slice.call(this);
 };
+HTMLCollection.prototype.array = function() {
+    return [].slice.call(this);
+};
 bind(HTMLFormElement.prototype,{
     json: function(){
         let
@@ -104,7 +107,7 @@ bind(Element.prototype,{
                 default : this.style[i] = obj[i]; break;
             }
         }
-        if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1);
+        if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1,this);
         return this;
     }
     , stop: function() {
@@ -153,7 +156,7 @@ bind(Element.prototype,{
                 default : this.style[i] = o[i]; break;
             }
         }
-        if(fn!==null&&typeof fn=="function") setTimeout(fn.bind(this),16);
+        if(fn!==null&&typeof fn=="function") setTimeout(fn.bind(this),16, this);
         return this
     }
     , text: function(tx=null) {
@@ -222,7 +225,7 @@ bind(Element.prototype,{
         return [].slice.call(this.parent().children).indexOf(this)-1;
     }
     , evalute: function() {
-        this.get("script").each(function(){ eval(this.textContent) })
+        this.get("script").each(function(){ eval(this.textContent)&&this.remove() })
         return this
     }
     , on: function(action,fn,passive=true) {
@@ -448,6 +451,12 @@ bind(Array.prototype, {
         if(act&&fn) this.each(function(){ this.on(act,fn) });
         return this
     }
+    , evalute: function(){
+        this.each(me=>{ 
+            if(me.tagName.toLowerCase()=="script") eval(me.textContent); 
+            else me.get("script").evalute()
+        })
+    }
     , appear: function(len = ANIMATION_LENGTH) {
         return this.each(function(){ this.setStyle({display:'block'},function(){ this.anime({opacity:1},len,1); }); });
     }
@@ -455,6 +464,7 @@ bind(Array.prototype, {
         return this.each(function(){ this.anime({opacity:0},len,1,function() { if(remove) this.remove(); else this.setStyle({ display : "none" }); }); });
     }
 });
+
 Object.defineProperty(Object.prototype, "spy", {
     value: function (p,fn) {
         let
@@ -529,7 +539,7 @@ class Pool {
         this.execution.each(function(i){ 
             pool.timeserie[i] = setTimeout(this, pool.timeline[i], x, pool.setup);
         });
-        return this
+        return this;
     }
     stop(i=null) {
         if(i!==null) { if(this.timeserie[i]) clearInterval(this.timeserie[i]) }
@@ -685,8 +695,11 @@ class Bootstrap {
         if(scr) this.loaders[scr] = true;
 
         let
-        perc = this.loadLength();
+        perc = this.loadLength()
+        , bootprogress = $(".--boot-progress");
         
+        if(bootprogress.length) bootprogress.anime({width:(perc)+"%"})
+
         if(perc>=99&&!this.alreadyLoaded){ 
             this.onFinishLoading.fire(()=>{ return app ? app.pragma = app.initial_pragma : true; }, ANIMATION_LENGTH);
             this.alreadyLoaded=true; 
@@ -714,10 +727,9 @@ class CallResponse {
     }
 }
 class FAAU {
-    screens(){ return document.getElementsByClassName("--screen"); }
     get(e,w){ return faau.get(e,w||document).nodearray; }
     declare(obj){ Object.keys(obj).each(function(){ window[this+""] = obj[this+""] }); }
-    initialize(){}
+    initialize(){ bootstrap&&bootstrap.loadComponents.fire(); }
     async call(url, args=null, method='POST', head={}) {
         head["Content-Type"] = head["Content-Type"] || "text/plain"
         head["FA-Custom"] = "@rafsb"
@@ -754,9 +766,9 @@ class FAAU {
     async load(url, args=null, target=null) {
         return this.call(url, args).then( r => {
             if(!r.status) return app.error("error loading "+url);
-            r = r.data.prepare(app.colors()).morph();
+            r = r.data.prepare(app.colors()).morph().content.children.array();
             if(!target) target = app.get('body')[0];
-            target.append(r);
+            r.each(me=>{ target.append(me); });
             return r.evalute();
         });
     }
@@ -997,14 +1009,13 @@ bind(window, {
             }, function(){
                 this.anime({scale:2,opacity:.5},ANIMATION_LENGTH/2,null,function(){ this.remove(); },"ease-in");
             }));
-        });
+        }).remClass(cls);
     }
 });
 app.spy("pragma",function(x){
     app.last = app.current;
     app.current = x;
     if(bootstrap&&!bootstrap.ready()) return setTimeout((x)=>{ app.pragma = x }, ANIMATION_LENGTH, x);
-    $(".--screen").each(function(){ if(this.has("--"+Object.keys(bootstrap.screens)[x])) this.dispatchEvent(__come); else this.dispatchEvent(__go) });
     this.onPragmaChange.fire(x);
 });
 if(undefined!==SVG){

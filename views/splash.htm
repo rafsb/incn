@@ -1,8 +1,21 @@
-<div class="-wrapper --splash-screen" style="background: @CLR_BACKGROUND">
+<template>
+	
 	<!-- progress bar -->
-	<div class="-fixed -zero-bottom  -row"><div class="--progress -left" style="width:0;background:@CLR_SPAN;height:.5em;"></div></div>
+	<div class="-fixed -zero-bottom  -row"><div class="--boot-progress -left" style="width:0;background:@CLR_SPAN;height:.5em;"></div></div>
+
 	<!-- scripts -->
 	<script>
-		app.hash = app.storage("hash") || "@";
+		let
+		splash = $(".--screen.--splash").at().setStyle({background:"@CLR_BACKGROUND"});
+
+		app.call("src/img/logos/incn.svg").then(r=>{
+			if(r.status) r = r.data.morph();
+			else return;
+			r.get("path").each((me, i) => me.setStyle({opacity:0, "stroke-dasharray":me.getTotalLength(),"stroke-dashoffset":me.getTotalLength()}, me => {
+				me.anime({opacity:1, "stroke-dashoffset":0}, ANIMATION_LENGTH, ANIMATION_LENGTH/2*i);
+			}));
+			splash.prepend(r.setStyle({width:"40%"},()=>{ setTimeout(() => bootstrap.ready("splash"), ANIMATION_LENGTH*3) }));
+		});
 	</script>
-</div>
+
+</template>

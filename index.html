@@ -48,7 +48,7 @@
 		<script type="text/javascript" src="js/faau.js"></script>
 		<title>App</title>
 	</head>
-	<body id="app" class="-view -zero">
+	<body id="app" class="-view -zero -content-center">
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<section class="--screen --home" data-role='keep'></section>
 		<aside class="--screen --menu" data-role='keep' data-hideposx='right'></aside>
@@ -62,7 +62,7 @@
 			#app { background: white; color: black; }
 			#app>.--screen { position:fixed; top:0; left:0; margin:0; padding:0; overflow:hidden; height: 100vh; width:100vw; }
 			#app>.--screen:not(.--splash) { padding:4em 2px; }
-			#app>header, #app>footer { left:0; width:100vw; height:4em;}
+			#app>header, #app>footer { position: fixed; left:0; width:100vw; height:4em;}
 			#app>header { top: 0;   }
 			#app>footer { bottom:0; }
 		</style>
