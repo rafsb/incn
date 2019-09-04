@@ -869,7 +869,7 @@ class FAAU {
 
     apply(fn,obj=null) { return (fn ? fn.bind(this)(obj) : null) }
 
-    get(w=null,c=null) { this.nodearray = $(w,c); return this }
+    get(w=null,c=null) { return $(w,c); }
 
     //get length() { return this.nodearray.length }
 

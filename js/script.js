@@ -1,6 +1,8 @@
 const HOME = 0;
 
-bootstrap.screens = { home: false };
+bootstrap.screens = { 
+	home: false 
+};
 
 bootstrap.loadComponents.add(function(){
     // load components
@@ -8,7 +10,7 @@ bootstrap.loadComponents.add(function(){
 });
 
 bootstrap.onFinishLoading.add(function(){
-
+	app.pragma = 0;
 });
 
 app.onPragmaChange.add(function(x){
