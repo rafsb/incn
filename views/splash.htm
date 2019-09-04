@@ -1,13 +1,8 @@
-<div class="-wrapper --splash-screen">
-		<!-- progress bar -->
-	<div style="position:fixed;width:60vw;top:22em;left:20vw">
-		<div class="--progress -left" style="width:0;background:#a2a2a2;height:.25em;"></div>
-	</div>
-
+<div class="-wrapper --splash-screen" style="background: @CLR_BACKGROUND">
+	<!-- progress bar -->
+	<div class="-fixed -zero-bottom  -row"><div class="--progress -left" style="width:0;background:@CLR_SPAN;height:.5em;"></div></div>
 	<!-- scripts -->
 	<script>
-		app.hash = app.fw.storage("hash") || "@";
-		__renderize()
+		app.hash = app.storage("hash") || "@";
 	</script>
-
 </div>

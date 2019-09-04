@@ -703,61 +703,61 @@ class Bootstrap {
         }
     }
 };
+class CallResponse {
+    constructor(url=location.href, args={}, method="POST", header={}, data=null){
+        this.url = url;
+        this.args=args;
+        this.method=method;
+        this.headers=header;
+        this.data=data;
+        this.status = this.data ? true : false;
+    }
+}
 class FAAU {
     screens(){ return document.getElementsByClassName("--screen"); }
     get(e,w){ return faau.get(e,w||document).nodearray; }
     declare(obj){ Object.keys(obj).each(function(){ window[this+""] = obj[this+""] }); }
     initialize(){}
-    call(url, args=null, fn=false, method='POST', head={}) {
+    async call(url, args=null, method='POST', head={}) {
         head["Content-Type"] = head["Content-Type"] || "text/plain"
         head["FA-Custom"] = "@rafsb"
-        fetch(url,{
+        return fetch(url,{
             method: method
             , body: args ? args.stringify() : null
             , headers : head
             , credentials: "include"
         }).then(r=>r=r.text()).then(r=>{
-            let
-            o = { data: r.trim(), url:url, args:args };
-            if(fn) fn.bind(o)(o);
+            return new CallResponse(url, args, method, head, r.trim());
         });
-        return;
-        let
-        xhr = new XMLHttpRequest();
-        args = args ? args : {};
-        if(!sync&&fn) {
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                   return fn.bind({ status: xhr.status, data: xhr.responseText.trim(), url:url, args:args })();
-                };
-            }
-        }
-        xhr.open(method, url, !sync);
-        // xhr.setRequestHeader("Content-Type", "plain/text");
-        // xhr.setRequestHeader("Accept", 'application/json');
-        if(head) for(let i in head){ xhr.setRequestHeader(i,head[i]); };
-        xhr.send(JSON.stringify(args));
-        if(sync) {
-            let
-            o = { status: xhr.status, data: xhr.responseText.trim(), url:url, args:args };
-            return (fn ? fn.bind(o)() : o);
-        }
+        // let
+        // xhr = new XMLHttpRequest();
+        // args = args ? args : {};
+        // if(!sync&&fn) {
+        //     xhr.onreadystatechange = function() {
+        //         if (xhr.readyState == 4) {
+        //            return fn.bind({ status: xhr.status, data: xhr.responseText.trim(), url:url, args:args })();
+        //         };
+        //     }
+        // }
+        // xhr.open(method, url, !sync);
+        // // xhr.setRequestHeader("Content-Type", "plain/text");
+        // // xhr.setRequestHeader("Accept", 'application/json');
+        // if(head) for(let i in head){ xhr.setRequestHeader(i,head[i]); };
+        // xhr.send(JSON.stringify(args));
+        // if(sync) {
+        //     let
+        //     o = { status: xhr.status, data: xhr.responseText.trim(), url:url, args:args };
+        //     return (fn ? fn.bind(o)() : o);
+        // }
     }
 
-    load(url, args=null, element=null, fn=false) {
-        this.call(url, args, function(target=element) {
-            let r;
-            if(this.status==200) r = this.data.prepare(app.colors()).morph();
-            else return DEBUG ? app.error("error loading "+url) : null;
-            if(!r.id) r.id = app.nuid();
-            // let
-            // tmp = r.get("script");
+    async load(url, args=null, target=null) {
+        return this.call(url, args).then( r => {
+            if(!r.status) return app.error("error loading "+url);
+            r = r.data.prepare(app.colors()).morph();
             if(!target) target = app.get('body')[0];
             target.append(r);
-            r.evalute();
-            // if(tmp.length) for(let i=0;i++<tmp.length;) { eval(tmp[i-1].textContent); }
-            if(fn) fn.bind(r)();
-            // else app.get("#"+r.id).first().anime({opacity:1},600);
+            return r.evalute();
         });
     }
 
@@ -925,17 +925,17 @@ class FAAU {
             light : {
                 /*** SYSTEM***/
                 CLR_BACKGROUND : "#FFFFFF"
-                , CLR_FOREGROUND : "#F2F2F2"
-                , CLR_FONT : "#181818"
-                , CLR_FONTBLURED:"#646464"
-                , CLR_SPAN :"#DC2431"
-                , CLR_DISABLED: "#7E8C8D"
-                , CLR_SHADE1:"rgba(0,0,0,.16)"
-                , CLR_SHADE2:"rgba(0,0,0,.32)"
-                , CLR_SHADE3:"rgba(0,0,0,.64)"
-                , CLR_BRIGHT1:"rgba(255,255,255,.16)"
-                , CLR_BRIGHT2:"rgba(255,255,255,.32)"
-                , CLR_BRIGHT3:"rgba(255,255,255,.64)"
+                , CLR_FOREGROUND : "#ECF1F2"
+                , CLR_FONT : "#2C3D4F"
+                , CLR_FONTBLURED:"#7E8C8D"
+                , CLR_SPAN :"#2980B9"
+                , CLR_DISABLED: "#BDC3C8"
+                , CLR_SHADOW1:"rgba(0,0,0,.16)"
+                , CLR_SHADOW2:"rgba(0,0,0,.32)"
+                , CLR_SHADOW3:"rgba(0,0,0,.64)"
+                , CLR_LIGHT1:"rgba(255,255,255,.16)"
+                , CLR_LIGHT2:"rgba(255,255,255,.32)"
+                , CLR_LIGHT3:"rgba(255,255,255,.64)"
                 /*** PALLETE ***/
                 , CLR_WET_ASPHALT:"#34495E"
                 , CLR_MIDNIGHT_BLUE:"#2D3E50"
