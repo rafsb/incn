@@ -45,6 +45,9 @@ bootstrap.onFinishLoading.add(function(){
 			else setTimeout(function(x){ x.desappear(ANIMATION_LENGTH,x.dataset.role=="dismiss"?true:false) },ANIMATION_LENGTH,this);
 		});
 	});
+
+	tileClickEffectSelector(".-tile");
+
 	setTimeout(()=>{ $(".--boot-progress").anime({height:"4em", opacity:.1}); }, ANIMATION_LENGTH);
 
 	app.pragma = HOME;

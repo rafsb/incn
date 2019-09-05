@@ -90,20 +90,20 @@ bind(Element.prototype,{
         this.style.transitionDelay = (delay?delay/1000:0).toFixed(2)+"s";
         for(let i in obj) {
             switch(i) {
-                case "skew"   : this.style.transform = 'skew('+obj[i]+','+obj[i]+')'; break;
-                case "skewX"  : this.style.transform = 'skewX('+obj[i]+')'; break;
-                case "skewY"  : this.style.transform = 'skewY('+obj[i]+')'; break;
-                case "scale"  : this.style.transform = 'scale('+obj[i]+')'; break;
-                case "scaleX" : this.style.transform = 'scaleX('+obj[i]+')'; break;
-                case "scaleY" : this.style.transform = 'scaleY('+obj[i]+')'; break;
+                case "skew"       : this.style.transform = 'skew('+obj[i]+','+obj[i]+')';      break;
+                case "skewX"      : this.style.transform = 'skewX('+obj[i]+')';                break;
+                case "skewY"      : this.style.transform = 'skewY('+obj[i]+')';                break;
+                case "scale"      : this.style.transform = 'scale('+obj[i]+')';                break;
+                case "scaleX"     : this.style.transform = 'scaleX('+obj[i]+')';               break;
+                case "scaleY"     : this.style.transform = 'scaleY('+obj[i]+')';               break;
                 case "translate"  : this.style.transform = 'translate('+obj[i]+','+obj[i]+')'; break;
-                case "translateX" : this.style.transform = 'translateX('+obj[i]+')'; break;
-                case "translateY" : this.style.transform = 'translateY('+obj[i]+')'; break;
-                case "rotate"     : this.style.transform = 'rotate('+obj[i]+')'; break;
+                case "translateX" : this.style.transform = 'translateX('+obj[i]+')';           break;
+                case "translateY" : this.style.transform = 'translateY('+obj[i]+')';           break;
+                case "rotate"     : this.style.transform = 'rotate('+obj[i]+')';               break;
                 // case "opacity"    : this.style.filter = 'opacity('+obj[i]+')'; break;
-                case "grayscale"  : this.style.filter = 'grayscale('+obj[i]+')'; break;
-                case "invert"     : this.style.filter = 'invert('+obj[i]+')'; break;
-                default : this.style[i] = obj[i]; break;
+                case "grayscale"  : this.style.filter    = 'grayscale('+obj[i]+')';            break;
+                case "invert"     : this.style.filter    = 'invert('+obj[i]+')';               break;
+                default           : this.style[i]        = obj[i];                             break;
             }
         }
         if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1,this);
@@ -142,17 +142,17 @@ bind(Element.prototype,{
         this.style.transitionDuration = 0;
         for(let i in o) {
             switch(i) {
-                case "skew"  : this.style.transform = 'skew('+o[i]+','+o[i]+')'; break;
-                case "skewX" : this.style.transform = 'skewX('+o[i]+')'; break;
-                case "skewY" : this.style.transform = 'skewY('+o[i]+')'; break;
-                case "scale" : this.style.transform = 'scale('+o[i]+')'; break;
-                case "scaleX" : this.style.transform = 'scaleX('+o[i]+')'; break;
-                case "scaleY" : this.style.transform = 'scaleY('+o[i]+')'; break;
-                case "translate" : this.style.transform = 'translate('+o[i]+','+o[i]+')'; break;
-                case "translateX" : this.style.transform = 'translateX('+o[i]+')'; break;
-                case "translateY" : this.style.transform = 'translateY('+o[i]+')'; break;
-                case "rotate" : this.style.transform = 'rotate('+o[i]+')'; break;
-                default : this.style[i] = o[i]; break;
+                case "skew"         : this.style.transform = 'skew('+o[i]+','+o[i]+')';      break;
+                case "skewX"        : this.style.transform = 'skewX('+o[i]+')';              break;
+                case "skewY"        : this.style.transform = 'skewY('+o[i]+')';              break;
+                case "scale"        : this.style.transform = 'scale('+o[i]+')';              break;
+                case "scaleX"       : this.style.transform = 'scaleX('+o[i]+')';             break;
+                case "scaleY"       : this.style.transform = 'scaleY('+o[i]+')';             break;
+                case "translate"    : this.style.transform = 'translate('+o[i]+','+o[i]+')'; break;
+                case "translateX"   : this.style.transform = 'translateX('+o[i]+')';         break;
+                case "translateY"   : this.style.transform = 'translateY('+o[i]+')';         break;
+                case "rotate"       : this.style.transform = 'rotate('+o[i]+')';             break;
+                default             : this.style[i]        = o[i];                           break;
             }
         }
         if(fn!==null&&typeof fn=="function") setTimeout(fn.bind(this),16, this);
