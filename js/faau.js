@@ -5,12 +5,11 @@
     |  _| | | (_| | | | | | |  __/\ V  V / (_) | |  |   <
     |_| |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
 
-
 ****************************************************************************/
 const
 ANIMATION_LENGTH = 800
 , DEBUG = false
-// , REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
+, REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
 , SUM               = 0
 , MEDIAN            = 1
 , HARMONIC          = 2
@@ -730,10 +729,11 @@ class FAAU {
     get(e,w){ return faau.get(e,w||document).nodearray; }
     declare(obj){ Object.keys(obj).each(function(){ window[this+""] = obj[this+""] }); }
     initialize(){ bootstrap&&bootstrap.loadComponents.fire(); }
-    async call(url, args=null, method='POST', head={}) {
+    async call(url, args=null, method='POST', head=null) {
+        if(!head) head = {};
         head["Content-Type"] = head["Content-Type"] || "text/plain"
         head["FA-Custom"] = "@rafsb"
-        return fetch(url,{
+        return fetch(url, {
             method: method
             , body: args ? args.stringify() : null
             , headers : head
@@ -741,26 +741,34 @@ class FAAU {
         }).then(r=>r=r.text()).then(r=>{
             return new CallResponse(url, args, method, head, r.trim());
         });
-        // let
-        // xhr = new XMLHttpRequest();
-        // args = args ? args : {};
-        // if(!sync&&fn) {
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState == 4) {
-        //            return fn.bind({ status: xhr.status, data: xhr.responseText.trim(), url:url, args:args })();
-        //         };
-        //     }
-        // }
-        // xhr.open(method, url, !sync);
-        // // xhr.setRequestHeader("Content-Type", "plain/text");
-        // // xhr.setRequestHeader("Accept", 'application/json');
-        // if(head) for(let i in head){ xhr.setRequestHeader(i,head[i]); };
-        // xhr.send(JSON.stringify(args));
-        // if(sync) {
-        //     let
-        //     o = { status: xhr.status, data: xhr.responseText.trim(), url:url, args:args };
-        //     return (fn ? fn.bind(o)() : o);
-        // }
+    }
+
+    async xhr_call(url, args=null, method="POST", fn=null, head=null){
+        let
+        o = new Promise(function(accepted,rejected){
+            let
+            o = new CallResponse(url, args, method)
+            , xhr = new XMLHttpRequest();
+            args = args ? args : {};
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    o.status = xhr.status;
+                    o.data = xhr.responseText.trim();
+                   if(fn) fn.bind(o)(o);
+                   return accepted(o);
+                };
+            }
+            head = head ? head : {};
+
+            xhr.open(method,url);
+            head["Content-Type"] = head["Content-Type"] || "text/plain"
+            head["FA-Custom"] = "@rafsb"
+            o.headers = head;
+            // Object.keys(head).each(h=>xhr.setRequestHeader(h,head[h]));
+            xhr.send(args.json());
+
+        });
+        return o;
     }
 
     async load(url, args=null, target=null) {
