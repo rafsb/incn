@@ -182,20 +182,32 @@ bind(Element.prototype,{
         return this;
     }
     , after: function(obj=null) {
-        if(obj) this.insertAdjacentElement("afterend",obj);
-        return this
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.after(o));
+        else if(obj) el.insertAdjacentElement("afterend",obj);
+        return this;
     }
     , before: function(obj=null) {
-        if(obj) this.insertAdjacentElement("beforebegin",obj);
-        return this
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.before(o));
+        else if(obj) el.insertAdjacentElement("beforebegin",obj);
+        return this;
     }
     , append: function(obj=null) {
-        if(obj) this.insertAdjacentElement("beforeend",obj);
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.append(o));
+        else if(obj) el.insertAdjacentElement("beforeend",obj);
         return this;
     }
     , prepend: function(obj=null) {
-        if(obj) this.insertAdjacentElement("afterbegin",obj);
-        return this
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.prepend(o));
+        else if(obj) el.insertAdjacentElement("afterbegin",obj);
+        return this;
     }
     , has: function(cls=null) {
         if(cls) return this.classList.contains(cls);
@@ -280,7 +292,7 @@ bind(Element.prototype,{
     , addClass: function(c) {
         let
         tmp = c.split(/\s+/g), i=tmp.length;
-        while(i--) this.classList.add(tmp[i]);
+        if(c.length) while(i--) this.classList.add(tmp[i]);
         return this;
     }
     , toggleClass: function(c) {
@@ -348,7 +360,7 @@ bind(String.prototype,{
         let
         x = document.createElement("div");
         x.innerHTML = this.replace(/\t+/g, "").trim();
-        return x.firstChild;
+        return x.firstChild.tagName.toLowerCase()=="template" ? x.firstChild.content.children.array() : x.children.array();
     }
     , prepare: function(obj=null){
         if(!obj) return this;
@@ -774,9 +786,9 @@ class FAAU {
     async load(url, args=null, target=null) {
         return this.call(url, args).then( r => {
             if(!r.status) return app.error("error loading "+url);
-            r = r.data.prepare(app.colors()).morph().content.children.array();
+            r = r.data.prepare(app.colors()).morph();
             if(!target) target = app.get('body')[0];
-            r.each(me=>{ target.append(me); });
+            target.append(r);
             return r.evalute();
         });
     }
@@ -950,9 +962,9 @@ class FAAU {
                 , CLR_FONTBLURED:"#7E8C8D"
                 , CLR_SPAN :"#2980B9"
                 , CLR_DISABLED: "#BDC3C8"
-                , CLR_SHADOW1:"rgba(0,0,0,.16)"
-                , CLR_SHADOW2:"rgba(0,0,0,.32)"
-                , CLR_SHADOW3:"rgba(0,0,0,.64)"
+                , CLR_DARK1:"rgba(0,0,0,.16)"
+                , CLR_DARK2:"rgba(0,0,0,.32)"
+                , CLR_DARK3:"rgba(0,0,0,.64)"
                 , CLR_LIGHT1:"rgba(255,255,255,.16)"
                 , CLR_LIGHT2:"rgba(255,255,255,.32)"
                 , CLR_LIGHT3:"rgba(255,255,255,.64)"

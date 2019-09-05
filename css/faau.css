@@ -6,7 +6,7 @@ body *:not(script):not(style) { font-family: inherit; position: relative; displa
 .-fixed         { position: fixed !important; }
 .-absolute      { position: absolute !important; }
 
-@media only screen and (min-width: 1366px) {
+/* @media only screen and (min-width: 1366px) { */
 	.-fixed         { position: fixed; }
 	.-absolute      { position: absolute; }
 	.-wd-3quart 	{ width: 	  75%; }
@@ -24,6 +24,18 @@ body *:not(script):not(style) { font-family: inherit; position: relative; displa
 	.-wd-quart 		{ width: 	  25%; }
 	.-wd-quart-min  { min-width:  25%; }
 	.-wd-quart-max  { max-width:  25%; }
+	.-col-1 		{ width:08.3%; flex-grow: 1; }
+	.-col-2 		{ width:16.6%; flex-grow: 2; }
+	.-col-3 		{ width:25.0%; flex-grow: 3; }
+	.-col-4 		{ width:33.3%; flex-grow: 4; }
+	.-col-5 		{ width:41.6%; flex-grow: 5; }
+	.-col-6 		{ width:50.0%; flex-grow: 6; }
+	.-col-7 		{ width:58.3%; flex-grow: 7; }
+	.-col-8 		{ width:66.6%; flex-grow: 8; }
+	.-col-9 		{ width:75.0%; flex-grow: 9; }
+	.-col-10 		{ width:83.3%; flex-grow: 10; }
+	.-col-11		{ width:91.6%; flex-grow: 11; }
+	.-col-12 		{ width:100%;  flex-grow: 12; }
 	.-ht-full-min   { min-height:100%; }
 	.-ht-full-max   { max-height:100%; }
 	.-ht-3quart 	{ height: 	  75%; }
@@ -42,9 +54,9 @@ body *:not(script):not(style) { font-family: inherit; position: relative; displa
 	.-ht-quart-min  { min-height: 25%; }
 	.-ht-quart-max  { max-height: 25%; }
 	.-desk-hide { display: none }
-}
+/* } */
 
-@media only screen and (max-width: 1365px) {
+/* @media only screen and (max-width: 1365px) {
 	.-wd-2third    , .-wd-3quart    , .-wd-half:not(.-keep) 	{ width: 	  100%; }
 	.-wd-2third-min, .-wd-3quart-min, .-wd-half-min { min-width:  100%; }
 	.-wd-2third-max, .-wd-3quart-max, .-wd-half-max { max-width:  100%; }
@@ -59,12 +71,11 @@ body *:not(script):not(style) { font-family: inherit; position: relative; displa
 	.-ht-third-min,  .-ht-quart-min,
 	.-ht-third-max,  .-ht-quart-max { height: auto; }
 	.-mob-hide { display: none; }
-}
+} */
 
 .-relative      { position: relative }
 .-block         { display: block; }
-.-flex          { display: inline-flex; flex-direction: row;flex-wrap: nowrap; justify-content:  center; align-items:center; align-content:center }
-.-flex > *      { flex-grow:  1; }
+.-flex          { display: inline-flex; flex-direction: row;flex-wrap: nowrap; justify-content:  center; align-items:center; align-content:center; text-align: center; }
 .-inline        { display: inline-block; }
 .-hide          { display: none; opacity: 0; }
 .-shown         { display: inline-block; opacity: 1; }
