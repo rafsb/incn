@@ -23,22 +23,21 @@ bootstrap.onFinishLoading.add(()=>{});
 app.spheres = {};
 app.components = {};
 app.notifications = null;
-app.fw.color_pallete.current = {};
+app.color_pallete.current = {};
 app.onPragmaChange.add(function(x){
-	console.log(x);
 	switch(x){
 		case START: /**********/ break;
 		case MENU:  /**********/ break;
 		case LOGIN: /**********/ break;
 		case USER : 
-			app.fw.load("user/dash",null,$(".--stage")[0]);
+			app.load("user/dash",null,$(".--stage")[0]);
 		break;
 		case PUSH : 
-			app.fw.load("push/dash",null,$(".--stage")[0]);
+			app.load("push/dash",null,$(".--stage")[0]);
 		break;
     }
 });
-// controlling scroll usage
+
 var
 __swipe = new Swipe(document.getElementsByTagName("body")[0]);
    __swipe.up(()=>{ /**********/ });
