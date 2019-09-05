@@ -1,7 +1,50 @@
 <template>
 	<script type="text/javascript">
 		let
-		footer = $("body>footer").at().setStyle({opacity:0},me => me.anime({opacity:1,background:"@CLR_FOREGROUND"}));
+		len      = ANIMATION_LENGTH/2
+		, footer = $("body>footer").at().setStyle({opacity:0, boxShadow:"0 0 .5em @CLR_DARK1"},me => me.anime({opacity:1,background:"@CLR_FOREGROUND"}))
+		, rss    = app.new("div", "-pointer -col-3")
+		, seek   = rss.cloneNode(true)
+		, menu   = seek.cloneNode(true)
+		, social = menu.cloneNode(true);
+
+		app.call("src/img/icons/rss.svg").then(r => {
+			footer.append(rss.append(r.data.morph().setStyle({
+				height:"4em"
+				, padding:"1em"
+				, opacity:0
+			}, svg => svg.anime({opacity:1},len,len).get("path").setStyle({fill:"@CLR_WET_ASPHALT"}))));
+
+			app.call("src/img/icons/message.svg").then(r => {
+				footer.append(social.append(r.data.morph().setStyle({
+					height:"4em"
+					, padding:"1em"
+					, opacity:0
+				}, svg => svg.anime({opacity:1},len,len).get("path").setStyle({fill:"@CLR_WET_ASPHALT"}))));
+
+				app.call("src/img/icons/search.svg").then(r => {
+					footer.append(seek.append(r.data.morph().setStyle({
+						height:"4em"
+						, padding:"1em"
+						, opacity:0
+					}, svg => svg.anime({opacity:1},len,len*2).get("path").setStyle({fill:"@CLR_WET_ASPHALT"}))));
+
+					app.call("src/img/icons/menu-hbg.svg").then(r => {
+						footer.append(menu.append(r.data.morph().setStyle({
+							height:"4em"
+							, padding:"1em"
+							, opacity:0
+						}, svg => svg.anime({opacity:1},len,len*3).get("path").setStyle({fill:"@CLR_WET_ASPHALT"}))));
+
+						bootstrap.ready("footer_icons");
+					
+					});
+				
+				});
+
+			});
+		});
+
 		bootstrap.ready("footer");
 	</script>
 </template>

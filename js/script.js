@@ -7,19 +7,25 @@ __come = new Event('come')
 , __go = new Event('go');
 
 app.hash = app.storage("hash") || "@";
+app.body = $("body")[0];
 
 bootstrap.loaders = { 
+	// screens
 	splash: 0
 	, home: 1
 	// components
-	, header: 0
 	, footer: 0
+	, tile:0
+	// stuff
+	, footer_icons:0
 };
+
+app.components = {};
 
 bootstrap.loadComponents.add(function(){
     app.load("views/splash.htm", null, $(".--screen.--splash")[0]);
-    app.load("views/components/header.htm", null, $("body>header")[0]);
     app.load("views/components/footer.htm", null, $("body>footer")[0]);
+    app.call("views/tiles/main.htm").then(t => { app.components.tile = t.data.prepare(app.colors()).morph()[0]; bootstrap.ready("tile"); });
 });
 
 bootstrap.onFinishLoading.add(function(){
@@ -39,6 +45,7 @@ bootstrap.onFinishLoading.add(function(){
 			else setTimeout(function(x){ x.desappear(ANIMATION_LENGTH,x.dataset.role=="dismiss"?true:false) },ANIMATION_LENGTH,this);
 		});
 	});
+	setTimeout(()=>{ $(".--boot-progress")[0].anime({height:"4em", opacity:.1}, ANIMATION_LENGTH); },ANIMATION_LENGTH/2);
 	app.pragma = HOME;
 });
 
