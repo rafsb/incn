@@ -25,15 +25,13 @@ class News extends Activity
 
 				$all *= sizeof($feed->item);
 
-				Async::each($feed->item, function($item) use ($parseds, $days, $all, $partial){
-					$time = strtotime($item->pubDate);
+				Async::each($feed->item, function($item) use ($parseds, $days){
+					// print_r($item); die;
+					$time    = strtotime($item->value->pubDate);
 					$barrier = (time() - (($days ? $days : 7) * 24 * 60 * 60));
-					$hash = Hash::word(Convert::json($item),MD5);
-					if($time > $barrier) if(!is_file(IO::root($parseds . "/" . $time . "-" . $hash))) IO::jin($parseds . "/" .$time . "-" . $hash, $item);
-					$partial++;
-					echo $partial . DS . $all . NL;
-					echo "\0";
-
+					$hash    = Hash::word(Convert::json($item->value),MD5);
+					if($time > $barrier) if(!is_file(IO::root($parseds . "/" . $time . "-" . $hash))) IO::jin($parseds . "/" .$time . "-" . $hash, $item->value);
+					IO::write("var/$time",$time);
 				});
 			}
 
