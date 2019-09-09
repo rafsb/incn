@@ -40,21 +40,22 @@ bootstrap.onFinishLoading.add(function(){
 			x = [0,"-100vw","100vw"][["left","right"].indexOf(this.dataset.hideposx)+1]
 			, y = [0,"-100vh","100vh"][["top","bottom"].indexOf(this.dataset.hideposy)+1];
 
-			if(x) this.anime({ translateX:x }, ANIMATION_LENGTH, 0, me => { if(me.dataset.role=="d ismiss") me.remove() });
+			if(x) this.anime({ translateX:x }, ANIMATION_LENGTH, 0, me => { if(me.dataset.role=="dismiss") me.remove() });
 			else if(y) this.anime({ translateY:y }, ANIMATION_LENGTH, 0, me => { if(me.dataset.role=="dismiss") me.remove() });
-			else setTimeout(function(x){ x.desappear(ANIMATION_LENGTH,x.dataset.role=="dismiss"?true:false) },ANIMATION_LENGTH,this);
+			else setTimeout(x => { x.desappear(ANIMATION_LENGTH,x.dataset.role=="dismiss"?true:false) }, ANIMATION_LENGTH, this);
 		});
 	});
 
 	tileClickEffectSelector(".-tile");
-
 	setTimeout(()=>{ $(".--boot-progress").anime({height:"4em", opacity:.1}); }, ANIMATION_LENGTH);
-
 	app.pragma = HOME;
 });
 
 app.onPragmaChange.add(x => {
-	$(".--screen").each(function(){ if(this.has("--"+Object.keys(bootstrap.loaders)[x])) this.dispatchEvent(__come); else this.dispatchEvent(__go) });
+	$(".--screen").each(function(){ 
+		if(this.has("--"+Object.keys(bootstrap.loaders)[x])) this.dispatchEvent(__come); 
+		else this.dispatchEvent(__go);
+	});
 });
 
 __scroll = new Swipe(app.body);
