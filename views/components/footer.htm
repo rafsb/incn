@@ -1,46 +1,7 @@
 <template>
 	<script type="text/javascript">
 		let
-		footer = $("body>footer").at().setStyle({opacity:0, boxShadow:"0 0 .5em @CLR_DARK1"}, me => me.anime({opacity:1,background:"@CLR_FOREGROUND"}))
-		, icon_tile = app.new("nav", "-pointer -col-3 -tile");
-
-		app.call("src/img/icons/rss.svg").then(svg=>{
-			svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-			svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-			footer.append(icon_tile.cloneNode(true).append(svg));
-				
-			app.call("src/img/icons/message.svg").then(svg=>{
-				svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-				svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-				footer.append(icon_tile.cloneNode(true).append(svg));
-
-				app.call("src/img/icons/search.svg").then(svg=>{
-					svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-					svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-					footer.append(icon_tile.cloneNode(true).append(svg));
-
-					app.call("src/img/icons/bell.svg").then(svg=>{
-						svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-						svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-						footer.append(icon_tile.cloneNode(true).append(svg));
-
-						app.call("src/img/icons/menu-hbg.svg").then(svg=>{
-							svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-							svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-							footer.append(icon_tile.cloneNode(true).append(svg));
-
-							bootstrap.ready("footer_icons");
-
-						});
-
-					});
-
-				});
-
-			});
-
-		});
-
+		footer = $("body>footer").at().setStyle({opacity:0},me => me.anime({opacity:1,background:"@CLR_FOREGROUND"}));
 		bootstrap.ready("footer");
 	</script>
 </template>

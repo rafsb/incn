@@ -86,7 +86,7 @@ body *:not(script):not(style) { font-family: inherit; position: relative; displa
 .-content-left  { text-align: left; }
 .-content-right { text-align: right; }
 .-justify 		{ text-align: justify }
-.-box, .-tile   { display:block; margin:  auto; overflow: hidden }
+.-box, .-tile   { pointer-events: none !important; cursor: pointer; display:block; margin:  auto; overflow: hidden }
 .-box 			{ border-radius: .25em; box-shadow: 0 0 .25em rgba(0,0,0,.16); }
 .-box *         { display: inline-block }
 
@@ -104,7 +104,7 @@ body *:not(script):not(style) { font-family: inherit; position: relative; displa
 .-scrolls       {  overflow-x: hidden; overflow-y:  scroll; -webkit-overflow-scrolling: touch; }
 .-no-scrolls    { overflow: hidden }
 .-pointer-and-spin
-, .-pointer     { transition: all .4s ease; cursor: pointer; opacity: .5, pointer-events: all !important }
+, .-pointer     { pointer-events: none !important;transition: all .4s ease; cursor: pointer; opacity: .5}
 .-only-pointer  { transition: all .4s ease; cursor: pointer;pointer-events: all !important }
 .-stroke-pointer{ transition: all .4s ease; cursor: pointer;pointer-events: stroke !important }
 .-pointer:hover { transform:  scale(1.05); opacity: 1;pointer-events: all !important }
