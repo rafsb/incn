@@ -979,7 +979,7 @@ class FAAU {
                 , CLR_PUMPKIN: "#D35313"
                 , CLR_TURQUOISE:"#00BE9C"
                 , CLR_GREEN_SEA:"#169F85"
-                , CLR_SUNFLOWER:"#F2C60F"
+                , CLR_SUN_FLOWER:"#F2C60F"
                 , CLR_ORANGE: "#F39C19"
             }
         };

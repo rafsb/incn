@@ -52,12 +52,12 @@
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<div class="-view">
 			<section class="-fixed -zero -view --home"></section>
-			<section class="--screen --feed" data-hideposx='left'></section>
-			<section class="--screen --social" data-hideposx='right'></section>
+			<section class="--screen --feed" data-hideposy='bottom'></section>
+			<section class="--screen --social" data-hideposy='bottom'></section>
 			<section class="--screen --seek" data-hideposy='bottom'></section>
 			<!-- <header class="-flex"></header> -->
-			<aside class="--screen --menu" data-hideposx='right'></aside>
-			<section class="--screen --notification" data-hideposy='top'></section>
+			<aside class="--screen --menu" data-hideposy='bottom'></aside>
+			<section class="--screen --notification" data-hideposy='bottom'></section>
 		</div>
 		<footer class="-flex"></footer>
 		<section class="--screen --login" data-hideposy='bottom'></section>
@@ -66,7 +66,8 @@
 		<style type="text/css">
 			#app>div>.--screen, #app>.--screen { position:fixed; top:0; left:0; margin:0; overflow:hidden; height: 100vh; width:100vw; }
 			#app>div>.--screen { padding:4em 2px; }
-			#app>div>.--splash { padding:0; }
+			#app>div>.--splash { padding:0;}
+			#app .--screen:not(.--splash) { opacity:0;}
 			#app>div>header, #app>footer { position: fixed; left:0; width:100vw; height:4em; }
 			#app>div>header { top: 0;  }
 			#app>footer { bottom:0; }

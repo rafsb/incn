@@ -1,13 +1,10 @@
 <template>
 	<script type="text/javascript">
 		let
-		notification = $(".--screen.--notification").at().css({background:"@CLR_FOREGROUND"})
+		notification = $(".--screen.--notification").at().css({background:app.pragma_colors[NOTIFICATION]})
 		, header = _("header","-absolute -zero -row")
-		, backButton = _("div","-left -pointer -tile").append(_("img").css({height:"4em",padding:"1.5em", opacity:.5}).attr({src:"src/img/icons/nav-back.svg"})).on("click", function(){
-			app.current = HOME;
-			app.pragma = app.last;
-		})
-		, title = _("b","-absolute -zero -row",{padding:"1.5em", color:"@CLR_WET_ASPHALT", opacity:.5}).text("notification")
+		, backButton = _("div","-right -pointer -tile --screen-nav-back").append(_("img").css({height:"4em",padding:"1.5em", filter:"invert(1)"}).attr({src:"src/img/icons/cross.svg"}))
+		, title = _("b","-absolute -zero -row",{padding:"1.5em", color:"@CLR_CLOUDS", opacity:.5}).text("NOTIFICAÇÕES")
 		;
 
 		notification.append(header.append(title).append(backButton));
