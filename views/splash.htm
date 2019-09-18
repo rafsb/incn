@@ -5,9 +5,9 @@
 
 	<!-- scripts -->
 	<script>
+
 		let
 		splash = $(".--screen.--splash").at().css({background:"@CLR_BACKGROUND"});
-
 		app.call("src/img/logos/incn.svg").then(r => {
 			if(r.status) r = r.data.morph()[0];
 			else return;
