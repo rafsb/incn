@@ -13,7 +13,7 @@
    height="128"
    width="128"
    sodipodi:docname="nav-back.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   inkscape:version="0.92.4 5da689c313, 2019-01-14">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -23,15 +23,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1043"
+     inkscape:window-width="1366"
+     inkscape:window-height="674"
      id="namedview13"
      showgrid="false"
      inkscape:zoom="2.8284271"
-     inkscape:cx="-62.126361"
-     inkscape:cy="29.01826"
-     inkscape:window-x="1904"
-     inkscape:window-y="0"
+     inkscape:cx="34.491274"
+     inkscape:cy="59.194795"
+     inkscape:window-x="0"
+     inkscape:window-y="312"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg882" />
   <defs
@@ -49,8 +49,8 @@
     </rdf:RDF>
   </metadata>
   <path
-     style="fill:none;stroke:#f7ffff;stroke-width:4.23333359;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 22.754167,7.4083333 11.288889,16.933333 22.754167,26.281945"
+     style="fill:none;stroke:#000000;stroke-width:2.11666679;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 22.754167,1.0583332 11.288889,16.933333 22.754167,32.631945"
      id="path822"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccc" />

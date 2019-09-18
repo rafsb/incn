@@ -83,30 +83,30 @@ bind(HTMLInputElement.prototype, {
     }
 });
 bind(Element.prototype,{
-    anime: function(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
+    anime: function(o,fn=null,len=ANIMATION_LENGTH,delay=0,trans=null) {
         len/=1000;
         trans = trans ? trans : "ease";
         this.style.transition = "all " + len.toFixed(2) + "s "+trans;
         this.style.transitionDelay = (delay?delay/1000:0).toFixed(2)+"s";
-        for(let i in obj) {
+        Object.keys(o).each(i => {
             switch(i) {
-                case "skew"       : this.style.transform = 'skew('+obj[i]+','+obj[i]+')';      break;
-                case "skewX"      : this.style.transform = 'skewX('+obj[i]+')';                break;
-                case "skewY"      : this.style.transform = 'skewY('+obj[i]+')';                break;
-                case "scale"      : this.style.transform = 'scale('+obj[i]+')';                break;
-                case "scaleX"     : this.style.transform = 'scaleX('+obj[i]+')';               break;
-                case "scaleY"     : this.style.transform = 'scaleY('+obj[i]+')';               break;
-                case "translate"  : this.style.transform = 'translate('+obj[i]+','+obj[i]+')'; break;
-                case "translateX" : this.style.transform = 'translateX('+obj[i]+')';           break;
-                case "translateY" : this.style.transform = 'translateY('+obj[i]+')';           break;
-                case "rotate"     : this.style.transform = 'rotate('+obj[i]+')';               break;
-                // case "opacity"    : this.style.filter = 'opacity('+obj[i]+')'; break;
-                case "grayscale"  : this.style.filter    = 'grayscale('+obj[i]+')';            break;
-                case "invert"     : this.style.filter    = 'invert('+obj[i]+')';               break;
-                default           : this.style[i]        = obj[i];                             break;
+                case "skew"       : this.style.transform = 'skew('+o[i]+','+o[i]+')';      break;
+                case "skewX"      : this.style.transform = 'skewX('+o[i]+')';                break;
+                case "skewY"      : this.style.transform = 'skewY('+o[i]+')';                break;
+                case "scale"      : this.style.transform = 'scale('+o[i]+')';                break;
+                case "scaleX"     : this.style.transform = 'scaleX('+o[i]+')';               break;
+                case "scaleY"     : this.style.transform = 'scaleY('+o[i]+')';               break;
+                case "translate"  : this.style.transform = 'translate('+o[i]+','+o[i]+')'; break;
+                case "translateX" : this.style.transform = 'translateX('+o[i]+')';           break;
+                case "translateY" : this.style.transform = 'translateY('+o[i]+')';           break;
+                case "rotate"     : this.style.transform = 'rotate('+o[i]+')';               break;
+                // case "opacity"    : this.style.filter = 'opacity('+o[i]+')'; break;
+                case "grayscale"  : this.style.filter    = 'grayscale('+o[i]+')';            break;
+                case "invert"     : this.style.filter    = 'invert('+o[i]+')';               break;
+                default           : this.style[i]        = o[i];                             break;
             }
-        }
-        if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1,this);
+        });
+        if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn,len*1000+delay+1,this);
         return this;
     }
     , stop: function() {
@@ -117,30 +117,14 @@ bind(Element.prototype,{
     , empty: function(a=null) {
         if(a){ if(typeof a == 'string') a = a.split(',') }
         else a = [];
-        this.get("*").each(function() {if(!(a.indexOf(this.tagName)+1)) this.remove()});
+        this.get("*").each(x => { if(!(a.indexOf(x.tagName)+1)) x.remove(); });
         return this
     }
-    , setText: function(t=null, fn=null){
-        if(!t) return this;
-        this.textContent = t;
-        if(fn) return fn.bind(this)(this);
-        return this;
-    },
-     setData: function(o=null, fn=null){
-        if(!o) return this;
-        let
-        args = Object.keys(o);
-        for(let i=0;i++<=args.length;){
-            this.dataset[args[i-1]] = o[args[i-1]];
-        }
-        if(fn) return fn.bind(this)(this);
-        return this;
-    }
-    , setStyle: function(o=null, fn = null) {
+    , css: function(o=null, fn = null) {
         if (o===null) return this;
         this.style.transition = "none";
         this.style.transitionDuration = 0;
-        for(let i in o) {
+        Object.keys(o).each(i => {
             switch(i) {
                 case "skew"         : this.style.transform = 'skew('+o[i]+','+o[i]+')';      break;
                 case "skewX"        : this.style.transform = 'skewX('+o[i]+')';              break;
@@ -154,8 +138,8 @@ bind(Element.prototype,{
                 case "rotate"       : this.style.transform = 'rotate('+o[i]+')';             break;
                 default             : this.style[i]        = o[i];                           break;
             }
-        }
-        if(fn!==null&&typeof fn=="function") setTimeout(fn.bind(this),16, this);
+        });
+        if(fn!==null&&typeof fn=="function") setTimeout(fn,16, this);
         return this
     }
     , text: function(tx=null) {
@@ -171,14 +155,14 @@ bind(Element.prototype,{
     , data: function(o=null, fn=null) {
         if (o===null) return this.dataset;
         bind(this.dataset, o);
-        if(fn!==null&&typeof fn=="function") fn.bind(this)(this);
+        if(fn!==null&&typeof fn=="function") fn(this);
         return this;
     }
     , attr: function(o=null, fn = null) {
         if (o===null) return null;
         let el = this;
-        Object.keys(o).each(function(){ el.setAttribute(this+"",o[this+""]); }) ;
-        if(fn!==null&&typeof fn=="function") fn.bind(this)();
+        Object.keys(o).each(x => { el.setAttribute(x,o[x]); });
+        if(fn!==null&&typeof fn=="function") fn(this);
         return this;
     }
     , after: function(obj=null) {
@@ -213,6 +197,9 @@ bind(Element.prototype,{
         if(cls) return this.classList.contains(cls);
         return false
     }
+    , raise: function(){
+        this.parentElement.appendChild(this)
+    }
     , dataSort: function(data=null,dir="asc") {
         let
         me = this,
@@ -228,7 +215,7 @@ bind(Element.prototype,{
                     }
                 }
             }
-            all.each(function() { me.append(this) })
+            all.each(x => me.append(x));
         }
         return this
     }
@@ -236,7 +223,7 @@ bind(Element.prototype,{
         return [].slice.call(this.parent().children).indexOf(this)-1;
     }
     , evalute: function() {
-        this.get("script").each(function(){ eval(this.textContent)&&this.remove() })
+        this.get("script").each(x => { eval(x.textContent)&&x.remove(); });
         return this
     }
     , on: function(action,fn,passive=true) {
@@ -317,10 +304,10 @@ bind(Element.prototype,{
         if(obj.left!==undefined)this.style.transform = "translateY("+(this.offsetLeft-obj.left)+")";
     }
     , appear: function(len = ANIMATION_LENGTH) {
-        return this.setStyle({display:'inline-block'},function(){ this.anime({opacity:1},len,1); });
+        return this.css({display:'inline-block'}, x => x.anime({opacity:1},null,len));
     }
     , desappear: function(len = ANIMATION_LENGTH, remove = false) {
-        return this.anime({opacity:0},len,1,function() { if(remove) this.remove(); else this.setStyle({ display : "none" }); });
+        return this.anime({opacity:0}, x => { if(remove) x.remove(); else x.css({ display : "none" });}, len);
     }
     , remove: function() { this&&this.parent()&&this.parent().removeChild(this) }
     , at: function(i=0) {
@@ -388,14 +375,14 @@ bind(Array.prototype, {
     , clone: function() {
         return this.slice(0);
     }
-    , each: function(fn) { if(fn) { for(let i=0;i++<this.length;) fn.bind(this[i-1])(this[i-1],i-1); } return this; }
+    , each: function(fn) { if(fn) { for(let i=0;i++<this.length;) fn.bind(this[i-1])(this[i-1],i-1) } return this; }
     , extract: function(fn=null){
         if(!fn||!this.length) return this;
         let
         narr = [];
         this.each(function(o,i){ 
             let
-            x = fn.bind(this)(this,i);
+            x = fn(this,i);
             if(x) narr.push(x) 
         });
         return narr;
@@ -422,57 +409,61 @@ bind(Array.prototype, {
         while(arr.indexOf(el)+1) arr.splice(arr.indexOf(el),1);
         return arr;
     }
-    , anime: function(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
-        this.each(function() {this.anime(obj,len,delay,fn,trans)});
+    , anime: function(obj,fn=null,len=ANIMATION_LENGTH,delay=0,trans=null) {
+        this.each(x => x.anime(obj,fn,len,delay,trans));
         return this
     }
-    , setStyle: function(obj,fn=null) {
-        this.each(function() {this.setStyle(obj,fn)});
+    , css: function(o,fn=null) {
+        this.each(x => x.css(o,fn));
         return this
     }
-    , setData: function(obj,fn=null) {
-        this.each(function() {this.setData(obj,fn)});
+    , data: function(obj,fn=null) {
+        this.each(x => x.data(obj,fn));
         return this
     }
-    , setText: function(txt,fn=null) {
-        this.each(function() {this.setText(txt,fn)});
+    , text: function(txt,fn=null) {
+        this.each(x => x.text(txt,fn));
         return this
     }
     , addClass: function(cl=null) {
-        if(cl) this.each(function() {this.addClass(cl)});
+        if(cl) this.each(x => x.addClass(cl));
         return this
     }
     , remClass: function(cl=null) {
-        if(cl) this.each(function() {this.remClass(cl)});
+        if(cl) this.each(x => x.remClass(cl));
         return this
     }
     , toggleClass: function(cl=null) {
-        if(cl) this.each(function() {this.toggleClass(cl)});
+        if(cl) this.each(x => x.toggleClass(cl));
+        return this
+    }
+    , attr: function(o=null) {
+        if(o) this.each(x => x.attr(o));
         return this
     }
     , remove: function() {
-        this.each(function() {this.remove()});
+        this.each(x => x.remove());
         return this
     }
-    , setValue: function(v='') {
-        this.each(function() {this.value = v});
+    , value: function(v='') {
+        this.each(x => x.value = v);
         return this
     }
     , on: function(act=null,fn=null) {
-        if(act&&fn) this.each(function(){ this.on(act,fn) });
+        if(act&&fn) this.each(x => x.on(act,fn));
         return this
     }
     , evalute: function(){
-        this.each(me=>{ 
+        this.each(me => { 
             if(me.tagName.toLowerCase()=="script") eval(me.textContent); 
             else me.get("script").evalute()
         })
     }
     , appear: function(len = ANIMATION_LENGTH) {
-        return this.each(function(){ this.setStyle({display:'block'},function(){ this.anime({opacity:1},len,1); }); });
+        return this.each(x => x.appear(len));
     }
     , desappear: function(len = ANIMATION_LENGTH, remove = false){
-        return this.each(function(){ this.anime({opacity:0},len,1,function() { if(remove) this.remove(); else this.setStyle({ display : "none" }); }); });
+        return this.each(x => x.desappear(len,remove));
     }
 });
 
@@ -482,7 +473,7 @@ Object.defineProperty(Object.prototype, "spy", {
         o = this[p]
         , n = o
         , get = function() { return n }
-        , set = function(v) { o = n; return n = fn.bind(this)(v,p) };
+        , set = function(v) { o = n; return n = fn(v,p) };
         if(delete this[p]) { // can't watch constants
             Object.defineProperty(this,p,{ get: get, set: set })
         }
@@ -523,7 +514,7 @@ class Pool {
         let
         pool = this;
         if(Array.isArray(x)) {
-            x.each(function(){ pool.add(this) })
+            x.each(x => pool.add(x))
         }
         return this;
     }
@@ -547,14 +538,15 @@ class Pool {
         }
         let
         pool=this;
-        this.execution.each(function(i){ 
-            pool.timeserie[i] = setTimeout(this, pool.timeline[i], x, pool.setup);
+        this.execution.each((o,i) => { 
+            pool.stop(i);
+            pool.timeserie[i] = setTimeout(o, pool.timeline[i], x, pool.setup, i);
         });
         return this;
     }
     stop(i=null) {
         if(i!==null) { if(this.timeserie[i]) clearInterval(this.timeserie[i]) }
-        else this.timeserie.each(function(){ clearInterval(this) })
+        else this.timeserie.each(x => clearInterval(x))
         return this
     }
     clear() {
@@ -739,7 +731,7 @@ class CallResponse {
 }
 class FAAU {
     get(e,w){ return faau.get(e,w||document).nodearray; }
-    declare(obj){ Object.keys(obj).each(function(){ window[this+""] = obj[this+""] }); }
+    export(obj){ Object.keys(obj).each(x => { window[x] = obj[x] }); }
     initialize(){ bootstrap&&bootstrap.loadComponents.fire(); }
     async call(url, args=null, method='POST', head=null) {
         if(!head) head = {};
@@ -766,7 +758,7 @@ class FAAU {
                 if (xhr.readyState == 4) {
                     o.status = xhr.status;
                     o.data = xhr.responseText.trim();
-                   if(fn) fn.bind(o)(o);
+                   if(fn) fn(o);
                    return accepted(o);
                 };
             }
@@ -800,7 +792,7 @@ class FAAU {
     notify(n, c=null) {
         let
         toast = document.createElement("toast");
-        toast.setStyle({
+        toast.css({
             fontSize: "1rem",
             background: c&&c[0] ? c[0] : "rgba(255,255,255,.8)",
             color: c&&c[1] ? c[1] : "black",
@@ -811,7 +803,7 @@ class FAAU {
             position:"fixed"
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
         if(!this.isMobile()) {
-            toast.setStyle({
+            toast.css({
                 top:0,
                 left:"80vw",
                 width:"calc(20vw - 4rem)",
@@ -819,7 +811,7 @@ class FAAU {
                 borderRadius:".5rem",
             });
         }else{
-            toast.setStyle({
+            toast.css({
                 opacity:0,
                 top:".5rem",
                 left:".5rem",
@@ -830,19 +822,19 @@ class FAAU {
         toast.onclick = function() { clearTimeout(this.dataset.delay);this.desappear(ANIMATION_LENGTH/2,true); };
         toast.onmouseenter = function() { clearTimeout(this.dataset.delay); };
         toast.onmouseleave = function() {
-            this.dataset.delay = setTimeout(function(t) { t.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH, this);
+            this.dataset.delay = setTimeout(t => t.desappear(ANIMATION_LENGTH/2,true), ANIMATION_LENGTH, this);
         };
         document.getElementsByTagName('body')[0].appendChild(toast);
         
         let
         notfys = app.get("toast");
-        notfys.each(function(i) { this.anime({ translateY: ( ( toast.offsetHeight + 8 ) * i + 16) + "px", opacity: 1 }, ANIMATION_LENGTH/4) });
-        toast.dataset.delay = setTimeout(function() { toast.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH*5);
+        notfys.each((x, i) => x.anime({ translateY: ( ( toast.offsetHeight + 8 ) * i + 16) + "px", opacity: 1 }, null, ANIMATION_LENGTH/4));
+        toast.dataset.delay = setTimeout(() => toast.desappear(ANIMATION_LENGTH/2,true), ANIMATION_LENGTH*5);
     }
 
     loading(show=true){
         if(!show){
-            $(".--default-loading").each(function(){ clearInterval(this.dataset.animation); this.remove() });
+            $(".--default-loading").each(x => { clearInterval(x.dataset.animation); x.remove() });
             return;
         }
         app.body.append(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
@@ -851,13 +843,13 @@ class FAAU {
             let
             circle = $(".--default-loading .--loading-circle")[0];
             if(!circle) return;
-            circle.setStyle({transformOrigin:"top left", scale:window.innerWidth/1920,"stroke-dasharray":circle.getTotalLength()+","+circle.getTotalLength()+","+circle.getTotalLength()});
+            circle.css({transformOrigin:"top left", scale:window.innerWidth/1920,"stroke-dasharray":circle.getTotalLength()+","+circle.getTotalLength()+","+circle.getTotalLength()});
             $(".--default-loading")[0].dataset.animation = setInterval(()=>{
                 let
                 circle = $(".--default-loading .--loading-circle")[0];
                 if(circle){ 
-                    circle.setStyle({"stroke-dashoffset":0});
-                    circle.anime({"stroke-dashoffset":circle.getTotalLength()*4},2200,0,null,"ease-in-out")
+                    circle.css({"stroke-dashoffset":0});
+                    circle.anime({"stroke-dashoffset":circle.getTotalLength()*4},null, ANIMATION_LENGTH*4)
                 }
             },2201)
         })
@@ -871,10 +863,10 @@ class FAAU {
     }
 
     hintify(n, o={},delall=true,keep=false,special=false,evenSpecial=false) {
-        if(delall) $(".--hintifyied"+(evenSpecial?", .--hintifyied-sp":"")).each(function() {this.remove()});
+        if(delall) $(".--hintifyied"+(evenSpecial?", .--hintifyied-sp":"")).each(x => x.remove());
 
         let
-        toast = app.new("toast");
+        toast = _("toast");
         n = (typeof n == 'string' ? n.morph() : n);
         o.display = 'inline-block';
         o.transform = 'scale(1.05)';
@@ -889,7 +881,7 @@ class FAAU {
         o.color =  o.color ?  o.color : "white";
         o.position = "absolute";
         o.fontSize = o.fontSize ? o.fontSize : "1rem";
-        toast.setStyle(o).addClass("--hintifyied"+(special?"-sp":"")).appendChild(n ? n : ("<b>路路路</b>!!!").morph());
+        toast.css(o).addClass("--hintifyied"+(special?"-sp":"")).appendChild(n ? n : ("<b>路路路</b>!!!").morph());
 
         if(toast.get(".--close").length) toast.get(".--close").at().on("click",function() { $(".--hintifyied"+(special?", .--hintifyied-sp":"")).remove() });
         else toast.on("click",function() { this.remove() });
@@ -913,17 +905,17 @@ class FAAU {
 
     last() {return this.nodearray.last() }
 
-    empty(except=null) { this.nodearray.each(function() {this.empty(except)})}
+    empty(except=null) { this.nodearray.each(x => x.empty(except))}
 
-    remove() { this.nodearray.each(function() {this.remove()})}
+    remove() { this.nodearray.each(x => x.remove()) }
 
-    anime(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
-        this.nodearray.each(function() {this.anime(obj,len,delay,fn,trans)})
+    anime(obj,fn=null,len=ANIMATION_LENGTH,delay=0,trans=null) {
+        this.nodearray.each(x => x.anime(obj,fn,len,delay,trans));
         return this;
     }
 
     new(node='div', cls="auto-created", style={display:"inline-block"}, fn) {
-        return document.createElement(node).addClass(cls).setStyle(style,fn);
+        return document.createElement(node).addClass(cls).css(style,fn);
     }
 
     storage(field=null,value=null){
@@ -1001,6 +993,7 @@ class FAAU {
 bind(window, {
     mouseAxis: { x:0, y:0 }
     , $: function(wrapper=null, context=document) { return [].slice.call((new FAAU(wrapper,context)).nodearray); }
+    , _: function(node='div', cls="auto-created", style={display:"inline-block"}, fn){ return app.new(node,cls,style,fn) }
     , bootstrap: new Bootstrap()
     , app: (new FAAU())
     , base_hash: function(obj){
@@ -1016,7 +1009,7 @@ bind(window, {
             if(this.classList.contains("-skip")) return;
             let
             size = Math.max(this.offsetWidth, this.offsetHeight);
-            this.append(app.new("span","-absolute",{
+            this.append(_("span","-absolute", {
                 background      : app.colors().CLR_DARK1
                 , display       : "inline-block"
                 , borderRadius  : "50%"
@@ -1026,17 +1019,15 @@ bind(window, {
                 , opacity       : 0
                 , top           : (e.offsetY - size/2)+"px"
                 , left          : (e.offsetX - size/2)+"px"
-            }, function(){
-                this.anime({scale:2,opacity:.5},ANIMATION_LENGTH/2,null,function(){ this.remove(); },"ease-in");
-            }));
-        }).remClass(cls);
+            }, x => x.anime({scale:2,opacity:.5}, x => x.remove(), ANIMATION_LENGTH/2))
+        ).remClass(cls)});
     }
 });
 app.spy("pragma",function(x){
+    if(bootstrap&&!bootstrap.alreadyLoaded) return setTimeout(x => app.pragma = x , ANIMATION_LENGTH, x);
     app.last = app.current;
     app.current = x;
-    if(bootstrap&&!bootstrap.ready()) return setTimeout((x)=>{ app.pragma = x }, ANIMATION_LENGTH, x);
-    this.onPragmaChange.fire(x);
+    app.onPragmaChange.fire(x);
 });
 if(undefined!==SVG){
     SVG.extend(SVG.Text, {

@@ -1,33 +1,33 @@
 <template>
 	<script type="text/javascript">
 		let
-		footer = $("body>footer").at().setStyle({opacity:0, boxShadow:"0 0 .5em @CLR_DARK1"}, me => me.anime({opacity:1,background:"@CLR_FOREGROUND"}))
-		, icon_tile = app.new("nav", "-pointer -col-3 -tile");
+		footer = $("body>footer").at().css({opacity:0}, me => me.anime({opacity:1, background:"@CLR_FOREGROUND"}))
+		, icon_tile = _("nav", "-pointer -col-3 -tile");
 
 		app.call("src/img/icons/rss.svg").then(svg=>{
-			svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-			svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-			footer.append(icon_tile.cloneNode(true).append(svg));
+			svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
+			svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
+			footer.append(icon_tile.cloneNode(true).append(svg).on("click",function(){ app.pragma = FEED }));
 				
 			app.call("src/img/icons/message.svg").then(svg=>{
-				svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-				svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-				footer.append(icon_tile.cloneNode(true).append(svg));
+				svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
+				svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
+				footer.append(icon_tile.cloneNode(true).append(svg).on("click",function(){ app.pragma = SOCIAL }));
 
 				app.call("src/img/icons/search.svg").then(svg=>{
-					svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-					svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-					footer.append(icon_tile.cloneNode(true).append(svg));
+					svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
+					svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
+					footer.append(icon_tile.cloneNode(true).append(svg).on("click",function(){ app.pragma = SEEK }));
 
 					app.call("src/img/icons/bell.svg").then(svg=>{
-						svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-						svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-						footer.append(icon_tile.cloneNode(true).append(svg));
+						svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
+						svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
+						footer.append(icon_tile.cloneNode(true).append(svg).on("click",function(){ app.pragma = NOTIFICATION }));
 
 						app.call("src/img/icons/menu-hbg.svg").then(svg=>{
-							svg = svg.data.morph().setStyle({padding:"1em", height:"4em"})[0];
-							svg.get("path").setStyle({fill:"@CLR_WET_ASPHALT"});
-							footer.append(icon_tile.cloneNode(true).append(svg));
+							svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
+							svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
+							footer.append(icon_tile.cloneNode(true).append(svg).on("click",function(){ app.pragma = MENU }));
 
 							bootstrap.ready("footer_icons");
 

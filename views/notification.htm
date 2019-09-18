@@ -1,0 +1,17 @@
+<template>
+	<script type="text/javascript">
+		let
+		notification = $(".--screen.--notification").at().css({background:"@CLR_FOREGROUND"})
+		, header = _("header","-absolute -zero -row")
+		, backButton = _("div","-left -pointer -tile").append(_("img").css({height:"4em",padding:"1.5em", opacity:.5}).attr({src:"src/img/icons/nav-back.svg"})).on("click", function(){
+			app.current = HOME;
+			app.pragma = app.last;
+		})
+		, title = _("b","-absolute -zero -row",{padding:"1.5em", color:"@CLR_WET_ASPHALT", opacity:.5}).text("notification")
+		;
+
+		notification.append(header.append(title).append(backButton));
+
+		bootstrap.ready("notification");
+	</script>
+</template>
