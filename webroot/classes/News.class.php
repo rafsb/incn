@@ -38,12 +38,12 @@ class News extends Activity
 
 				Async::each($feed->item, function($item) use ($parseds, $days){
 					// print_r($item); die;
-					$time    = strtotime($item->value->pubDate);
+					$time    = strtotime($item->pubDate);
 					$barrier = (time() - (($days ? $days : 7) * 24 * 60 * 60));
-					$hash    = Hash::word(Convert::json($item->value),MD5);
-					if($time > $barrier) if(!is_file(IO::root($parseds . "/" . $time . "-" . $hash))) IO::jin($parseds . "/" .$time . "-" . $hash, $item->value);
-					IO::write("var/$time",$time);
-				});
+					$hash    = Hash::word(Convert::json($item),MD5);
+					if($time > $barrier) if(!is_file(IO::root($parseds . "/" . $time . "-" . $hash))) IO::jin($parseds . "/" .$time . "-" . $hash, $item);
+					// IO::write("var/tmp/$time", $time, APPEND);
+				});				
 			}
 
 		}
