@@ -99,8 +99,25 @@ app.onPragmaChange.add(x => {
 });
 
 __scroll = new Swipe(app.body);
-__scroll.up(()=>{ });
-__scroll.down(()=>{ });
-__scroll.right(()=>{ });
-__scroll.left(()=>{ });
+
+__scroll.up(()=>{
+	if(app.last != HOME){
+		app.pragma = app.last;
+	}
+});
+
+__scroll.down(()=>{
+	if(app.current != HOME) app.pragma = HOME;
+});
+
+__scroll.right(()=>{
+	if(app.current > HOME) app.pragma = app.current-1;
+	else app.pragma = MENU
+});
+
+__scroll.left(()=>{
+	if(app.current < MENU) app.pragma = app.current+1;
+	else app.pragma = HOME
+});
+
 __scroll.fire();
