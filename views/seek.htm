@@ -1,0 +1,14 @@
+<template>
+	<script type="text/javascript">
+		let
+		seek = $(".--screen.--seek").at().css({background:app.pragma_colors[SEEK]})
+		, header = _("header","-absolute -zero -row")
+		, backButton = _("div","-right -pointer -tile --screen-nav-back").append(_("img").css({height:"4em",padding:"1.5em", filter:"invert(1)"}).attr({src:"src/img/icons/cross.svg"}))
+		, title = _("b","-absolute -zero -row",{padding:"1.5em", color:"@CLR_CLOUDS", opacity:.5}).text("PESQUISA")
+		;
+
+		seek.append(header.append(title).append(backButton));
+
+		bootstrap.ready("seek");
+	</script>
+</template>

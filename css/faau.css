@@ -1,6 +1,6 @@
 html{ scroll-behavior: smooth }
 body{ position: relative; text-align: inherit; animation-fill-mode: both; display:inline-block;}
-body *:not(script):not(style) { font-family: inherit; position: relative; display:inline-block; transition: ease all .2s; font-family: 'Comfortaa', cursive; box-sizing: border-box; }
+body *:not(script):not(style) { font-family: inherit; position: relative; display:inline-block; transition: ease all .2s; font-family: 'OpenSans', cursive;  box-sizing: border-box; }
 
 .-view 			{ width:100vw;height:  100vh; top: 0; left: 0; padding: 0; overflow: hidden; margin: 0 }
 .-fixed         { position: fixed !important; }

@@ -1,1 +1,10 @@
-<template></template>
+<template>
+	<script type="text/javascript">
+		let
+		home = $(".--home").at().anime({background:"@CLR_FOREGROUND"}, null, ANIMATION_LENGTH, ANIMATION_LENGTH/4);
+
+		home.prepend(_("img","-absolute -zero -row",{padding:"1em", height:"4em", opacity:.2}).attr({src:"src/img/logos/incn.svg"}))
+
+		bootstrap.ready("home");
+	</script>
+</template>

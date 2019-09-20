@@ -50,18 +50,27 @@
 	</head>
 	<body id="app" class="-view -zero -content-center">
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-		<section class="--screen --home" data-role='keep'></section>
-		<aside class="--screen --menu" data-role='keep' data-hideposx='right'></aside>
+		<div class="-view">
+			<section class="-fixed -zero -view --home"></section>
+			<section class="--screen --feed" data-hideposy='bottom'></section>
+			<section class="--screen --social" data-hideposy='bottom'></section>
+			<section class="--screen --seek" data-hideposy='bottom'></section>
+			<!-- <header class="-flex"></header> -->
+			<aside class="--screen --menu" data-hideposy='bottom'></aside>
+			<section class="--screen --notification" data-hideposy='bottom'></section>
+		</div>
 		<footer class="-flex"></footer>
-		<section class="--screen --notification" data-role='keep' data-hideposy='top'></section>
-		<section class="--screen --login" data-role='keep' data-hideposy='bottom'></section>
+		<section class="--screen --login" data-hideposy='bottom'></section>
 		<section class="--screen --splash" data-role='dismiss'></section>
 		<!-- Begin: Stylesheets -->
 		<style type="text/css">
-			#app { background: white; color: black; }
-			#app>.--screen { position:fixed; top:0; left:0; margin:0; padding:0; overflow:hidden; height: 100vh; width:100vw; }
-			#app>.--screen:not(.--splash) { padding:4em 2px; }
-			#app>footer { position: fixed; left:0; width:100vw; height:4em; bottom:0; box-shadow: 0 0 .25em rgba(0,0,0,.16); }
+			#app>div>.--screen, #app>.--screen { position:fixed; top:0; left:0; margin:0; overflow:hidden; height: 100vh; width:100vw; }
+			#app>div>.--screen { padding:4em 2px; }
+			#app>div>.--splash { padding:0;}
+			#app .--screen:not(.--splash) { opacity:0;}
+			#app>div>header, #app>footer { position: fixed; left:0; width:100vw; height:4em; }
+			#app>div>header { top: 0;  }
+			#app>footer { bottom:0; }
 		</style>
 		<!-- Begin: Scripts -->
 		<script type="text/javascript" src="js/script.js"></script>
