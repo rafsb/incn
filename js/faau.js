@@ -5,14 +5,13 @@
     |  _| | | (_| | | | | | |  __/\ V  V / (_) | |  |   <
     |_| |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
 
-
 ****************************************************************************/
 const
 ANIMATION_LENGTH = 800
 , DEBUG = false
-// , REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
+, REVERSE_PROXY_CLIENT_URI = "https://cors-anywhere.herokuapp.com/"
 , SUM               = 0
-, MEDIAN            = 1
+, AVERAGE           = 1
 , HARMONIC          = 2
 , PASSWD_AUTO_HASH  = true;
 ;
@@ -20,7 +19,7 @@ var
 bind = (e,o)=>{
     let
     a = Object.keys(o);
-    for(let i=a.length; i--;) e[a[a.length-i-1]] = o[a[a.length-i-1]];
+    for(let i=a.length;i--;) e[a[a.length-i-1]]=o[a[a.length-i-1]]
 };
 NodeList.prototype.array = function() {
     return [].slice.call(this);
@@ -33,7 +32,7 @@ bind(HTMLFormElement.prototype,{
         let
         tmp = {};
         this.get("input, textarea, select, .-value").each(o=>{
-            if(!o.has("-skip")&&o.name){            
+            if(!o.has("-skip")&&o.name){
                 tmp[o.name] = (o.tagName.toUpperCase()=="TEXTAREA"&&o.has("-list") ? o.value.split('\n') : o.value);
                 if(PASSWD_AUTO_HASH&&o.getAttribute("type")&&o.getAttribute("type").toUpperCase()=="PASSWORD") tmp[o.name] = tmp[o.name].hash();
             }
@@ -78,33 +77,33 @@ bind(HTMLFormElement.prototype,{
     }
 });
 bind(HTMLInputElement.prototype, {
-    setValue: function(v="") {
-        this.value = v;
-        return this
+    val: function(v=null) {
+        if(v!==null) this.value = v;
+        return this.value
     }
 });
 bind(Element.prototype,{
-    anime: function(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
+    anime: function(obj,fn=null,len=ANIMATION_LENGTH,delay=0,trans=null) {
         len/=1000;
         trans = trans ? trans : "ease";
         this.style.transition = "all " + len.toFixed(2) + "s "+trans;
         this.style.transitionDelay = (delay?delay/1000:0).toFixed(2)+"s";
         for(let i in obj) {
             switch(i) {
-                case "skew"   : this.style.transform = 'skew('+obj[i]+','+obj[i]+')'; break;
-                case "skewX"  : this.style.transform = 'skewX('+obj[i]+')'; break;
-                case "skewY"  : this.style.transform = 'skewY('+obj[i]+')'; break;
-                case "scale"  : this.style.transform = 'scale('+obj[i]+')'; break;
-                case "scaleX" : this.style.transform = 'scaleX('+obj[i]+')'; break;
-                case "scaleY" : this.style.transform = 'scaleY('+obj[i]+')'; break;
+                case "skew"       : this.style.transform = 'skew('+obj[i]+','+obj[i]+')';      break;
+                case "skewX"      : this.style.transform = 'skewX('+obj[i]+')';                break;
+                case "skewY"      : this.style.transform = 'skewY('+obj[i]+')';                break;
+                case "scale"      : this.style.transform = 'scale('+obj[i]+')';                break;
+                case "scaleX"     : this.style.transform = 'scaleX('+obj[i]+')';               break;
+                case "scaleY"     : this.style.transform = 'scaleY('+obj[i]+')';               break;
                 case "translate"  : this.style.transform = 'translate('+obj[i]+','+obj[i]+')'; break;
-                case "translateX" : this.style.transform = 'translateX('+obj[i]+')'; break;
-                case "translateY" : this.style.transform = 'translateY('+obj[i]+')'; break;
-                case "rotate"     : this.style.transform = 'rotate('+obj[i]+')'; break;
+                case "translateX" : this.style.transform = 'translateX('+obj[i]+')';           break;
+                case "translateY" : this.style.transform = 'translateY('+obj[i]+')';           break;
+                case "rotate"     : this.style.transform = 'rotate('+obj[i]+')';               break;
                 // case "opacity"    : this.style.filter = 'opacity('+obj[i]+')'; break;
-                case "grayscale"  : this.style.filter = 'grayscale('+obj[i]+')'; break;
-                case "invert"     : this.style.filter = 'invert('+obj[i]+')'; break;
-                default : this.style[i] = obj[i]; break;
+                case "grayscale"  : this.style.filter    = 'grayscale('+obj[i]+')';            break;
+                case "invert"     : this.style.filter    = 'invert('+obj[i]+')';               break;
+                default           : this.style[i]        = obj[i];                             break;
             }
         }
         if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1,this);
@@ -118,51 +117,36 @@ bind(Element.prototype,{
     , empty: function(a=null) {
         if(a){ if(typeof a == 'string') a = a.split(',') }
         else a = [];
-        this.get("*").each(function() {if(!(a.indexOf(this.tagName)+1)) this.remove()});
+        this.get("*").each(x=>{if(!(a.indexOf(x.tagName)+1)) x.remove()});
         return this
     }
-    , setText: function(t=null, fn=null){
-        if(!t) return this;
-        this.textContent = t;
-        if(fn) return fn.bind(this)(this);
-        return this;
-    },
-     setData: function(o=null, fn=null){
-        if(!o) return this;
-        let
-        args = Object.keys(o);
-        for(let i=0;i++<=args.length;){
-            this.dataset[args[i-1]] = o[args[i-1]];
-        }
-        if(fn) return fn.bind(this)(this);
-        return this;
-    }
-    , setStyle: function(o=null, fn = null) {
+    , css: function(o=null, fn = null) {
         if (o===null) return this;
         this.style.transition = "none";
         this.style.transitionDuration = 0;
         for(let i in o) {
             switch(i) {
-                case "skew"  : this.style.transform = 'skew('+o[i]+','+o[i]+')'; break;
-                case "skewX" : this.style.transform = 'skewX('+o[i]+')'; break;
-                case "skewY" : this.style.transform = 'skewY('+o[i]+')'; break;
-                case "scale" : this.style.transform = 'scale('+o[i]+')'; break;
-                case "scaleX" : this.style.transform = 'scaleX('+o[i]+')'; break;
-                case "scaleY" : this.style.transform = 'scaleY('+o[i]+')'; break;
-                case "translate" : this.style.transform = 'translate('+o[i]+','+o[i]+')'; break;
-                case "translateX" : this.style.transform = 'translateX('+o[i]+')'; break;
-                case "translateY" : this.style.transform = 'translateY('+o[i]+')'; break;
-                case "rotate" : this.style.transform = 'rotate('+o[i]+')'; break;
-                default : this.style[i] = o[i]; break;
+                case "skew"         : this.style.transform = 'skew('+o[i]+','+o[i]+')';      break;
+                case "skewX"        : this.style.transform = 'skewX('+o[i]+')';              break;
+                case "skewY"        : this.style.transform = 'skewY('+o[i]+')';              break;
+                case "scale"        : this.style.transform = 'scale('+o[i]+')';              break;
+                case "scaleX"       : this.style.transform = 'scaleX('+o[i]+')';             break;
+                case "scaleY"       : this.style.transform = 'scaleY('+o[i]+')';             break;
+                case "translate"    : this.style.transform = 'translate('+o[i]+','+o[i]+')'; break;
+                case "translateX"   : this.style.transform = 'translateX('+o[i]+')';         break;
+                case "translateY"   : this.style.transform = 'translateY('+o[i]+')';         break;
+                case "rotate"       : this.style.transform = 'rotate('+o[i]+')';             break;
+                default             : this.style[i]        = o[i];                           break;
             }
         }
         if(fn!==null&&typeof fn=="function") setTimeout(fn.bind(this),16, this);
         return this
     }
-    , text: function(tx=null) {
-        if(tx) this.textContent = tx;
-        else return this.textContent;
-        return this
+    , text: function(t=null, fn=null){
+        if(!t) return this;
+        this.textContent = t;
+        if(fn) return fn.bind(this)(this);
+        return this;
     }
     , html: function(tx=null) {
         if(tx) this.innerHTML = tx;
@@ -178,25 +162,37 @@ bind(Element.prototype,{
     , attr: function(o=null, fn = null) {
         if (o===null) return null;
         let el = this;
-        Object.keys(o).each(function(){ el.setAttribute(this+"",o[this+""]); }) ;
-        if(fn!==null&&typeof fn=="function") fn.bind(this)();
+        Object.keys(o).each(x=>el.setAttribute(x,o[x]));
+        if(fn!==null&&typeof fn=="function") fn.bind(this)(this);
         return this;
     }
     , after: function(obj=null) {
-        if(obj) this.insertAdjacentElement("afterend",obj);
-        return this
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.after(o));
+        else if(obj) el.insertAdjacentElement("afterend",obj);
+        return this;
     }
     , before: function(obj=null) {
-        if(obj) this.insertAdjacentElement("beforebegin",obj);
-        return this
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.before(o));
+        else if(obj) el.insertAdjacentElement("beforebegin",obj);
+        return this;
     }
     , append: function(obj=null) {
-        if(obj) this.insertAdjacentElement("beforeend",obj);
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.append(o));
+        else if(obj) el.insertAdjacentElement("beforeend",obj);
         return this;
     }
     , prepend: function(obj=null) {
-        if(obj) this.insertAdjacentElement("afterbegin",obj);
-        return this
+        let
+        el=this;
+        if(Array.isArray(obj)) obj.each(o=>el.prepend(o));
+        else if(obj) el.insertAdjacentElement("afterbegin",obj);
+        return this;
     }
     , has: function(cls=null) {
         if(cls) return this.classList.contains(cls);
@@ -217,7 +213,7 @@ bind(Element.prototype,{
                     }
                 }
             }
-            all.each(function() { me.append(this) })
+            all.each(x=>me.append(x))
         }
         return this
     }
@@ -225,7 +221,7 @@ bind(Element.prototype,{
         return [].slice.call(this.parent().children).indexOf(this)-1;
     }
     , evalute: function() {
-        this.get("script").each(function(){ eval(this.textContent)&&this.remove() })
+        this.get("script").each(x=>{ eval(x.textContent)&&x.remove() })
         return this
     }
     , on: function(action,fn,passive=true) {
@@ -281,7 +277,7 @@ bind(Element.prototype,{
     , addClass: function(c) {
         let
         tmp = c.split(/\s+/g), i=tmp.length;
-        while(i--) this.classList.add(tmp[i]);
+        if(c.length) while(i--) this.classList.add(tmp[i]);
         return this;
     }
     , toggleClass: function(c) {
@@ -303,18 +299,15 @@ bind(Element.prototype,{
         len /= 1000;
         this.style.transition = "all "+len+"s "+anim;
         if(obj.top!==undefined)this.style.transform = "translateY("+(this.offsetTop-obj.top)+")";
-        if(obj.left!==undefined)this.style.transform = "translateY("+(this.offsetLeft-obj.left)+")";
+        if(obj.left!==undefined)this.style.transform = "translateX("+(this.offsetLeft-obj.left)+")";
     }
-    , appear: function(len = ANIMATION_LENGTH) {
-        return this.setStyle({display:'inline-block'},function(){ this.anime({opacity:1},len,1); });
+    , appear: function(len = ANIMATION_LENGTH, fn=null) {
+        return this.css({display:'inline-block'}, x=>x.anime({opacity:1}, fn, len))
     }
     , desappear: function(len = ANIMATION_LENGTH, remove = false) {
-        return this.anime({opacity:0},len,1,function() { if(remove) this.remove(); else this.setStyle({ display : "none" }); });
+        return this.anime({opacity:0}, x=>{ if(remove) x.remove(); else x.css({display:"none"}) }, len);
     }
     , remove: function() { this&&this.parent()&&this.parent().removeChild(this) }
-    , at: function(i=0) {
-        return this.nodearray.at(i)
-    }
 });
 bind(String.prototype,{
     hash: function() {
@@ -349,7 +342,7 @@ bind(String.prototype,{
         let
         x = document.createElement("div");
         x.innerHTML = this.replace(/\t+/g, "").trim();
-        return x.firstChild;
+        return x.firstChild.tagName.toLowerCase()=="template" ? x.firstChild.content.children.array() : x.children.array();
     }
     , prepare: function(obj=null){
         if(!obj) return this;
@@ -366,14 +359,14 @@ bind(String.prototype,{
         return this.replace(/[^a-zA-Z0-9]/g,'_')
     }
     , check: function(tx=null, flag="gi"){
-	    if(Array.isArray(tx)) tx = tx.join('|');
-	    if(typeof tx == "string"){
-	        let
-	        rx = new RegExp(tx, flag);
-	        return rx.test(this)
-	    }
-	    return this
-	}
+        if(Array.isArray(tx)) tx = tx.join('|');
+        if(typeof tx == "string"){
+            let
+            rx = new RegExp(tx, flag);
+            return rx.test(this)
+        }
+        return false
+    }
 });
 bind(Object.prototype,{
     json:function(){ return JSON.stringify(this); }
@@ -383,10 +376,8 @@ bind(Object.prototype,{
 });
 bind(Array.prototype, {
     json: function(){ return JSON.stringify(this); }
-    , clone: function() {
-        return this.slice(0);
-    }
-    , each: function(fn) { if(fn) { for(let i=0;i++<this.length;) fn.bind(this[i-1])(this[i-1],i-1); } return this; }
+    , clone: function() { return this.slice(0) }
+    , each: function(fn) { if(fn) { for(let i=0;i++<this.length;) fn.bind(this[i-1])(this[i-1], i-1); } return this }
     , extract: function(fn=null){
         if(!fn||!this.length) return this;
         let
@@ -395,16 +386,16 @@ bind(Array.prototype, {
             let
             x = fn.bind(this)(this,i);
             if(x) narr.push(x) 
-        });
-        return narr;
+        })
+        return narr
     }
     , calc: function(type=SUM){
         let
         res = 0;
         switch (type){
-            case (SUM): this.each(function(){ res+=this*1 }); break;
-            case (MEDIAN): this.each(function(){ res+=this*1 }); res = res/this.length; break;
-            case (HARMONIC): this.each(function(){ res+=1/this*1 }); res = this.length/res; break;
+            case (SUM): this.each(x=>res+=x); break;
+            case (AVERAGE): this.each(x=>res+=x); res=res/this.length; break;
+            case (HARMONIC): this.each(x=>res+=1/x); res=this.length/res; break;
         }
         return res;
     }
@@ -420,44 +411,44 @@ bind(Array.prototype, {
         while(arr.indexOf(el)+1) arr.splice(arr.indexOf(el),1);
         return arr;
     }
-    , anime: function(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
-        this.each(function() {this.anime(obj,len,delay,fn,trans)});
+    , anime: function(obj,fn=null,len=ANIMATION_LENGTH,delay=0,trans=null) {
+        this.each(x=>x.anime(obj,fn,len,delay,trans));
         return this
     }
-    , setStyle: function(obj,fn=null) {
-        this.each(function() {this.setStyle(obj,fn)});
+    , css: function(obj,fn=null) {
+        this.each(x=>x.css(obj,fn));
         return this
     }
-    , setData: function(obj,fn=null) {
-        this.each(function() {this.setData(obj,fn)});
+    , data: function(obj,fn=null) {
+        this.each(x=>x.data(obj,fn));
         return this
     }
-    , setText: function(txt,fn=null) {
-        this.each(function() {this.setText(txt,fn)});
+    , text: function(txt,fn=null) {
+        this.each(x=>x.text(txt,fn));
         return this
     }
     , addClass: function(cl=null) {
-        if(cl) this.each(function() {this.addClass(cl)});
+        if(cl) this.each(x=>x.addClass(cl));
         return this
     }
     , remClass: function(cl=null) {
-        if(cl) this.each(function() {this.remClass(cl)});
+        if(cl) this.each(x=>x.remClass(cl));
         return this
     }
     , toggleClass: function(cl=null) {
-        if(cl) this.each(function() {this.toggleClass(cl)});
+        if(cl) this.each(x=>x.toggleClass(cl));
         return this
     }
     , remove: function() {
-        this.each(function() {this.remove()});
+        this.each(x=>x.remove());
         return this
     }
     , setValue: function(v='') {
-        this.each(function() {this.value = v});
+        this.each(x=>x.value = v);
         return this
     }
     , on: function(act=null,fn=null) {
-        if(act&&fn) this.each(function(){ this.on(act,fn) });
+        if(act&&fn) this.each(x=>x.on(act,fn));
         return this
     }
     , evalute: function(){
@@ -467,10 +458,10 @@ bind(Array.prototype, {
         })
     }
     , appear: function(len = ANIMATION_LENGTH) {
-        return this.each(function(){ this.setStyle({display:'block'},function(){ this.anime({opacity:1},len,1); }); });
+        return this.each(x=>x.css({display:'block'},x=>x.anime({opacity:1}, null, len, 1)))
     }
     , desappear: function(len = ANIMATION_LENGTH, remove = false){
-        return this.each(function(){ this.anime({opacity:0},len,1,function() { if(remove) this.remove(); else this.setStyle({ display : "none" }); }); });
+        return this.each(x=>x.anime({opacity:0}, x=>{ if(remove) x.remove(); else x.css({ display : "none" }) }, len, 1))
     }
 });
 
@@ -521,7 +512,7 @@ class Pool {
         let
         pool = this;
         if(Array.isArray(x)) {
-            x.each(function(){ pool.add(this) })
+            x.each(z=>pool.add(z))
         }
         return this;
     }
@@ -545,14 +536,14 @@ class Pool {
         }
         let
         pool=this;
-        this.execution.each(function(i){ 
-            pool.timeserie[i] = setTimeout(this, pool.timeline[i], x, pool.setup);
-        });
-        return this;
+        this.execution.each((z,i)=>{ 
+            pool.timeserie[i] = setTimeout(z, pool.timeline[i], x, pool.setup);
+        })
+        return this
     }
     stop(i=null) {
-        if(i!==null) { if(this.timeserie[i]) clearInterval(this.timeserie[i]) }
-        else this.timeserie.each(function(){ clearInterval(this) })
+        if(i!==null){ if(this.timeserie[i]) clearInterval(this.timeserie[i]) }
+        else this.timeserie.each(x=>clearInterval(x))
         return this
     }
     clear() {
@@ -737,12 +728,13 @@ class CallResponse {
 }
 class FAAU {
     get(e,w){ return faau.get(e,w||document).nodearray; }
-    declare(obj){ Object.keys(obj).each(function(){ window[this+""] = obj[this+""] }); }
-    initialize(){ bootstrap&&bootstrap.loadComponents.fire(); }
-    async call(url, args=null, method='POST', head={}) {
+    declare(obj){ Object.keys(obj).each(x=>window[x]=obj[x]) }
+    initialize(){ bootstrap&&bootstrap.loadComponents.fire() }
+    async call(url, args=null, method='POST', head=null) {
+        if(!head) head = {};
         head["Content-Type"] = head["Content-Type"] || "text/plain"
         head["FA-Custom"] = "@rafsb"
-        return fetch(url,{
+        return fetch(url, {
             method: method
             , body: args ? args.stringify() : null
             , headers : head
@@ -750,34 +742,42 @@ class FAAU {
         }).then(r=>r=r.text()).then(r=>{
             return new CallResponse(url, args, method, head, r.trim());
         });
-        // let
-        // xhr = new XMLHttpRequest();
-        // args = args ? args : {};
-        // if(!sync&&fn) {
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState == 4) {
-        //            return fn.bind({ status: xhr.status, data: xhr.responseText.trim(), url:url, args:args })();
-        //         };
-        //     }
-        // }
-        // xhr.open(method, url, !sync);
-        // // xhr.setRequestHeader("Content-Type", "plain/text");
-        // // xhr.setRequestHeader("Accept", 'application/json');
-        // if(head) for(let i in head){ xhr.setRequestHeader(i,head[i]); };
-        // xhr.send(JSON.stringify(args));
-        // if(sync) {
-        //     let
-        //     o = { status: xhr.status, data: xhr.responseText.trim(), url:url, args:args };
-        //     return (fn ? fn.bind(o)() : o);
-        // }
+    }
+
+    async xhr_call(url, args=null, method="POST", fn=null, head=null){
+        let
+        o = new Promise(function(accepted,rejected){
+            let
+            o = new CallResponse(url, args, method)
+            , xhr = new XMLHttpRequest();
+            args = args ? args : {};
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    o.status = xhr.status;
+                    o.data = xhr.responseText.trim();
+                   if(fn) fn.bind(o)(o);
+                   return accepted(o);
+                };
+            }
+            head = head ? head : {};
+
+            xhr.open(method,url);
+            head["Content-Type"] = head["Content-Type"] || "text/plain"
+            head["FA-Custom"] = "@rafsb"
+            o.headers = head;
+            // Object.keys(head).each(h=>xhr.setRequestHeader(h,head[h]));
+            xhr.send(args.json());
+
+        });
+        return o;
     }
 
     async load(url, args=null, target=null) {
         return this.call(url, args).then( r => {
             if(!r.status) return app.error("error loading "+url);
-            r = r.data.prepare(app.colors()).morph().content.children.array();
+            r = r.data.prepare(app.colors()).morph();
             if(!target) target = app.get('body')[0];
-            r.each(me=>{ target.append(me); });
+            target.append(r);
             return r.evalute();
         });
     }
@@ -789,7 +789,7 @@ class FAAU {
     notify(n, c=null) {
         let
         toast = document.createElement("toast");
-        toast.setStyle({
+        toast.css({
             fontSize: "1rem",
             background: c&&c[0] ? c[0] : "rgba(255,255,255,.8)",
             color: c&&c[1] ? c[1] : "black",
@@ -800,7 +800,7 @@ class FAAU {
             position:"fixed"
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
         if(!this.isMobile()) {
-            toast.setStyle({
+            toast.css({
                 top:0,
                 left:"80vw",
                 width:"calc(20vw - 4rem)",
@@ -808,7 +808,7 @@ class FAAU {
                 borderRadius:".5rem",
             });
         }else{
-            toast.setStyle({
+            toast.css({
                 opacity:0,
                 top:".5rem",
                 left:".5rem",
@@ -825,14 +825,14 @@ class FAAU {
         
         let
         notfys = app.get("toast");
-        notfys.each(function(i) { this.anime({ translateY: ( ( toast.offsetHeight + 8 ) * i + 16) + "px", opacity: 1 }, ANIMATION_LENGTH/4) });
+        notfys.each((x,i)=>{ x.anime({translateY:((toast.offsetHeight+8)*i+16)+"px", opacity:1}, null, ANIMATION_LENGTH/4) });
         toast.dataset.delay = setTimeout(function() { toast.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH*5);
     }
 
     loading(show=true){
         if(!show){
-            $(".--default-loading").each(function(){ clearInterval(this.dataset.animation); this.remove() });
-            return;
+            $(".--default-loading").each(x=>{ clearInterval(x.dataset.animation); x.remove() });
+            return
         }
         app.body.append(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
 
@@ -840,13 +840,13 @@ class FAAU {
             let
             circle = $(".--default-loading .--loading-circle")[0];
             if(!circle) return;
-            circle.setStyle({transformOrigin:"top left", scale:window.innerWidth/1920,"stroke-dasharray":circle.getTotalLength()+","+circle.getTotalLength()+","+circle.getTotalLength()});
+            circle.css({transformOrigin:"top left", scale:window.innerWidth/1920,"stroke-dasharray":circle.getTotalLength()+","+circle.getTotalLength()+","+circle.getTotalLength()});
             $(".--default-loading")[0].dataset.animation = setInterval(()=>{
                 let
                 circle = $(".--default-loading .--loading-circle")[0];
                 if(circle){ 
-                    circle.setStyle({"stroke-dashoffset":0});
-                    circle.anime({"stroke-dashoffset":circle.getTotalLength()*4},2200,0,null,"ease-in-out")
+                    circle.css({"stroke-dashoffset":0});
+                    circle.anime({"stroke-dashoffset":circle.getTotalLength()*4},null,ANIMATION_LENGTH*4)
                 }
             },2201)
         })
@@ -860,7 +860,7 @@ class FAAU {
     }
 
     hintify(n, o={},delall=true,keep=false,special=false,evenSpecial=false) {
-        if(delall) $(".--hintifyied"+(evenSpecial?", .--hintifyied-sp":"")).each(function() {this.remove()});
+        if(delall) $(".--hintifyied"+(evenSpecial?", .--hintifyied-sp":"")).each(x=>x.remove());
 
         let
         toast = app.new("toast");
@@ -878,7 +878,7 @@ class FAAU {
         o.color =  o.color ?  o.color : "white";
         o.position = "absolute";
         o.fontSize = o.fontSize ? o.fontSize : "1rem";
-        toast.setStyle(o).addClass("--hintifyied"+(special?"-sp":"")).appendChild(n ? n : ("<b>路路路</b>!!!").morph());
+        toast.css(o).addClass("--hintifyied"+(special?"-sp":"")).appendChild(n ? n : ("<b>路路路</b>!!!").morph());
 
         if(toast.get(".--close").length) toast.get(".--close").at().on("click",function() { $(".--hintifyied"+(special?", .--hintifyied-sp":"")).remove() });
         else toast.on("click",function() { this.remove() });
@@ -894,7 +894,7 @@ class FAAU {
 
     //get length() { return this.nodearray.length }
 
-    each(fn=null) {this.nodearray.each(fn);return this }
+    each(fn=null) { this.nodearray.each(fn); return this }
 
     at(n=0) { return this.nodearray.at(n) }
 
@@ -902,17 +902,17 @@ class FAAU {
 
     last() {return this.nodearray.last() }
 
-    empty(except=null) { this.nodearray.each(function() {this.empty(except)})}
+    empty(except=null) { this.nodearray.each(x=>x.empty(except)) }
 
-    remove() { this.nodearray.each(function() {this.remove()})}
+    remove() { this.nodearray.each(x=>x.remove()) }
 
-    anime(obj,len=ANIMATION_LENGTH,delay=0,fn=null,trans=null) {
-        this.nodearray.each(function() {this.anime(obj,len,delay,fn,trans)})
-        return this;
+    anime(obj,fn=null,len=ANIMATION_LENGTH,delay=0,trans=null) {
+        this.nodearray.each(x=>x.anime(obj,fn,len,delay,trans));
+        return this
     }
 
     new(node='div', cls="auto-created", style={display:"inline-block"}, fn) {
-        return document.createElement(node).addClass(cls).setStyle(style,fn);
+        return document.createElement(node).addClass(cls).css(style,fn);
     }
 
     storage(field=null,value=null){
@@ -951,9 +951,9 @@ class FAAU {
                 , CLR_FONTBLURED:"#7E8C8D"
                 , CLR_SPAN :"#2980B9"
                 , CLR_DISABLED: "#BDC3C8"
-                , CLR_SHADOW1:"rgba(0,0,0,.16)"
-                , CLR_SHADOW2:"rgba(0,0,0,.32)"
-                , CLR_SHADOW3:"rgba(0,0,0,.64)"
+                , CLR_DARK1:"rgba(0,0,0,.16)"
+                , CLR_DARK2:"rgba(0,0,0,.32)"
+                , CLR_DARK3:"rgba(0,0,0,.64)"
                 , CLR_LIGHT1:"rgba(255,255,255,.16)"
                 , CLR_LIGHT2:"rgba(255,255,255,.32)"
                 , CLR_LIGHT3:"rgba(255,255,255,.64)"
@@ -990,6 +990,7 @@ class FAAU {
 bind(window, {
     mouseAxis: { x:0, y:0 }
     , $: function(wrapper=null, context=document) { return [].slice.call((new FAAU(wrapper,context)).nodearray); }
+    , _:function(node='div', cls="auto-created", style={display:"inline-block"}, fn){ return app.new(node,cls,style,fn) }
     , bootstrap: new Bootstrap()
     , app: (new FAAU())
     , base_hash: function(obj){
@@ -1005,20 +1006,18 @@ bind(window, {
             if(this.classList.contains("-skip")) return;
             let
             size = Math.max(this.offsetWidth, this.offsetHeight);
-            this.append(app.new("span","-absolute",{
+            this.append(_("span","-absolute",{
                 background      : app.colors().CLR_DARK1
                 , display       : "inline-block"
                 , borderRadius  : "50%"
                 , width         : size+"px"
                 , height        : size+"px"
                 , transform     : "scale(0)"
-                , opacity       : 0
+                , opacity       : .5
                 , top           : (e.offsetY - size/2)+"px"
                 , left          : (e.offsetX - size/2)+"px"
-            }, function(){
-                this.anime({scale:2,opacity:.5},ANIMATION_LENGTH/2,null,function(){ this.remove(); },"ease-in");
-            }));
-        }).remClass(cls);
+            }, x=>x.anime({scale:2},x=>x.desappear(ANIMATION_LENGTH/4,true),ANIMATION_LENGTH/2)))
+        }).remClass(cls)
     }
 });
 app.spy("pragma",function(x){
@@ -1027,19 +1026,6 @@ app.spy("pragma",function(x){
     if(bootstrap&&!bootstrap.ready()) return setTimeout((x)=>{ app.pragma = x }, ANIMATION_LENGTH, x);
     this.onPragmaChange.fire(x);
 });
-if(undefined!==SVG){
-    SVG.extend(SVG.Text, {
-        path: function(d){
-            let
-            track, path  = new SVG.TextPath;
-            if (d instanceof SVG.Path) track = d;
-            else track = this.doc().defs().path(d);
-            while (this.node.hasChildNodes()) path.node.appendChild(this.node.firstChild);
-            this.node.appendChild(path.node);
-            path.attr('href', '#' + track, SVG.xlink);
-            return this;
-        }
-    });
-}
 window.onmousemove = e => mouseAxis = { x: e.clientX, y: e.clientY }
+document.addEventListener("touchstart", function() {}, true);
 console.log('  __\n\ / _| __ _  __ _ _   _\n\| |_ / _` |/ _` | | | |\n\|  _| (_| | (_| | |_| |\n\|_|  \\__,_|\\__,_|\\__,_|');
