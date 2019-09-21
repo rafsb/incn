@@ -27,10 +27,9 @@ class News extends Activity
 				$feed = Convert::xml2json(IO::read($feed_path));
 				if($feed=="")
 				{
-					if(!is_dir(IO::root($feed_path))){
-						IO::rm($feed_path);
-						return Core::response(-4, "rss empty, removing for avoid future errors");
-					}
+					Core::response(-4, "rss empty, removing for avoid future errors");
+					if(!is_dir(IO::root($feed_path))) IO::rm($feed_path);
+					break;
 				}
 				else $feed = $feed->channel;
 
@@ -42,13 +41,11 @@ class News extends Activity
 					$barrier = (time() - (($days ? $days : 7) * 24 * 60 * 60));
 					$hash    = Hash::word(Convert::json($item),MD5);
 					if($time > $barrier) if(!is_file(IO::root($parseds . "/" . $time . "-" . $hash))) IO::jin($parseds . "/" .$time . "-" . $hash, $item);
-					// IO::write("var/tmp/$time", $time, APPEND);
+					Core::response($time, "nicely done");
 				});				
 			}
 
 		}
-		return Core::response(1, "nicely done");
-
 	}
 
 	public static function cleanup($days=null){
@@ -62,11 +59,14 @@ class News extends Activity
 
 			$feeds = IO::scan($parseds, false, false);
 			if(!empty($feeds)) Async::each($feeds, function($item) use ($parseds, $days){
-				$time = time() - explode("-",$item->value)[0]*1;
-				if($time > (time() - ($days * 24 * 60 * 60))) IO::rm($parseds . DS . $item->value);
+				$time = time() - explode("-",$item)[0]*1;
+				if($time > (time() - ($days * 24 * 60 * 60))) IO::rm($parseds . DS . $item);
 			});
 		}
-
+		if(DEBUG){
+			 Core::response(1, "flawesly victory");
+			 Debug::show();
+		}
 		return Core::response(1, "flawesly victory");
 
 	}
