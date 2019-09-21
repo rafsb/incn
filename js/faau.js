@@ -365,6 +365,15 @@ bind(String.prototype,{
     , uri: function(){
         return this.replace(/[^a-zA-Z0-9]/g,'_')
     }
+    , check: function(tx=null, flag="gi"){
+	    if(Array.isArray(tx)) tx = tx.join('|');
+	    if(typeof tx == "string"){
+	        let
+	        rx = new RegExp(tx, flag);
+	        return rx.test(this)
+	    }
+	    return this
+	}
 });
 bind(Object.prototype,{
     json:function(){ return JSON.stringify(this); }
