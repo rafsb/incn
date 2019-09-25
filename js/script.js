@@ -82,32 +82,30 @@ bootstrap.onFinishLoading.add(function(){
 				else if(y) this.anime({ translateY:y, opacity:0 }, z => { if(z.dataset.role=="dismiss") z.remove(); else z.css({display:"none"}); }, ANIMATION_LENGTH/4);
 				else this.desappear(ANIMATION_LENGTH/4,this.dataset.role=="dismiss"?true:false);
 			}
-		});
+		})
 	});
 	tileClickEffectSelector(".-tile");
 	$(".--screen-nav-back").css({rotate:"-90deg"}).on("click",()=>app.pragma=HOME);
-	setTimeout(()=>{  $(".--boot-progress").anime({height:"4em", opacity:0});  }, ANIMATION_LENGTH);
+	setTimeout(()=>{  $(".--boot-progress").anime({height:"4em", opacity:0});  }, ANIMATION_LENGTH)
 });
 
 app.onPragmaChange.add(x => {
 	$(".--screen").each(function(){
 		if(this.has("--"+Object.keys(bootstrap.loaders)[x])) this.dispatchEvent(__come);
-		else this.dispatchEvent(__go);
+		else this.dispatchEvent(__go)
 	});
 	$(".--footer-icon-tile svg").each((z,i) => z.anime({filter: "invert("+(x==HOME || i+2!=x ? 0 : 1)+")" }));
-	$(".--footer-icon-tile").each((z,i) => z.anime({background: (x==HOME || i+2!=x ? app.colors().CLR_CLOUDS : app.pragma_colors[x]) }));
+	$(".--footer-icon-tile").each((z,i) => z.anime({background: (x==HOME || i+2!=x ? app.colors().CLR_CLOUDS : app.pragma_colors[x]) }))
 });
 
 __scroll = new Swipe(app.body);
 
 __scroll.up(()=>{
-	if(app.last != HOME){
-		app.pragma = app.last;
-	}
+	if(app.last != HOME) app.pragma = app.last
 });
 
 __scroll.down(()=>{
-	if(app.current != HOME) app.pragma = HOME;
+	if(app.current != HOME) app.pragma = HOME
 });
 
 __scroll.right(()=>{
