@@ -1,1 +1,5 @@
-<?='LOGIN'?>
+<template>
+	<script>
+		
+	</script>
+</template>

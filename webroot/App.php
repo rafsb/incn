@@ -1,6 +1,6 @@
 <?php
 if(!defined("DEBUG")) define("DEBUG", true);
-if(!defined("LOGIN_REQUIRED")) define("LOGIN_REQUIRED",  false);
+if(!defined("LOGIN_REQUIRED")) define("LOGIN_REQUIRED",  true);
 
 class App extends Core
 {
