@@ -2,6 +2,27 @@
 class News extends Activity
 {
 
+	public static function acquire($src_name)
+	{
+		$src_path = IO::root("var". DS ."rss". DS);
+		$file = $src_path . $src_name;
+		
+		$tmp_path = $src_path . "tmp" . DS . $src_name;
+		if(!IO::tmp($tmp_path)) return Core::response(-1, "not possible to create temporary folder: $tmp_path");
+
+		$tmp_list  = IO::read($file);
+		if(!$tmp_list) return Core::response(-2, "no list found under: $file");
+
+		Async::each(explode(PHP_EOL,$tmp_list), function($url) use (){
+			if($url && substr($url,0,1)!=="#"){
+				IO::write(Fetch::get($url));
+				//wget -O $TMP"/"$x $i &> /dev/null & x=$(( $x+1 )); done;
+			}
+		});
+		//print_r($tmp_list); die;
+
+	}
+
 	public static function parse($days=null)
 	{
 		$days = $days ? $days : 7;
@@ -42,7 +63,7 @@ class News extends Activity
 					$hash    = Hash::word(Convert::json($item),MD5);
 					if($time > $barrier) if(!is_file(IO::root($parseds . "/" . $time . "-" . $hash))) IO::jin($parseds . "/" .$time . "-" . $hash, $item);
 					Core::response($time, "nicely done");
-				});				
+				});
 			}
 
 		}
