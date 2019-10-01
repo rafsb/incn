@@ -13,14 +13,17 @@ class News extends Activity
 		$tmp_list  = IO::read($file);
 		if(!$tmp_list) return Core::response(-2, "no list found under: $file");
 
-		Async::each(explode(PHP_EOL,$tmp_list), function($url) use (){
-			if($url && substr($url,0,1)!=="#"){
-				IO::write(Fetch::get($url));
-				//wget -O $TMP"/"$x $i &> /dev/null & x=$(( $x+1 )); done;
-			}
-		});
-		//print_r($tmp_list); die;
+		$patterns = [
+			'/https:\/\//'
+			, '/http:\/\//'
+			,'/\//'
+		];	
 
+		Async::each(explode(PHP_EOL,$tmp_list), function($url) use ($tmp_path, $patterns){
+			if($url && substr($url,0,1)!=="#") IO::write($tmp_path . DS . preg_replace($patterns,"",$url), Fetch::get($url));
+		});
+
+		return 1;
 	}
 
 	public static function parse($days=null)
