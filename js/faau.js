@@ -349,13 +349,13 @@ bind(String.prototype,{
     , prepare: function(obj=null){
         if(!obj) return this;
         let
-        str = this;
-        for(i in obj){
+        str = this.trim();
+        Object.keys(obj).each(x=>{
             let
-            rgx = new RegExp("@"+i,"g");
-            str = str.replace(rgx,obj[i])
-        }
-        return str
+            rgx = new RegExp("@"+x,"g");
+            str = str.replace(rgx,obj[x]);
+        })
+        return str;
     }
     , uri: function(){
         return this.replace(/[^a-zA-Z0-9]/g,'_')
@@ -372,7 +372,6 @@ bind(String.prototype,{
 });
 bind(Object.prototype,{
     json:function(){ return JSON.stringify(this) }
-
 });
 bind(Array.prototype, {
     json: function(){ return JSON.stringify(this); }
@@ -734,12 +733,12 @@ class FAAU {
     async call(url, args=null, method='POST', head=null) {
         if(!head) head = {};
         head["Content-Type"] = head["Content-Type"] || "text/plain";
-        head["FA-Custom"] = "@rafsb";
+        // head["FA-Custom"] = "@rafsb";
         return (fetch(url, {
             method: method
             , body: args ? args.json() : null
             , headers : head
-            , credentials: "include"
+            // , credentials: "include"
         }).then(r=>r=r.text()).then(r=>{
             return new CallResponse(url, args, method, head, r.trim());
         }));
@@ -781,6 +780,14 @@ class FAAU {
             target.app(r);
             return r.evalute();
         });
+    }
+
+    async exec(url, args=null){
+        return this.call(url).then(r=>{
+            if(!r.status) return app.error("error loading "+url);
+            if(args) r.data = r.data.prepare(args);
+            return eval(r.data.prepare(app.colors()));
+        })
     }
 
     get(el,scop=document) { return [].slice.call(scop ? scop.querySelectorAll(el) : this.nodes.querySelectorAll(el)); }
@@ -911,9 +918,31 @@ class FAAU {
 
     storage(field=null,value=null){
         if(!field) return false;
-        if(!value) return window.localStorage.getItem(field);
+        if(value===null) return window.localStorage.getItem(field);
         window.localStorage.setItem(field,value);
         return window.localStorage;
+    }
+
+    cook(field=null, value=null, days=356){
+        if(field){
+            let
+            date = new Date();
+            if(value!==null){
+                date.setTime(date.getTime()+(days>0?days*24*60*60*1000:days));
+                document.cookie = field+"="+value+"; expires="+date.toGMTString()+"; path=/";
+            }else{
+                field += "=";
+                document.cookie.split(';').each(c=>{
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if(c.indexOf(field)==0) value = c.substring(field.length,c.length);
+                });
+                return value
+            }
+        }
+    }
+
+    ucook(field=null){
+        if(field) app.cook(field,"",-1);
     }
 
     isMobile(){
