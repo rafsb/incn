@@ -1,45 +1,9 @@
 const 
-SPLASH   = 0
-, HOME   = 1
-, FEED   = 2
-, SOCIAL = 3
-, SEEK   = 4
-, NOTIFICATION = 5
-, MENU   = 6
+START 	  	= 0
 ;
-
-var
-__come = new Event('come')
-, __go = new Event('go');
-
-app.hash = app.storage("hash") || "@";
-app.body = $("body")[0];
-app.initial_pragma = HOME;
-
-app.pragma_colors = [
-	app.colors().CLR_CLOUDS
-	, app.colors().CLR_CLOUDS
-	, app.colors().CLR_MIDNIGHT_BLUE
-	, app.colors().CLR_POMEGRANATE 
-	, app.colors().CLR_WISTERIA
-	, app.colors().CLR_PUMPKIN
-	, app.colors().CLR_GREEN_SEA
-];
-
-bootstrap.loaders = { 
-	// screens
-	splash: 0
-	, home: 0
-	, feed: 0
-	, social: 0
-	, seek: 0
-	, notification: 0
-	, menu: 0
-	// components
-	, footer: 0
-	, tile:0
-	// stuff
-	, footer_icons:0
+bootstrap.loaders = {
+	// secreens
+	start    	 : false
 };
 
 app.components = {};
@@ -119,3 +83,4 @@ __scroll.left(()=>{
 });
 
 __scroll.fire();
+
