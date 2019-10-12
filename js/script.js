@@ -1,5 +1,11 @@
 const 
-START 	  	= 0
+START = 0
+, HOME = 1
+, FEED = 2
+, SOCIAL = 3
+, SEEK = 4
+, NOTIFICATION = 5
+, MENU = 6
 ;
 
 var

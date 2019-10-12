@@ -148,7 +148,6 @@ bind(Element.prototype,{
                 case "invert"     : this.style.filter    = 'invert('+obj[i]+')';               break;
                 default           : this.style[i]        = obj[i];                             break;
             }
-            all.each(x=>me.append(x))
         }
         if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1,this);
         return this;
@@ -501,7 +500,7 @@ bind(Array.prototype, {
     }
     , evalute: function(){
         this.each(me=>{ 
-            if(me.tagName.toLowerCase()=="script"){ eval(me.textContent); me.remove() }
+            if(me.tagName.toLowerCase()=="script") eval(me.textContent); 
             else me.get("script").evalute()
         })
     }
@@ -895,7 +894,7 @@ class FAAU {
             $(".--default-loading").each(x=>{ clearInterval(x.dataset.animation); x.remove() });
             return
         }
-        app.body.append(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
+        app.body.app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
 
          app.load("src/img/loading.svg",null,$(".--default-loading")[0],function(){
             let

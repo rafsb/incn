@@ -8,7 +8,7 @@
 
 		let
 		splash = $(".--screen.--splash").at().css({background:"@BACKGROUND"});
-		app.call("src/img/logos/incn.svg").then(r => {
+		app.call("src/img/logos/logo.svg").then(r => {
 			if(r.status==200) r = r.data.morph()[0];
 			else return;
 			r.get("path").each((me, i) => me.css({
