@@ -1,33 +1,33 @@
 <template>
 	<script type="text/javascript">
 		let
-		footer = $("body>footer").at().css({opacity:0}, me => me.anime({opacity:1, background:"@CLR_FOREGROUND"}))
+		footer = $("body>footer").at().css({opacity:0}, me => me.anime({opacity:1, background:"@FOREGROUND"}))
 		, icon_tile = _("nav", "-only-pointer -col-3 -tile --footer-icon-tile");
 
 		app.call("src/img/icons/rss.svg").then(svg=>{
 			svg = svg.data.morph().css({padding:"1em", height:"4.05em"})[0];
-			svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
-			footer.append(icon_tile.cloneNode(true).data({pragma:FEED}).append(svg));
+			svg.get("path").css({fill:"@WET_ASPHALT"});
+			footer.app(icon_tile.cloneNode(true).data({pragma:FEED}).app(svg));
 				
 			app.call("src/img/icons/message.svg").then(svg=>{
 				svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
-				svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
-				footer.append(icon_tile.cloneNode(true).data({pragma:SOCIAL}).append(svg));
+				svg.get("path").css({fill:"@WET_ASPHALT"});
+				footer.app(icon_tile.cloneNode(true).data({pragma:SOCIAL}).app(svg));
 
 				app.call("src/img/icons/search.svg").then(svg=>{
 					svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
-					svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
-					footer.append(icon_tile.cloneNode(true).data({pragma:SEEK}).append(svg));
+					svg.get("path").css({fill:"@WET_ASPHALT"});
+					footer.app(icon_tile.cloneNode(true).data({pragma:SEEK}).app(svg));
 
 					app.call("src/img/icons/bell.svg").then(svg=>{
 						svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
-						svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
-						footer.append(icon_tile.cloneNode(true).data({pragma:NOTIFICATION}).append(svg));
+						svg.get("path").css({fill:"@WET_ASPHALT"});
+						footer.app(icon_tile.cloneNode(true).data({pragma:NOTIFICATION}).app(svg));
 
 						app.call("src/img/icons/menu-hbg.svg").then(svg=>{
 							svg = svg.data.morph().css({padding:"1em", height:"4em"})[0];
-							svg.get("path").css({fill:"@CLR_WET_ASPHALT"});
-							footer.append(icon_tile.cloneNode(true).data({pragma:MENU}).append(svg));
+							svg.get("path").css({fill:"@WET_ASPHALT"});
+							footer.app(icon_tile.cloneNode(true).data({pragma:MENU}).app(svg));
 
 							$(".--footer-icon-tile").on("click",function(){
 								app.pragma = this.dataset.pragma;

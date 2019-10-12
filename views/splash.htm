@@ -1,13 +1,13 @@
 <template>
 	
 	<!-- progress bar -->
-	<div class="-fixed -zero-bottom  -row"><div class="--boot-progress -left" style="width:0;background:@CLR_WET_ASPHALT;height:.5em;"></div></div>
+	<div class="-fixed -zero-bottom  -row"><div class="--boot-progress -left" style="width:0;background:@WET_ASPHALT;height:.5em;"></div></div>
 
 	<!-- scripts -->
 	<script>
 
 		let
-		splash = $(".--screen.--splash").at().css({background:"@CLR_BACKGROUND"});
+		splash = $(".--screen.--splash").at().css({background:"@BACKGROUND"});
 		app.call("src/img/logos/incn.svg").then(r => {
 			if(r.status) r = r.data.morph()[0];
 			else return;
@@ -15,7 +15,7 @@
 				opacity:0
 				, "stroke-dasharray":  me.getTotalLength()
 				, "stroke-dashoffset": me.getTotalLength()
-				, "stroke": app.colors().CLR_WET_ASPHALT
+				, "stroke": app.colors().WET_ASPHALT
 			}, me => {
 				me.anime({opacity:1, "stroke-dashoffset":0}, null, ANIMATION_LENGTH, ANIMATION_LENGTH/2*i);
 			}));

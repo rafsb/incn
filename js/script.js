@@ -17,13 +17,13 @@ app.body = $("body")[0];
 app.initial_pragma = HOME;
 
 app.pragma_colors = [
-	app.colors().CLR_CLOUDS
-	, app.colors().CLR_CLOUDS
-	, app.colors().CLR_MIDNIGHT_BLUE
-	, app.colors().CLR_POMEGRANATE 
-	, app.colors().CLR_WISTERIA
-	, app.colors().CLR_PUMPKIN
-	, app.colors().CLR_GREEN_SEA
+	app.colors().CLOUDS
+	, app.colors().CLOUDS
+	, app.colors().MIDNIGHT_BLUE
+	, app.colors().POMEGRANATE 
+	, app.colors().WISTERIA
+	, app.colors().PUMPKIN
+	, app.colors().GREEN_SEA
 ];
 
 bootstrap.loaders = { 
@@ -95,7 +95,7 @@ app.onPragmaChange.add(x => {
 		else this.dispatchEvent(__go);
 	});
 	$(".--footer-icon-tile svg").each((z,i) => z.anime({filter: "invert("+(x==HOME || i+2!=x ? 0 : 1)+")" }));
-	$(".--footer-icon-tile").each((z,i) => z.anime({background: (x==HOME || i+2!=x ? app.colors().CLR_CLOUDS : app.pragma_colors[x]) }));
+	$(".--footer-icon-tile").each((z,i) => z.anime({background: (x==HOME || i+2!=x ? app.colors().CLOUDS : app.pragma_colors[x]) }));
 });
 
 __scroll = new Swipe(app.body);
