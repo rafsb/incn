@@ -148,6 +148,7 @@ bind(Element.prototype,{
                 case "invert"     : this.style.filter    = 'invert('+obj[i]+')';               break;
                 default           : this.style[i]        = obj[i];                             break;
             }
+            all.each(x=>me.append(x))
         }
         if(fn!==null&&typeof fn=="function") this.dataset.animationFunction = setTimeout(fn.bind(this),len*1000+delay+1,this);
         return this;
@@ -894,7 +895,7 @@ class FAAU {
             $(".--default-loading").each(x=>{ clearInterval(x.dataset.animation); x.remove() });
             return
         }
-        app.body.app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
+        app.body.append(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
 
          app.load("src/img/loading.svg",null,$(".--default-loading")[0],function(){
             let
