@@ -787,15 +787,23 @@ class FAAU {
         //head["FA-Custom"] = "@rafsb"
         const 
         req = await fetch(url, {
+        // return (fetch(url, {
             method: method
             , body: args ? args.json() : null
             , headers : head
             , mode: "no-cors"
-            , credentials: "omit"
+            , credentials: "include"
+            // , credentials: "include"
             , cache: "no-cache"
             , redirect: "follow"
             , referrer: "no-referrer"
         })
+        // }).then(r=>r=r.text()).then(r=>{
+        //     return new CallResponse(url, args, method, head, r.trim());
+        // }));
+        // }).then(r=>r=r.text()).then(r=>{
+        //     return new CallResponse(url, args, method, head, r.trim());
+        // }));
         , ans = await req.text();
         return new CallResponse(url, args, method, head, ans.trim());
     }

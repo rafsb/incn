@@ -1,20 +1,26 @@
 <template>
 	
 	<!-- progress bar -->
-	<div class="-fixed -zero-bottom  -row"><div class="--boot-progress -left" style="width:0;background:@CLR_SPAN;height:.5em;"></div></div>
+	<div class="-fixed -zero-bottom  -row"><div class="--boot-progress -left" style="width:0;background:@CLR_WET_ASPHALT;height:.5em;"></div></div>
 
 	<!-- scripts -->
 	<script>
-		let
-		splash = $(".--screen.--splash").at().setStyle({background:"@CLR_BACKGROUND"});
 
-		app.call("src/img/logos/incn.svg").then(r=>{
-			if(r.status) r = r.data.morph();
+		let
+		splash = $(".--screen.--splash").at().css({background:"@CLR_BACKGROUND"});
+		app.call("src/img/logos/incn.svg").then(r => {
+			if(r.status) r = r.data.morph()[0];
 			else return;
-			r.get("path").each((me, i) => me.setStyle({opacity:0, "stroke-dasharray":me.getTotalLength(),"stroke-dashoffset":me.getTotalLength()}, me => {
-				me.anime({opacity:1, "stroke-dashoffset":0}, ANIMATION_LENGTH, ANIMATION_LENGTH/2*i);
+			r.get("path").each((me, i) => me.css({
+				opacity:0
+				, "stroke-dasharray":  me.getTotalLength()
+				, "stroke-dashoffset": me.getTotalLength()
+				, "stroke": app.colors().CLR_WET_ASPHALT
+			}, me => {
+				me.anime({opacity:1, "stroke-dashoffset":0}, null, ANIMATION_LENGTH, ANIMATION_LENGTH/2*i);
 			}));
-			splash.prepend(r.setStyle({width:"40%"},()=>{ setTimeout(() => bootstrap.ready("splash"), ANIMATION_LENGTH*3) }));
+			splash.prepend(r.css({width:"40%"},()=>{ setTimeout(() => bootstrap.ready("splash"), ANIMATION_LENGTH*3) }));
+			app.components.logo_svg = r.cloneNode(true);
 		});
 	</script>
 

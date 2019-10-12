@@ -11,7 +11,7 @@
 		<link rel="manifest" href="manifest.json"/>
 		<!-- Begin: Apple Meta Tags -->
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
-		<meta name="apple-mobile-web-app-title" content="Spume | Real Time"/>
+		<meta name="apple-mobile-web-app-title" content=""/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 		<meta name="format-detection" content="telephone=no"/>
 		<link rel="apple-touch-icon" sizes="180x180" href="src/img/favicon/apple-touch-icon-180x180.png"/> <!-- iPhone -->
@@ -49,20 +49,26 @@
 	</head>
 	<body id="app" class="-view -zero -content-center">
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-		<section class="--screen --home" data-role='keep'></section>
-		<aside class="--screen --menu" data-role='keep' data-hideposx='right'></aside>
-		<footer></footer>
-		<section class="--screen --notification" data-role='keep' data-hideposy='top'></section>
-		<header></header>
-		<section class="--screen --login" data-role='keep' data-hideposy='bottom'></section>
+		<div class="-view">
+			<section class="-fixed -zero -view --home"></section>
+			<section class="--screen --feed" data-hideposy='bottom'></section>
+			<section class="--screen --social" data-hideposy='bottom'></section>
+			<section class="--screen --seek" data-hideposy='bottom'></section>
+			<!-- <header class="-flex"></header> -->
+			<aside class="--screen --menu" data-hideposy='bottom'></aside>
+			<section class="--screen --notification" data-hideposy='bottom'></section>
+		</div>
+		<footer class="-flex"></footer>
+		<section class="--screen --login" data-hideposy='bottom'></section>
 		<section class="--screen --splash" data-role='dismiss'></section>
 		<!-- Begin: Stylesheets -->
 		<style type="text/css">
-			#app { background: white; color: black; }
-			#app>.--screen { position:fixed; top:0; left:0; margin:0; padding:0; overflow:hidden; height: 100vh; width:100vw; }
-			#app>.--screen:not(.--splash) { padding:4em 2px; }
-			#app>header, #app>footer { position: fixed; left:0; width:100vw; height:4em;}
-			#app>header { top: 0;   }
+			#app>div>.--screen, #app>.--screen { position:fixed; top:0; left:0; margin:0; overflow:hidden; height: 100vh; width:100vw; }
+			#app>div>.--screen { padding:4em 2px; }
+			#app>div>.--splash { padding:0;}
+			#app .--screen:not(.--splash) { opacity:0;}
+			#app>div>header, #app>footer { position: fixed; left:0; width:100vw; height:4em; }
+			#app>div>header { top: 0;  }
 			#app>footer { bottom:0; }
 		</style>
 		<!-- Begin: Scripts -->
