@@ -16,10 +16,11 @@ ANIMATION_LENGTH = 800
 , PASSWD_AUTO_HASH  = true;
 ;
 var
-bind = (e,o)=>{
+bind = function(e,o){
     let
     a = Object.keys(o);
-    for(let i=a.length;i--;) e[a[a.length-i-1]]=o[a[a.length-i-1]]
+    for(let i=a.length;i--;) e[a[a.length-i-1]]=o[a[a.length-i-1]];
+    return e
 };
 NodeList.prototype.array = function() {
     return [].slice.call(this);
@@ -39,6 +40,15 @@ bind(HTMLFormElement.prototype,{
         });
         return tmp;
     }
+    , stringify: function(){
+        return JSON.stringify(this.json())
+    }
+});
+bind(HTMLInputElement.prototype, {
+    val: function(v=null) {
+        if(v!==null) this.value = v;
+        return this.value
+    }
     , up: function(name, path, fn=null, mini=false) {
         let
         ctnr = this.uid()
@@ -57,29 +67,62 @@ bind(HTMLFormElement.prototype,{
         //     $(".--progress").anime({width:(d.loaded/d.total*100)+"%"});
         // }
         if(fn) xhr.upload.onload = function() {
-            let
-            timer = setInterval(function() {
-                if (xhr.responseText) {
-                    eval(fn)(JSON.parse(xhr.responseText));
-                    clearInterval(timer);
-                }
-                if (counter++ >= ANIMATION_LENGTH) {
-                    app.notify("Ops! Imagem n茫o pode ser carregada, chama o Berts!",["#ff0066","white"]);
-                    clearInterval(timer);
-                }
-            }, ANIMATION_LENGTH/10);
+            // let
+            // timer = setInterval(function() {
+            //     if (xhr.responseText) {
+            //         eval(fn)(JSON.parse(xhr.responseText));
+            //         clearInterval(timer);
+            //     }
+            //     if (counter++ >= ANIMATION_LENGTH) {
+            //         app.notify("Ops! Imagem n茫o pode ser carregada, chama o Berts!",["#ff0066","white"]);
+            //         clearInterval(timer);
+            //     }
+            // }, ANIMATION_LENGTH/10);
+            console.log(xhr.responseText)
         }
         xhr.upload.onerror = function() {
             app.notify("Ops! N茫o foi poss铆vel subir esta imagem... chama o berts...",["#ff0066","white"]);
         };
         xhr.open("POST", "image/upload");
         xhr.send(form);
-    }
-});
-bind(HTMLInputElement.prototype, {
-    val: function(v=null) {
-        if(v!==null) this.value = v;
-        return this.value
+
+        const formData = new FormData();
+        // const fileField = document.querySelector('input[type="file"]');
+
+        // formData.append('username', 'abc123');
+        // formData.append('avatar', fileField.files[0]);
+
+        // try {
+        // const response = await fetch('https://example.com/profile/avatar', {
+        //     method: 'PUT',
+        //     body: formData
+        // });
+        // const result = await response.json();
+        // console.log('Success:', JSON.stringify(result));
+        // } catch (error) {
+        // console.error('Error:', error);
+        // }
+
+
+
+        // const formData = new FormData();
+        // const photos = document.querySelector('input[type="file"][multiple]');
+
+        // formData.append('title', 'My Vegas Vacation');
+        // for (let i = 0; i < photos.files.length; i++) {
+        // formData.append('photos', photos.files[i]);
+        // }
+
+        // try {
+        // const response = await fetch('https://example.com/posts', {
+        //     method: 'POST',
+        //     body: formData
+        // });
+        // const result = await response.json();
+        // console.log('Success:', JSON.stringify(result));
+        // } catch (error) {
+        // console.error('Error:', error);
+        // }
     }
 });
 bind(Element.prototype,{
@@ -114,10 +157,8 @@ bind(Element.prototype,{
         this.dataset.animationFunction = "";
         return this
     }
-    , empty: function(a=null) {
-        if(a){ if(typeof a == 'string') a = a.split(',') }
-        else a = [];
-        this.get("*").each(x=>{if(!(a.indexOf(x.tagName)+1)) x.remove()});
+    , empty: function() {
+        this.html("");
         return this
     }
     , css: function(o=null, fn = null) {
@@ -143,7 +184,7 @@ bind(Element.prototype,{
         return this
     }
     , text: function(t=null, fn=null){
-        if(!t) return this;
+        if(!t) return this.textContent;
         this.textContent = t;
         if(fn) return fn.bind(this)(this);
         return this;
@@ -166,31 +207,31 @@ bind(Element.prototype,{
         if(fn!==null&&typeof fn=="function") fn.bind(this)(this);
         return this;
     }
-    , after: function(obj=null) {
+    , aft: function(obj=null) {
         let
         el=this;
-        if(Array.isArray(obj)) obj.each(o=>el.after(o));
+        if(Array.isArray(obj)) obj.each(o=>el.aft(o));
         else if(obj) el.insertAdjacentElement("afterend",obj);
         return this;
     }
-    , before: function(obj=null) {
+    , bef: function(obj=null) {
         let
         el=this;
-        if(Array.isArray(obj)) obj.each(o=>el.before(o));
+        if(Array.isArray(obj)) obj.each(o=>el.bef(o));
         else if(obj) el.insertAdjacentElement("beforebegin",obj);
         return this;
     }
-    , append: function(obj=null) {
+    , app: function(obj=null) {
         let
         el=this;
-        if(Array.isArray(obj)) obj.each(o=>el.append(o));
+        if(Array.isArray(obj)) obj.each(o=>el.app(o));
         else if(obj) el.insertAdjacentElement("beforeend",obj);
         return this;
     }
-    , prepend: function(obj=null) {
+    , pre: function(obj=null) {
         let
         el=this;
-        if(Array.isArray(obj)) obj.each(o=>el.prepend(o));
+        if(Array.isArray(obj)) obj.each(o=>el.pre(o));
         else if(obj) el.insertAdjacentElement("afterbegin",obj);
         return this;
     }
@@ -234,6 +275,16 @@ bind(Element.prototype,{
         while(pace--) tmp = tmp.parentElement;
         return tmp;
     }
+    , upFind(tx=null){
+        if(tx){
+            let
+            x = this;
+            while (x.parentElement.tagName.toLowerCase() != "body" && !(x.parentElement.tagName.toLowerCase()==tx || x.parentElement.has(tx))) x = x.parentElement;
+            
+            return x.parentElement
+        }
+        return this.parentElement
+    }
     , inPage: function() {
         let
         page = {
@@ -275,9 +326,11 @@ bind(Element.prototype,{
         return this;
     }
     , addClass: function(c) {
-        let
-        tmp = c.split(/\s+/g), i=tmp.length;
-        if(c.length) while(i--) this.classList.add(tmp[i]);
+        if(c){
+            let
+            tmp = c.split(/\s+/g), i=tmp.length;
+            if(c.length) while(i--) this.classList.add(tmp[i]);
+        }
         return this;
     }
     , toggleClass: function(c) {
@@ -304,8 +357,8 @@ bind(Element.prototype,{
     , appear: function(len = ANIMATION_LENGTH, fn=null) {
         return this.css({display:'inline-block'}, x=>x.anime({opacity:1}, fn, len))
     }
-    , desappear: function(len = ANIMATION_LENGTH, remove = false) {
-        return this.anime({opacity:0}, x=>{ if(remove) x.remove(); else x.css({display:"none"}) }, len);
+    , desappear: function(len = ANIMATION_LENGTH, remove = false, fn=null) {
+        return this.anime({opacity:0}, x=>{ if(remove) x.remove(); else x.css({display:"none"}); if(fn) fn(remove ? null : this); }, len);
     }
     , remove: function() { this&&this.parent()&&this.parent().removeChild(this) }
 });
@@ -347,13 +400,13 @@ bind(String.prototype,{
     , prepare: function(obj=null){
         if(!obj) return this;
         let
-        str = this;
-        for(i in obj){
+        str = this.trim();
+        Object.keys(obj).each(x=>{
             let
-            rgx = new RegExp("@"+i,"g");
-            str = str.replace(rgx,obj[i])
-        }
-        return str
+            rgx = new RegExp("@"+x,"g");
+            str = str.replace(rgx,obj[x]);
+        })
+        return str;
     }
     , uri: function(){
         return this.replace(/[^a-zA-Z0-9]/g,'_')
@@ -369,10 +422,7 @@ bind(String.prototype,{
     }
 });
 bind(Object.prototype,{
-    json:function(){ return JSON.stringify(this); }
-    , stringify: function() {
-        return JSON.stringify(this);
-    }
+    json:function(){ return JSON.stringify(this) }
 });
 bind(Array.prototype, {
     json: function(){ return JSON.stringify(this); }
@@ -402,9 +452,6 @@ bind(Array.prototype, {
     , last: function() { return this.length ? this[this.length-1] : null; }
     , first: function() { return this.length ? this[0] : null; }
     , at: function(n=0) { return this.length>=n ? this[n] : null; }
-    , stringify: function() {
-        return JSON.stringify(this);
-    }
     , not: function(el) { 
         let
         arr = this;
@@ -460,8 +507,12 @@ bind(Array.prototype, {
     , appear: function(len = ANIMATION_LENGTH) {
         return this.each(x=>x.css({display:'block'},x=>x.anime({opacity:1}, null, len, 1)))
     }
-    , desappear: function(len = ANIMATION_LENGTH, remove = false){
-        return this.each(x=>x.anime({opacity:0}, x=>{ if(remove) x.remove(); else x.css({ display : "none" }) }, len, 1))
+    , desappear: function(len = ANIMATION_LENGTH, remove = false, fn=null){
+        return this.each(x=>x.desappear(len,remove,fn))
+    }
+    , val: function(v=null){
+        if(v) this.each(x=>{ if(x.tagName.toLowerCase()=="input") x.value = v })
+        return this.extract(x=>{ return x.tagName.toLowerCase()=="input" ? x.value || " " : null})
     }
 });
 
@@ -730,22 +781,27 @@ class FAAU {
     get(e,w){ return faau.get(e,w||document).nodearray; }
     declare(obj){ Object.keys(obj).each(x=>window[x]=obj[x]) }
     initialize(){ bootstrap&&bootstrap.loadComponents.fire() }
-    async call(url, args=null, method='POST', head=null) {
-        if(!head) head = {};
-        head["Content-Type"] = head["Content-Type"] || "text/plain"
-        head["FA-Custom"] = "@rafsb"
-        return fetch(url, {
+    async fetch(url, args=null, method='POST', head=null) {
+        if(!head) head = new Headers();
+        head["Content-Type"] = head["Content-Type"] || "application/json";
+        //head["FA-Custom"] = "@rafsb"
+        const 
+        req = await fetch(url, {
             method: method
-            , body: args ? args.stringify() : null
+            , body: args ? args.json() : null
             , headers : head
-            , credentials: "include"
-        }).then(r=>r=r.text()).then(r=>{
-            return new CallResponse(url, args, method, head, r.trim());
-        });
+            , mode: "no-cors"
+            , credentials: "omit"
+            , cache: "no-cache"
+            , redirect: "follow"
+            , referrer: "no-referrer"
+        })
+        , ans = await req.text();
+        return new CallResponse(url, args, method, head, ans.trim());
     }
 
-    async xhr_call(url, args=null, method="POST", fn=null, head=null){
-        let
+    async call(url, args=null, method="POST", head=null){
+        const
         o = new Promise(function(accepted,rejected){
             let
             o = new CallResponse(url, args, method)
@@ -755,13 +811,11 @@ class FAAU {
                 if (xhr.readyState == 4) {
                     o.status = xhr.status;
                     o.data = xhr.responseText.trim();
-                   if(fn) fn.bind(o)(o);
                    return accepted(o);
                 };
             }
-            head = head ? head : {};
-
-            xhr.open(method,url);
+            head = head ? head : new Headers();
+            xhr.open(method,url);   
             head["Content-Type"] = head["Content-Type"] || "text/plain"
             head["FA-Custom"] = "@rafsb"
             o.headers = head;
@@ -777,35 +831,40 @@ class FAAU {
             if(!r.status) return app.error("error loading "+url);
             r = r.data.prepare(app.colors()).morph();
             if(!target) target = app.get('body')[0];
-            target.append(r);
+            target.app(r);
             return r.evalute();
         });
     }
 
+    async exec(url, args=null){
+        return this.call(url).then(r=>{
+            if(!r.status) return app.error("error loading "+url);
+            if(args) r.data = r.data.prepare(args);
+            return eval(r.data.prepare(app.colors()));
+        })
+    }
+
     get(el,scop=document) { return [].slice.call(scop ? scop.querySelectorAll(el) : this.nodes.querySelectorAll(el)); }
 
-    nuid(n=8) { let a = "FA"; n-=2; while(n-->0) { a+="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split('')[parseInt((Math.random()*36)%36)] } return a }
+    nuid(n=8) { let a = "F"; n--; while(n-->0) { a+="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split('')[parseInt((Math.random()*36)%36)] } return a }
 
     notify(n, c=null) {
         let
-        toast = document.createElement("toast");
-        toast.css({
-            fontSize: "1rem",
-            background: c&&c[0] ? c[0] : "rgba(255,255,255,.8)",
-            color: c&&c[1] ? c[1] : "black",
-            boxShadow:"0 0 8px gray",
-            zIndex:200000,
-            display:'block',
-            opacity:0,
-            position:"fixed"
+        toast = document.createElement("toast")
+        , clr = app.colors();
+        toast.addClass("-fixed  -content-left").css({
+            background: c&&c[0] ? c[0] : clr.LIGHT3
+            , color: c&&c[1] ? c[1] : clr.WET_ASPHALT
+            , boxShadow:"0 0 .5em "+clr.DARK2
+            , display:'block'
+            , opacity:0
         }).innerHTML = n ? n : "Hello <b>World</b>!!!";
         if(!this.isMobile()) {
             toast.css({
                 top:0,
                 left:"80vw",
-                width:"calc(20vw - 4rem)",
-                padding:".5rem",
-                borderRadius:".5rem",
+                width:"calc(20vw - 1em)",
+                padding:".5rem"
             });
         }else{
             toast.css({
@@ -819,9 +878,10 @@ class FAAU {
         toast.onclick = function() { clearTimeout(this.dataset.delay);this.desappear(ANIMATION_LENGTH/2,true); };
         toast.onmouseenter = function() { clearTimeout(this.dataset.delay); };
         toast.onmouseleave = function() {
-            this.dataset.delay = setTimeout(function(t) { t.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH, this);
+            this.dataset.delay = setTimeout(t=>{ t.desappear(ANIMATION_LENGTH/2,true); }, ANIMATION_LENGTH, this);
         };
         document.getElementsByTagName('body')[0].appendChild(toast);
+        tileClickEffectSelector("toast");
         
         let
         notfys = app.get("toast");
@@ -834,7 +894,7 @@ class FAAU {
             $(".--default-loading").each(x=>{ clearInterval(x.dataset.animation); x.remove() });
             return
         }
-        app.body.append(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
+        app.body.app(document.createElement("div").addClass("-fixed -view -zero --default-loading"));
 
          app.load("src/img/loading.svg",null,$(".--default-loading")[0],function(){
             let
@@ -859,33 +919,54 @@ class FAAU {
         app.notify(message || "Hooray! Success!", ["#3CB371","whitesmoke"])
     }
 
-    hintify(n, o={},delall=true,keep=false,special=false,evenSpecial=false) {
+    hintify(n=null, o={},delall=true,keep=false,special=false,evenSpecial=false) {
+
         if(delall) $(".--hintifyied"+(evenSpecial?", .--hintifyied-sp":"")).each(x=>x.remove());
 
+        o.top = o.top||o.top==0 ? o.top : (mouseAxis.y)+"px";
+        o.left = o.left||o.left==0 ? o.left : (mouseAxis.x)+"px";
+        o.padding = o.padding||o.padding==0 ? o.padding : ".5em";
+        o.borderRadius = o.borderRadius ? o.borderRadius : ".25em";
+        o.boxShadow =  o.boxShadow ? o.boxShadow :  "0 0 .5em "+app.colors().DARK1;
+        o.background =  o.background ? o.background : this.colors().DARK4;
+        o.color =  o.color ?  o.color : this.colors().CLOUDS;
+        o.fontSize = o.fontSize ? o.fontSize : "1em";
+
         let
-        toast = app.new("toast");
-        n = (typeof n == 'string' ? n.morph() : n);
-        o.display = 'inline-block';
-        o.transform = 'scale(1.05)';
-        o.opacity = 0;
-        o.zIndex = 200000;
-        o.top = o.top||o.top==0 ? o.top : (mouseAxis.y+24)+"px";
-        o.left = o.left||o.left==0 ? o.left : (mouseAxis.x+24)+"px";
-        o.padding = o.padding||o.padding==0 ? o.padding : ".5rem";
-        o.borderRadius = o.borderRadius ? o.borderRadius : "3px";
-        o.boxShadow =  o.boxShadow ? o.boxShadow :  "0 0 8px gray";
-        o.background =  o.background ? o.background : "rgba(40,40,40,.92)";
-        o.color =  o.color ?  o.color : "white";
-        o.position = "absolute";
-        o.fontSize = o.fontSize ? o.fontSize : "1rem";
-        toast.css(o).addClass("--hintifyied"+(special?"-sp":"")).appendChild(n ? n : ("<b>路路路</b>!!!").morph());
+        toast = _("toast","-block -absolute --hintifyied"+(special?"-sp":""),o).css({opacity:0}).app(n||"<b>路路路!!!</b>".morph());
+        if(toast.get(".--close").length) toast.get(".--close").at().on("click",function(){ this.upFind("toast").desappear(ANIMATION_LENGTH, true) })
+        else toast.on("click",function(){ this.desappear(ANIMATION_LENGTH, true) });
+        
+        if(!keep) toast.on("mouseleave",function(){ $(".--hintifyied"+(special?", .--hintifyied-sp":"")).desappear(ANIMATION_LENGTH, true) });
 
-        if(toast.get(".--close").length) toast.get(".--close").at().on("click",function() { $(".--hintifyied"+(special?", .--hintifyied-sp":"")).remove() });
-        else toast.on("click",function() { this.remove() });
-        if(!keep) toast.on("mouseleave",function() {$(".--hintifyied"+(special?", .--hintifyied-sp":"")).remove() });
+        $('body')[0].app(toast.appear());
+    }
 
-        toast.anime({scale:1,opacity:1});
-        $('body')[0].append(toast);
+    window(n=null, html=null, css={}){
+        let
+        head = _("header","-row -left -content-left -zero",{background:app.colors().DARK3,padding:".25em", color:app.colors().CLOUDS}).text(n || "¬¬").app(
+            _("div","-absolute -zero-tr -pointer --close -tile",{padding:".25em", fontWeight:"bolder"}).app(
+                 _("img",null,{height:"1em",marginRight:".25em", filter:"invert(1)"}).attr({src:"src/img/icons/cross.svg"})
+            )
+        )
+        , wrapper = _("div", "-wrapper -zero -no-scrolls",{background:"inherit",boxShadow:"0 0 1em "+app.colors().DARK2})
+            .app(_("blur"))
+            .app(head);
+
+        if(html) wrapper.app(html);
+        
+        css["top"]        = css["top"]        || "4.5em";
+        css["left"]       = css["left"]       || "2em";
+        css["width"]      = css["width"]      || "calc(100vw - 4em)";
+        css["height"]     = css["height"]     || "calc(100vh - 10em)";
+        css["padding"]    = css["padding"]    || "none";
+        css["background"] = css["background"] || "inherit";
+        css["color"]      = css["color"]      || app.colors().WET_ASPHALT;
+
+        this.hintify(wrapper,css,true,true,true, true);
+
+        tileClickEffectSelector(".-tile")
+
     }
 
     apply(fn,obj=null) { return (fn ? fn.bind(this)(obj) : null) }
@@ -917,9 +998,31 @@ class FAAU {
 
     storage(field=null,value=null){
         if(!field) return false;
-        if(!value) return window.localStorage.getItem(field);
+        if(value===null) return window.localStorage.getItem(field);
         window.localStorage.setItem(field,value);
         return window.localStorage;
+    }
+
+    cook(field=null, value=null, days=356){
+        if(field){
+            let
+            date = new Date();
+            if(value!==null){
+                date.setTime(date.getTime()+(days>0?days*24*60*60*1000:days));
+                document.cookie = field+"="+value+"; expires="+date.toGMTString()+"; path=/";
+            }else{
+                field += "=";
+                document.cookie.split(';').each(c=>{
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if(c.indexOf(field)==0) value = c.substring(field.length,c.length);
+                });
+                return value
+            }
+        }
+    }
+
+    ucook(field=null){
+        if(field) app.cook(field,"",-1);
     }
 
     isMobile(){
@@ -945,39 +1048,41 @@ class FAAU {
         this.color_pallete = {
             light : {
                 /*** SYSTEM***/
-                CLR_BACKGROUND : "#FFFFFF"
-                , CLR_FOREGROUND : "#ECF1F2"
-                , CLR_FONT : "#2C3D4F"
-                , CLR_FONTBLURED:"#7E8C8D"
-                , CLR_SPAN :"#2980B9"
-                , CLR_DISABLED: "#BDC3C8"
-                , CLR_DARK1:"rgba(0,0,0,.16)"
-                , CLR_DARK2:"rgba(0,0,0,.32)"
-                , CLR_DARK3:"rgba(0,0,0,.64)"
-                , CLR_LIGHT1:"rgba(255,255,255,.16)"
-                , CLR_LIGHT2:"rgba(255,255,255,.32)"
-                , CLR_LIGHT3:"rgba(255,255,255,.64)"
+                BACKGROUND : "#FFFFFF"
+                , FOREGROUND : "#ECF1F2"
+                , FONT : "#2C3D4F"
+                , FONTBLURED:"#7E8C8D"
+                , SPAN :"#2980B9"
+                , DISABLED: "#BDC3C8"
+                , DARK1:"rgba(0,0,0,.8)"
+                , DARK2:"rgba(0,0,0,.16)"
+                , DARK3:"rgba(0,0,0,.32)"
+                , DARK4:"rgba(0,0,0,.64)"
+                , LIGHT1:"rgba(255,255,255,.8)"
+                , LIGHT2:"rgba(255,255,255,.16)"
+                , LIGHT3:"rgba(255,255,255,.32)"
+                , LIGHT4:"rgba(255,255,255,.64)"
                 /*** PALLETE ***/
-                , CLR_WET_ASPHALT:"#34495E"
-                , CLR_MIDNIGHT_BLUE:"#2D3E50"
-                , CLR_CONCRETE:"#95A5A5"
-                , CLR_ASBESTOS:"#7E8C8D"
-                , CLR_AMETHYST:"#9C56B8"
-                , CLR_WISTERIA:"#8F44AD"
-                , CLR_CLOUDS:"#ECF0F1"
-                , CLR_SILVER:"#BDC3C8"
-                , CLR_PETER_RIVER:"#2C97DD"
-                , CLR_BELIZE_HOLE:"#2A80B9"
-                , CLR_ALIZARIN:"#E84C3D"
-                , CLR_POMEGRANATE:"#C0382B"
-                , CLR_EMERALD:"#53D78B"
-                , CLR_NEPHIRITIS:"#27AE61"
-                , CLR_CARROT:"#E67D21"
-                , CLR_PUMPKIN: "#D35313"
-                , CLR_TURQUOISE:"#00BE9C"
-                , CLR_GREEN_SEA:"#169F85"
-                , CLR_SUNFLOWER:"#F2C60F"
-                , CLR_ORANGE: "#F39C19"
+                , WET_ASPHALT:"#34495E"
+                , MIDNIGHT_BLUE:"#2D3E50"
+                , CONCRETE:"#95A5A5"
+                , ASBESTOS:"#7E8C8D"
+                , AMETHYST:"#9C56B8"
+                , WISTERIA:"#8F44AD"
+                , CLOUDS:"#ECF0F1"
+                , SILVER:"#BDC3C8"
+                , PETER_RIVER:"#2C97DD"
+                , BELIZE_HOLE:"#2A80B9"
+                , ALIZARIN:"#E84C3D"
+                , POMEGRANATE:"#C0382B"
+                , EMERALD:"#53D78B"
+                , NEPHIRITIS:"#27AE61"
+                , CARROT:"#E67D21"
+                , PUMPKIN: "#D35313"
+                , TURQUOISE:"#00BE9C"
+                , GREEN_SEA:"#169F85"
+                , SUNFLOWER:"#F2C60F"
+                , ORANGE: "#F39C19"
             }
         };
         if(wrapper) {
@@ -1002,22 +1107,28 @@ bind(window, {
     }
     , tileClickEffectSelector: function(cls=null){
         if(!cls) return;
-        $(cls).on("click",function(e){
-            if(this.classList.contains("-skip")) return;
-            let
-            size = Math.max(this.offsetWidth, this.offsetHeight);
-            this.append(_("span","-absolute",{
-                background      : app.colors().CLR_DARK1
-                , display       : "inline-block"
-                , borderRadius  : "50%"
-                , width         : size+"px"
-                , height        : size+"px"
-                , transform     : "scale(0)"
-                , opacity       : .5
-                , top           : (e.offsetY - size/2)+"px"
-                , left          : (e.offsetX - size/2)+"px"
-            }, x=>x.anime({scale:2},x=>x.desappear(ANIMATION_LENGTH/4,true),ANIMATION_LENGTH/2)))
-        }).remClass(cls)
+        $(cls).each(x=>{
+            if(!x.has("--effect-selector-attached")){
+
+                x.on("click",function(e){
+                    if(this.classList.contains("-skip")) return;
+                    let
+                    size = Math.max(this.offsetWidth, this.offsetHeight);
+                    this.app(_("span","-absolute",{
+                        background      : app.colors().DARK1
+                        , display       : "inline-block"
+                        , borderRadius  : "50%"
+                        , width         : size+"px"
+                        , height        : size+"px"
+                        , transform     : "scale(0)"
+                        , opacity       : .5
+                        , top           : (e.offsetY - size/2)+"px"
+                        , left          : (e.offsetX - size/2)+"px"
+                    }, x=>x.anime({scale:2},x=>x.desappear(ANIMATION_LENGTH/4,true),ANIMATION_LENGTH/2)))
+                }).addClass("--effect-selector-attached")
+
+            }
+        })
     }
 });
 app.spy("pragma",function(x){
