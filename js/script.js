@@ -40,6 +40,7 @@ bootstrap.loaders = {
 	, tile:0
 	// stuff
 	, footer_icons:0
+	, stop: 1
 };
 
 app.components = {};

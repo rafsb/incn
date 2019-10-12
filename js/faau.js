@@ -500,7 +500,7 @@ bind(Array.prototype, {
     }
     , evalute: function(){
         this.each(me=>{ 
-            if(me.tagName.toLowerCase()=="script") eval(me.textContent); 
+            if(me.tagName.toLowerCase()=="script"){ eval(me.textContent); me.remove() }
             else me.get("script").evalute()
         })
     }
