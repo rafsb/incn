@@ -12,19 +12,9 @@ var
 __come = new Event('come')
 , __go = new Event('go');
 
-app.hash = app.storage("hash") || "@";
+app.hash = app.storage("hash");
 app.body = $("body")[0];
 app.initial_pragma = HOME;
-
-app.pragma_colors = [
-	app.colors().CLOUDS
-	, app.colors().CLOUDS
-	, app.colors().MIDNIGHT_BLUE
-	, app.colors().POMEGRANATE 
-	, app.colors().WISTERIA
-	, app.colors().PUMPKIN
-	, app.colors().GREEN_SEA
-];
 
 bootstrap.loaders = { 
 	// screens
@@ -37,7 +27,9 @@ bootstrap.loaders = {
 	, menu: 0
 	// components
 	, footer: 0
-	, tile:0
+	// tiles
+	, main_tile: 0
+	, row_tile: 0
 	// stuff
 	, footer_icons:0
 	, stop: 1
@@ -47,17 +39,18 @@ app.components = {};
 
 bootstrap.loadComponents.add(function(){
     // screens
-    app.load("views/splash.htm", null, $(".--screen.--splash")[0]);
-    app.load("views/home.htm",   null, $(".--screen.--home")[0]  );
-    app.load("views/feed.htm",   null, $(".--screen.--feed")[0]  );
-    app.load("views/social.htm", null, $(".--screen.--social")[0]);
-    app.load("views/seek.htm",   null, $(".--screen.--seek")[0]  );
-    app.load("views/notification.htm",   null, $(".--screen.--notification")[0]  );
-    app.load("views/menu.htm",   null, $(".--screen.--menu")[0]  );
+    app.exec("js/screens/splash.js")
+    app.exec("js/screens/home.js")
+    app.exec("js/screens/feed.js")
+    app.exec("js/screens/social.js")
+    app.exec("js/screens/seek.js")
+    app.exec("js/screens/notification.js")
+    app.exec("js/screens/menu.js")
 
     //components
-    app.load("views/components/footer.htm", null, $("body>footer")[0]);
-    app.call("views/tiles/main.htm").then(t => { app.components.tile = t.data.prepare(app.colors()).morph()[0]; bootstrap.ready("tile"); });
+    app.exec("js/components/footer.js")
+	app.exec("js/tiles/main.js")
+	app.exec("js/tiles/row.js")
 });
 
 bootstrap.onFinishLoading.add(function(){
@@ -67,9 +60,9 @@ bootstrap.onFinishLoading.add(function(){
 			if(this.dataset.pragmastate != "shown"){
 				this.data({pragmastate:"shown"});
 				// this.raise()
-				if(this.dataset.hideposx) this.css({display:"inline-block"}, x => x.anime({opacity:1, translateX:0}, null, ANIMATION_LENGTH/2));
-				else if(this.dataset.hideposy) this.css({display:"inline-block"}, x => x.anime({opacity:1, translateY:0}, null, ANIMATION_LENGTH/2));
-				else this.css({display:"inline-block"}, x => x.anime({opacity:1}, null, ANIMATION_LENGTH/2));
+				if(this.dataset.hideposx) this.css({display:"inline-block"}, x => x.stop().anime({opacity:1, translateX:0}, null, ANIMATION_LENGTH/2));
+				else if(this.dataset.hideposy) this.css({display:"inline-block"}, x => x.stop().anime({opacity:1, translateY:0}, null, ANIMATION_LENGTH/2));
+				else this.css({display:"inline-block"}, x => x.stop().anime({opacity:1}, null, ANIMATION_LENGTH/2));
 			}
 		})
 		.on("go",function(){
@@ -79,9 +72,9 @@ bootstrap.onFinishLoading.add(function(){
 				let
 				x = [0,"-20vw","20vw"][["left","right"].indexOf(this.dataset.hideposx)+1]
 				, y = [0,"-20vh","20vh"][["top","bottom"].indexOf(this.dataset.hideposy)+1];
-				if(x) this.anime({ translateX:x, opacity:0 }, z => { if(z.dataset.role=="dismiss") z.remove(); else z.css({display:"none"}); }, ANIMATION_LENGTH/4);
-				else if(y) this.anime({ translateY:y, opacity:0 }, z => { if(z.dataset.role=="dismiss") z.remove(); else z.css({display:"none"}); }, ANIMATION_LENGTH/4);
-				else this.desappear(ANIMATION_LENGTH/4,this.dataset.role=="dismiss"?true:false);
+				if(x) this.stop().anime({ translateX:x, opacity:0 }, z => { if(z.dataset.role=="dismiss") z.remove(); else z.css({display:"none"}); }, ANIMATION_LENGTH/4);
+				else if(y) this.stop().anime({ translateY:y, opacity:0 }, z => { if(z.dataset.role=="dismiss") z.remove(); else z.css({display:"none"}); }, ANIMATION_LENGTH/4);
+				else this.stop().desappear(ANIMATION_LENGTH/4,this.dataset.role=="dismiss"?true:false);
 			}
 		})
 	});
@@ -96,18 +89,18 @@ app.onPragmaChange.add(x => {
 		else this.dispatchEvent(__go)
 	});
 	$(".--footer-icon-tile svg").each((z,i) => z.anime({filter: "invert("+(x==HOME || i+2!=x ? 0 : 1)+")" }));
-	$(".--footer-icon-tile").each((z,i) => z.anime({background: (x==HOME || i+2!=x ? app.colors().CLOUDS : app.pragma_colors[x]) }));
+	$(".--footer-icon-tile").each((z,i) => z.anime({background: (x==HOME || i+2!=x ? app.colors().CLOUDS : app.colors().WET_ASPHALT) }));
 });
 
 __scroll = new Swipe(app.body);
 
-__scroll.up(()=>{
-	if(app.last != HOME) app.pragma = app.last
-});
+// __scroll.up(()=>{
+	
+// });
 
-__scroll.down(()=>{
-	if(app.current != HOME) app.pragma = HOME
-});
+// __scroll.down(()=>{
+	
+// });
 
 __scroll.right(()=>{
 	if(app.current > HOME) app.pragma = app.current-1;

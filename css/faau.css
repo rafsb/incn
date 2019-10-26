@@ -7,6 +7,7 @@ body *:not(script):not(style) {
 	transition: ease all .2s; 
 	font-family: 'OpenSans', cursive;
 	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
 }script,style{ display: none !important}
 
 .-view 			{ width:100vw;height:  100vh; top: 0; left: 0; padding: 0; overflow: hidden; margin: 0 }
@@ -171,15 +172,13 @@ a { text-decoration: none }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-		width: .5rem;
-		display: absolute;
+		width: .25rem;
 }
 ::-webkit-scrollbar-track {
-		/* -webkit-box-shadow: 0 0 .5rem rgba(0,0,0,0.5); */
-		background-color: rgba(0,0,0,.25);
+	background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(0,0,0,.5);
+	background-color: rgba(255,255,255,.5);
 	height: 2rem;
-	border-radius: .25rem;
+	border-radius: .05rem;
 }
