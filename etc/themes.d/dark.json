@@ -1,0 +1,14 @@
+{
+    "BACKGROUND"    : "#000000"
+    , "FOREGROUND"  : "#252526"
+    , "FONT"        : "#ECF1F2"
+    , "FONTBLURED"  : "#BDC3C8"
+    , "SPAN"        : "#3398DB"
+    , "DISABLED" :  "#95A5A6"
+    , "DARK1"    : "rgba(0,0,0,.08)"
+    , "DARK2"    : "rgba(0,0,0,.16)"
+    , "DARK3"    : "rgba(0,0,0,.32)"
+    , "LIGHT1"   : "rgba(255,255,255,.08)"
+    , "LIGHT2"   : "rgba(255,255,255,.16)"
+    , "LIGHT3"   : "rgba(255,255,255,.32)"
+}
