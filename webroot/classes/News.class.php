@@ -20,10 +20,22 @@ class News extends Activity
 		];	
 
 		Async::each(explode(PHP_EOL,$tmp_list), function($url) use ($tmp_path, $patterns){
-			if($url && substr($url,0,1)!=="#") IO::write($tmp_path . DS . preg_replace($patterns,"",$url), Fetch::get($url));
+			if($url && substr(trim($url),0,1)!=="#")
+			{
+				IO::log("fetching " . $url);
+				IO::write($tmp_path . DS . preg_replace($patterns,"",trim($url)), Fetch::get($url));
+			}
 		});
 
 		return 1;
+	}
+
+	public function batch_acquire(){
+		$src_arr = IO::scan("var/rss",null,false);
+		Async::each($src_arr,function($src){ 
+			IO::log("scheduled " . $src);
+			News::acquire($src); 
+		});
 	}
 
 	public static function parse($days=null)

@@ -1,33 +1,31 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 // header('Content-type: text/html; charset=utf-8');
-header('Content-type: application/json; charset=utf-8');
+// header('Content-type: application/json; charset=utf-8');
+header('Content-type: text/plain; charset=utf-8');
 
 session_start();
 
-require "lib" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "autoload.php";
-
-//spl_autoload_register($autoLoadFunction);
-
 require "lib" . DIRECTORY_SEPARATOR . "php" . DIRECTORY_SEPARATOR . "constants.php";
+require "lib" . DS . "php" . DS . "autoload.php";
 
 require "webroot" . DS . "App.php";
 
-if(!User::logged()) if(Request::cook("USER") && Request::cook("ACTIVE")) Request::sess("USER",Request::cook("USER"));
-
-// echo "<pre>";print_r($_SERVER);die;
-
+if(!User::logged() && Request::cook("USER") && Request::cook("ACTIVE")) Request::sess("USER",Request::cook("USER"));
 if(Request::get('_'))
 {   
-    // echo "<pre>";print_r(Request::get('uri'));die;
     $args = explode('/',Request::get('_'));
-    $uri = 'echo (new ' . ucfirst($args[1]) . ")->" . (isset($args[2]) && $args[2] ? $args[2] : "render") . "('" . implode("','",array_slice($args,3)) . "');";
+    $class_name  = ucfirst($args[1]);
+    $method_name = isset($args[2]) && $args[2] ? $args[2] : "render";
+    
+    try{
+        $class_instance = new $class_name($args,sizeof($args));
+        echo $class_instance->$method_name();
+    }catch (Exception $e){
+        IO::debug($e);
+    }
 
-    try{ eval($uri); } catch(Exception $e){ IO::debug($e); Debug::show(); }
-}
-else
-{
-    \App::init();
-}
+}else \App::init();
+
 flush();
 ob_flush();
