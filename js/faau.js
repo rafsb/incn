@@ -265,6 +265,9 @@ bind(Element.prototype,{
         this.get("script").each(x=>{ eval(x.textContent)&&x.remove() })
         return this
     }
+    , double(){
+        return this.cloneNode(true);
+    }
     , on: function(action,fn,passive=true) {
         this.addEventListener(action,fn, {passive:passive})
         return this
@@ -1029,8 +1032,8 @@ class FAAU {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     }
 
-    colors(pallete="light"){
-        return pallete&&this.color_pallete[pallete] ? this.color_pallete[pallete] : this.color_pallete;
+    colors(color=null){
+        return color&&this.color_pallete[color] ? this.color_pallete[color] : this.color_pallete;
     }
 
     hashit(o){ if(typeof o == "object" || typeof o == "array") o = JSON.stringify(o); return { hash: btoa(o) } }
@@ -1046,42 +1049,40 @@ class FAAU {
         this.nodes = document;
         this.nodearray = [];
         this.color_pallete = {
-            light : {
-                /*** SYSTEM***/
-                BACKGROUND : "#FFFFFF"
-                , FOREGROUND : "#ECF1F2"
-                , FONT : "#2C3D4F"
-                , FONTBLURED:"#7E8C8D"
-                , SPAN :"#2980B9"
-                , DISABLED: "#BDC3C8"
-                , DARK1:"rgba(0,0,0,.16)"
-                , DARK2:"rgba(0,0,0,.32)"
-                , DARK3:"rgba(0,0,0,.64)"
-                , LIGHT1:"rgba(255,255,255,.16)"
-                , LIGHT2:"rgba(255,255,255,.32)"
-                , LIGHT3:"rgba(255,255,255,.64)"
-                /*** PALLETE ***/
-                , WET_ASPHALT:"#34495E"
-                , MIDNIGHT_BLUE:"#2D3E50"
-                , CONCRETE:"#95A5A5"
-                , ASBESTOS:"#7E8C8D"
-                , AMETHYST:"#9C56B8"
-                , WISTERIA:"#8F44AD"
-                , CLOUDS:"#ECF0F1"
-                , SILVER:"#BDC3C8"
-                , PETER_RIVER:"#2C97DD"
-                , BELIZE_HOLE:"#2A80B9"
-                , ALIZARIN:"#E84C3D"
-                , POMEGRANATE:"#C0382B"
-                , EMERALD:"#53D78B"
-                , NEPHIRITIS:"#27AE61"
-                , CARROT:"#E67D21"
-                , PUMPKIN: "#D35313"
-                , TURQUOISE:"#00BE9C"
-                , GREEN_SEA:"#169F85"
-                , SUNFLOWER:"#F2C60F"
-                , ORANGE: "#F39C19"
-            }
+            /*** SYSTEM***/
+            BACKGROUND : "#FFFFFF"
+            , FOREGROUND : "#ECF1F2"
+            , FONT : "#2C3D4F"
+            , FONTBLURED:"#7E8C8D"
+            , SPAN :"#2980B9"
+            , DISABLED: "#BDC3C8"
+            , DARK1:"rgba(0,0,0,.16)"
+            , DARK2:"rgba(0,0,0,.32)"
+            , DARK3:"rgba(0,0,0,.64)"
+            , LIGHT1:"rgba(255,255,255,.16)"
+            , LIGHT2:"rgba(255,255,255,.32)"
+            , LIGHT3:"rgba(255,255,255,.64)"
+            /*** PALLETE ***/
+            , WET_ASPHALT:"#34495E"
+            , MIDNIGHT_BLUE:"#2D3E50"
+            , CONCRETE:"#95A5A5"
+            , ASBESTOS:"#7E8C8D"
+            , AMETHYST:"#9C56B8"
+            , WISTERIA:"#8F44AD"
+            , CLOUDS:"#ECF0F1"
+            , SILVER:"#BDC3C8"
+            , PETER_RIVER:"#2C97DD"
+            , BELIZE_HOLE:"#2A80B9"
+            , ALIZARIN:"#E84C3D"
+            , POMEGRANATE:"#C0382B"
+            , EMERALD:"#53D78B"
+            , NEPHIRITIS:"#27AE61"
+            , CARROT:"#E67D21"
+            , PUMPKIN: "#D35313"
+            , TURQUOISE:"#00BE9C"
+            , GREEN_SEA:"#169F85"
+            , SUNFLOWER:"#F2C60F"
+            , ORANGE: "#F39C19"
         };
         if(wrapper) {
             let 

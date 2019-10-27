@@ -13,8 +13,13 @@ __come = new Event('come')
 , __go = new Event('go');
 
 app.hash = app.storage("hash");
+app.theme = app.storage("theme");
 app.body = $("body")[0];
 app.initial_pragma = HOME;
+
+if(!app.theme){
+	app.call("https://")
+}
 
 bootstrap.loaders = { 
 	// screens
@@ -30,9 +35,9 @@ bootstrap.loaders = {
 	// tiles
 	, main_tile: 0
 	, row_tile: 0
+	, tag: 0
 	// stuff
-	, footer_icons:0
-	, stop: 1
+	, footer_icons: 0
 };
 
 app.components = {};
@@ -51,6 +56,7 @@ bootstrap.loadComponents.add(function(){
     app.exec("js/components/footer.js")
 	app.exec("js/tiles/main.js")
 	app.exec("js/tiles/row.js")
+	app.exec("js/tiles/tag.js")
 });
 
 bootstrap.onFinishLoading.add(function(){
