@@ -19,8 +19,8 @@ if(Request::get('_'))
     $method_name = isset($args[2]) && $args[2] ? $args[2] : "render";
     
     try{
-        $class_instance = new $class_name($args,sizeof($args));
-        echo $class_instance->$method_name();
+        $class_instance = new $class_name();
+        echo $class_instance->$method_name(...array_slice($args,3));
     }catch (Exception $e){
         IO::debug($e);
     }
