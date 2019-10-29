@@ -1,11 +1,10 @@
 let
-splash = $(".--screen.--splash").at().css({background:"@BACKGROUND"})
-    .app(_("div", "-fixed -zero-bottom -row").app(
-        _("div","--boot-progress -left", { width:0, background:"@WET_ASPHALT", height:".5em"})
-    ));
+splash = $(".--screen.--splash").at().css({background:"@BACKGROUND"}).app(_("div", "-fixed -zero-bottom -row").app(
+    _("div","--boot-progress -left", { width:0, background:"@WET_ASPHALT", height:".5em"})
+));
 
 app.call("src/img/logos/logo.svg").then(r => {
-    if(r.status==200) r = r.data.morph()[0];
+    if(r.status) r = r.data.morph()[0];
     else return;
     r.get("path").each((me, i) => me.css({
         opacity:0

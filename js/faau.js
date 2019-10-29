@@ -784,7 +784,7 @@ class FAAU {
     get(e,w){ return faau.get(e,w||document).nodearray; }
     declare(obj){ Object.keys(obj).each(x=>window[x]=obj[x]) }
     initialize(){ bootstrap&&bootstrap.loadComponents.fire() }
-    async fetch(url, args=null, method='POST', head=null) {
+    async call(url, args=null, method='GET', head=null) {
         if(!head) head = new Headers();
         head["Content-Type"] = head["Content-Type"] || "application/json";
         //head["FA-Custom"] = "@rafsb"
@@ -803,7 +803,7 @@ class FAAU {
         return new CallResponse(url, args, method, head, ans.trim());
     }
 
-    async call(url, args=null, method="POST", head=null){
+    async xhr(url, args=null, method="GET", head=null){
         const
         o = new Promise(function(accepted,rejected){
             let

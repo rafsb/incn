@@ -6,6 +6,7 @@ START = 0
 , SEEK = 4
 , NOTIFICATION = 5
 , MENU = 6
+, API = "https://incn-api.faau.me/"
 ;
 
 var
@@ -16,10 +17,6 @@ app.hash = app.storage("hash");
 app.theme = app.storage("theme");
 app.body = $("body")[0];
 app.initial_pragma = HOME;
-
-if(!app.theme){
-	app.call("https://")
-}
 
 bootstrap.loaders = { 
 	// screens
@@ -38,6 +35,7 @@ bootstrap.loaders = {
 	, tag: 0
 	// stuff
 	, footer_icons: 0
+	, theme: 0
 };
 
 app.components = {};
@@ -57,6 +55,16 @@ bootstrap.loadComponents.add(function(){
 	app.exec("js/tiles/main.js")
 	app.exec("js/tiles/row.js")
 	app.exec("js/tiles/tag.js")
+
+	if(!app.theme){
+		app.call(API + "themes/default").then(theme => {
+			if(!theme.data) app.theme = app.color_pallete.json();
+			else app.theme = theme.data;
+			app.storage("theme", app.theme)
+			bootstrap.ready("theme")
+		})
+	}else bootstrap.ready("theme")
+	bind(app.color_pallete, app.theme.json());
 });
 
 bootstrap.onFinishLoading.add(function(){
