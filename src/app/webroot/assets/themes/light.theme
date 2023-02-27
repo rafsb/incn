@@ -1,0 +1,12 @@
+{
+    "FOREGROUND"    : "#FFFFFF"
+    , "BACKGROUND"  : "#ECF1F2"
+    , "FONT"        : "#2C3D4F"
+    , "FONTBLURED"  : "#BEBCBD"
+    , "SPAN"        : "#D15419"
+    , "DISABLED"    : "#BDC3C8"
+    , "MASK1"       : "#FFFFFF14"
+    , "MASK2"       : "#FFFFFF28"
+    , "MASK3"       : "#FFFFFF51"
+    , "MASK4"       : "#FFFFFFA3"
+}

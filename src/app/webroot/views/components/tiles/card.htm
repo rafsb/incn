@@ -1,0 +1,16 @@
+<template>
+    <div class="-left -pointer" style="margin: 2em 0 0 2em;background:@BACKGROUND;border:1px solid @DARK3;width:24em;border-radius:.5em 1em .5em .5em">
+        <header class="-row" style="background:@H1;color: @WHITE;z-index:10;border-radius:.5em 1em 0 0;padding:.25em">
+            <span class="-left -col-9 -content-left --name -ellipsis --tooltip" data-tip="@" style="text-transform: uppercase;padding:0 1em"></span>
+            <nav class="-left -col-3">
+                <img class="-right -inverted --exclude -only-pointer" src="assets/img/icons/cross.svg"
+                    style="height:1.5em;margin-left:.25em;padding:.25em .5em;background:@GREEN_SEA;border-radius:1em;transform:scale(1.25)"/>
+            </nav>
+        </header>
+        <div class="-row -flex" style="background:@FOREGROUND; color: @DARK3;">
+            <span class="-col-6 -content-left" style="padding: 0 1em">termos</span>
+            <span class="-col-6 -content-right" style="padding: 0 1em;background:@LIGHT1">sinônimos</span>
+        </div>
+        <div class="-row -scrolls --terms" style="height: 10em"></div>
+    </div>
+</template>

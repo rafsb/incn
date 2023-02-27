@@ -1,0 +1,9 @@
+<template>
+
+    <script>
+        app.loading()
+        bootloader.onFinishLoading.add(_ => app.loading(false))
+        bootloader.ready("splash")
+    </script>
+
+</template>

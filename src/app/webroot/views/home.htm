@@ -1,0 +1,13 @@
+<template>
+
+    <!-- HOME WRAPPER-->
+    <div id="home" class="-fixed -wrapper -no-scrolls"></div>
+
+    <!-- SCRIPS -->
+    <script>
+        bootloader.dependencies.add("aside");
+        app.load("views/components/aside.htm", null, $('#home')[0])
+        bootloader.ready("home")
+    </script>
+
+</template>
