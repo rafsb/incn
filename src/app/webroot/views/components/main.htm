@@ -133,6 +133,9 @@
         const
         select_models = $('select.--models')[0]
         ;;
-        sock('ai/models', res => res?.data?.sort((a, b) => b.created - a.created)?.forEach((item, i) => select_models.app(TAG("option").attr({ value: item.id }).html(item.id))))
+        sock('ai/models', res => {
+            res?.data?.sort((a, b) => b.created - a.created)?.forEach((item, i) => select_models.app(TAG("option").attr({ value: item.id }).html(item.id)))
+            select_models.value = "text-davinci-003"
+        })
     </script>
 </template>
