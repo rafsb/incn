@@ -29,9 +29,9 @@ const start= true
 ;;
 
 const
-makeframe = (name=fdate.as(), content=' ', color=app.pallete.BACKGROUND, role='system') => {
+makeframe = (name=fdate.as(), content=' ', color=app.pallete.BACKGROUND, role='assistant') => {
     const el = DIV('-row --tile-row', { padding:'.5em', marginBottom:"2em", color: app.pallete.FONT }).app(
-        DIV(`-col-8 -${role == 'system' ? 'left' : 'right'}`, { background:color, borderRadius:'.5em' }).app(
+        DIV(`-col-8 -${role == 'assistant' ? 'left' : 'right'}`, { background:color, borderRadius:'.5em' }).app(
             TAG('header', '-row -content-left', { padding:'.5em' }).app(SPAN(name, '-left', { opacity:.25 })).app(
                 TAG('nav', '-absolute -zero-top-right', { padding:'.5em' }).app(
                     // REMOVE
@@ -40,7 +40,7 @@ makeframe = (name=fdate.as(), content=' ', color=app.pallete.BACKGROUND, role='s
                     ).data({ tip: 'Remover frame' }).on('click', function(){ this.upFind('--tile-row').remove() })
                 ).app(
                     // COPY2CLIP
-                    DIV('-right -pointer --tooltip', { padding:'0 .5em', opacity:.8 }).app(
+                    DIV('-right -pointer --tooltip', { padding:'0 .5em', opacity:.32 }).app(
                         IMG('assets/img/icons/file.svg', '-inverted -avoid-pointer', { height:'1em', transform:'translateY(-.125em)' })
                     ).data({ tip: 'Clique para copiar o conteúdo!' }).on('click', function() { fw.copy2clipboard(content); app.success('Conteúdo copiado com sucesso') })
                 ).app(
@@ -55,10 +55,10 @@ makeframe = (name=fdate.as(), content=' ', color=app.pallete.BACKGROUND, role='s
                 )
             )
         ).app(DIV('-row', { padding: '0 .5em .5em' }).app(
-            TAG('textarea', '-row -content-left -roboto', { padding:'.5em', background:'@DARK3', borderRadius:'.5em' }).attr({ rows: 1 })
+            DIV('-row -content-left -roboto-light --message', { padding:'.5em', background:'@DARK3', borderRadius:'.5em' }).data({ role, content, ts: fdate.time() })
         ))
     ) ;;
-    el.$('textarea')[0].value = content
+    el.$('.--message')[0].html(content.trim().replace(/\n/gui, '<br/>'))
     $(".--stage")[0].app(el).scrollTop = Number.MAX_SAFE_INTEGER;
     app.tooltips()
     return el
@@ -101,7 +101,7 @@ ws.onmessage = function(res) {
 
     if(stream !== undefined) {
         const target = $(".--stream")[0] ;;
-        if(target) target.app(DIV('-row -content-left -ellipsis --tooltip').html(fdate.as('Y-m-d_h:i:s')+" -> "+stream).data({ tip: stream })).scrollTop = Number.MAX_SAFE_INTEGER
+        if(target) target.app(DIV('-row -content-left -ellipsis --tooltip').html(fdate.as('Y-m-d_h:i:s')+" -> "+stream.replace(/\n/gui, '<br/>')).data({ tip: stream })).scrollTop = Number.MAX_SAFE_INTEGER
     }
 
     if(res.emitter && socket_callbacks[res.emitter]) Promise.resolve(socket_callbacks[res.emitter](data))

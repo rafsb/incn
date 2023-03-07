@@ -4,28 +4,33 @@
         <main class="-wrapper" style="background:@FOREGROUND;color:@LIME;border-radius:.5em;">
             <div class="-row" style="height:88%">
                 <div class='-bar -left -scrolls' style="width:calc(100% - 16.6vw);padding:.5em">
-                    <div class='-row --stage -scrolls' style="height:88%"></div>
-                    <div class='-row --ai -flex' style="height:12%;background:@LIGHT1;border-radius: 0.5em;">
+                    <div class='-row --stage -scrolls' style="height:78%"></div>
+                    <div class='-row --ai -flex' style="height:22%;background:@LIGHT1;border-radius: 0.5em;">
                         <div class="-col-11 -bar" style="padding:.5em">
                             <textarea height="100%" class="-wrapper" style="margin-bottom:.5em" placeholder="hello world!">is this a test?</textarea>
                         </div>
                         <div class="-col-1 -bar" style="padding:.5em .5em 0 0 ">
                             <button class="-pointer -row -left" style="color:@FONT;background:@GREEN_SEA;padding:.5em;border-radius:.5em" onclick="
-                                const v = this.parent(2).$('textarea')[0].value ;;
+                                const v = this.parent(2).$('textarea')[0].value + '' ;;
+                                this.parent(2).$('textarea')[0].value = ''
                                 if(!v) fw.warning('Missing message ...')
                                 else {
-                                    makeframe(fdate.as('Y-m-d h:i:s'), v, '@WET_ASPHALT', role='user')
-                                    const data = fw.get('.--config form')[0].json() ;;
-                                    // data.messages = [ { role:'user', content: v } ]
-                                    data.prompt = v
-                                    sock('ai/prompt', { data: {data}, callback: res => {
+                                    const
+                                    data = fw.get('.--config form')[0].json()
+                                    // , messages = Array.from(document.querySelectorAll('.--message'))?.sort((a, b) => a.dataset.ts*1 - b.dataset.ts*1).map(e => new Object({ role: e.dataset.role, cotent: e.dataset.content })).reverse().slice(0,4).reverse() || []
+                                    ;;
+                                    // messages.push({ role:'user', content: v })
+                                    data.messages = [{ role:'user', content: v }]
+
+                                    sock('ai/chat', { data: {data}, callback: res => {
                                         try {
-                                            makeframe(fdate.as() + ` (token count: ${res?.response?.usage?.total_tokens||'n/c'})`, res.response.choices[0].text.trim(), '@BACKGROUND', 'system')
+                                            makeframe(fdate.as() + ` (token count: ${res?.response?.usage?.total_tokens||'n/c'})`, res.response.choices[0].message.content, '@BACKGROUND')
                                         } catch(e) {
                                             console.trace(e);
                                             fw.warning('No response from request ...')
                                         }
                                     } })
+                                    makeframe(fdate.as('Y-m-d h:i:s'), v, '@WET_ASPHALT', role='user')
                                 }
                             ">Enviar</button>
                         </div>
@@ -135,7 +140,7 @@
         ;;
         sock('ai/models', res => {
             res?.data?.sort((a, b) => b.created - a.created)?.forEach((item, i) => select_models.app(TAG("option").attr({ value: item.id }).html(item.id)))
-            select_models.value = "text-davinci-003"
+            // select_models.value = "text-davinci-003"
         })
     </script>
 </template>
