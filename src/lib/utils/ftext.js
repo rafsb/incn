@@ -1,7 +1,7 @@
 const
 zlib = require('zlib')
 , crypto = require('crypto')
-, io = require('./io')
+, io = require('./fio')
 , fObject = require('./fobject')
 ;;
 
@@ -26,9 +26,10 @@ module.exports = class fText {
             .replace(/(o|ó|ô|õ)/giu, "(o|ó|ô|õ)")
             .replace(/(u|ú)/giu,	 "(u|ú)")
             .replace(/(c|ç)/giu,	 "(c|ç)")
-            .replace(/\s+/giu, `(${fText.flex.join('|')}){0,}${b})${midrule}(`) + `(${fText.flex.join('|')}){0,}${b}`
+            .replace(/\s+/giu, `(${fText.flex.join('|')}){0,}${b})${midrule}(`) + `(${fText.flex.join('|')}){0,}`
 		;;
-        return asrx ? new RegExp(`((^|[ .,?!:;('>\`])${replaced})`, flags) : `((^|[ .,?!:;('>\`])${replaced})`
+        return asrx ? new RegExp(`${b}${replaced}${b}`, flags) : `${b}${replaced}${b}`
+        // return asrx ? new RegExp(`((^|[ .,?!:;('>\`])${replaced})`, flags) : `((^|[ .,?!:;('>\`])${replaced})`
     }
 
     clear() {
@@ -99,7 +100,6 @@ module.exports = class fText {
     }
 
     sanitized_compare(w) {
-
         return (new RegExp(
             this.value
                 .trim()
@@ -113,9 +113,18 @@ module.exports = class fText {
             , 'giu')).test(w.trim().replace(/\s+/gi, ' ')) ? true : false
     }
 
-    summarize(numSentences=10, wordThreshold=10){
+    summarize(conf){
+
+        if(typeof conf == 'string') conf = { text: conf}
+
+        if(conf?.text) this.value = conf.text
+        if(conf?.maxTokens) this.maxTokens = conf.maxTokens
+        if(conf?.sentenseThreshold) this.sentenseThreshold = conf.sentenseTheshold
+        if(conf?.wordThreshold) this.wordThreshold = conf.wordThreshold
+
         const
-        sentences = this.value.split(new RegExp("["+fText.phrase_boundaries+"]", "gui"))
+        me = this
+        , sentences = this.value.split(new RegExp("["+fText.phrase_boundaries+"]", "gui")).filter(sentense => sentense.split(/\s+/g).length > me.sentenseThreshold)
         , freq = {}
         ;;
 
@@ -154,14 +163,20 @@ module.exports = class fText {
             let sentenceScore = 0;
             for (const word of words) {
                 const lword = word.toLowerCase();
-                if (sortedWords.indexOf(lword) < wordThreshold) ++sentenceScore
+                if (sortedWords.indexOf(lword) < me.wordThreshold) ++sentenceScore
                 // sentenceScore += freq[lword] || 0
                 if(freq[lword]) meta.push([ lword, freq[lword] ])
             }
             summary.push({ sentence: sentence.trim(), score: sentenceScore, meta })
         }
 
-        const topSentences = summary.sort((a, b) => b.score - a.score).slice(0, numSentences) ;;
+        let
+        tmp = summary.sort((a, b) => b.score - a.score)
+        , topSentences = []
+        ;;
+
+        let i = 0 ;;
+        while(topSentences.map(t => t.sentence).join(' ').split(/\s+/g).length < ntokens && i < tmp.length) topSentences.push(tmp[i++])
 
         io.jin('var/summary.json', topSentences)
 
@@ -170,24 +185,48 @@ module.exports = class fText {
         return topSentences.map(s => s.sentence).join('.\n')
     }
 
-    constructor(value) { this.value = value||"" }
+    toString(encode='utf-8') {
+        return this.value.toString(encode)
+    }
+
+    valueOf() {
+        return this.value
+    }
+
+    constructor(value) {
+        this.value              = value||""
+        this.maxTokens          = 2048
+        this.sentenseThreshold  = 10
+        this.wordThreshold      = 10
+    }
 
     static cast(str) { return new fText(str) }
+
     static rx(str, wrule, b, asrx, flags) {  return (new fText(str)).rx(wrule, b, asrx, flags) }
+
     static clear(str) { return (new fText(str)).clear() }
+
     static compress(str) { return (new fText(str)).compress() }
+
     static decompress(str) { return (new fText(str)).decompress() }
+
     static encrypt(str) { return (new fText(str)).encrypt() }
+
     static decrypt(str) { return (new fText(str)).decrypt() }
+
     static fill(str, char, len, dir) { return (new fText(str)).fill(char, len, dir) }
+
     static prepare(str, obj) { return (new fText(str)).prepare(obj) }
+
     static sanitize(str) { return (new fText(str)).sanitize() }
+
     static sanitized_compare(str1, str2) { return (new fText(str1)).sanitized_compare(str2) }
+
     static summarize(str, ns, wt) { return (new fText(str)).summarize(ns, wt) }
 
     static json(o) {
         let res = null ;;
-        try{
+        try {
             if(typeof o != "string") res = JSON.stringify(o, null, 4)
             else res = JSON.parse(o);
         } catch(e) { console.error(e); }

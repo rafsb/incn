@@ -60,4 +60,4 @@ package-lock.json
 
 **/test.js
 
-.session_db
+.env

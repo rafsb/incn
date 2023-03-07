@@ -1,6 +1,6 @@
 {
-    "BACKGROUND"    : "#1E1E1E"
-    , "FOREGROUND"  : "#333333"
+    "BACKGROUND"    : "#333333"
+    , "FOREGROUND"  : "#1E1E1E"
     , "FONT"        : "#EEFFF1"
     , "FONTBLURED"  : "#464646"
     , "SPAN"        : "#007ACC"

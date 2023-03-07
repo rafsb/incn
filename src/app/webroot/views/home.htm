@@ -5,9 +5,7 @@
 
     <!-- SCRIPS -->
     <script>
-        bootloader.dependencies.add("aside");
-        app.load("views/components/aside.htm", null, $('#home')[0])
-        bootloader.ready("home")
+        app.load("views/components/aside.htm", null, $('#home')[0]).then(_ => app.load("views/components/main.htm", null, $('#home')[0]))
     </script>
 
 </template>

@@ -1,6 +1,6 @@
 const
 emitter = require("events")
-, io    = require("../utils/io")
+, io    = require("../utils/fio")
 , date  = require("../utils/fdate")
 , fw    = require("../fw")
 ;;

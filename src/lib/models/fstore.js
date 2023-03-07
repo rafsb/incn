@@ -7,8 +7,8 @@ class fstore {
 
     static db_name = global.DB_NAME || `store_db`
 
-    static cast(options) {
-        return new fstore(options)
+    static cast(db_name) {
+        return new fstore(db_name)
     }
 
     static log() {
@@ -16,7 +16,6 @@ class fstore {
     }
 
     constructor(db_name){
-        super()
         this.db_name = db_name || fstore.db_name
         this.load()
     }

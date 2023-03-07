@@ -1,0 +1,138 @@
+<template>
+    <div class='-fixed -zero -row' style="padding:.125em"><div class='-left --progress' style="height:.25em;background:@LIME;width:0"></div></div>
+    <div class="-bar -col-10 -left --config" style="padding: .5em .5em .5em 0">
+        <main class="-wrapper" style="background:@FOREGROUND;color:@LIME;border-radius:.5em;">
+            <div class="-row" style="height:88%">
+                <div class='-bar -left -scrolls' style="width:calc(100% - 16.6vw);padding:.5em">
+                    <div class='-row --stage -scrolls' style="height:88%"></div>
+                    <div class='-row --ai -flex' style="height:12%;background:@LIGHT1;border-radius: 0.5em;">
+                        <div class="-col-11 -bar" style="padding:.5em">
+                            <textarea height="100%" class="-wrapper" style="margin-bottom:.5em" placeholder="hello world!">is this a test?</textarea>
+                        </div>
+                        <div class="-col-1 -bar" style="padding:.5em .5em 0 0 ">
+                            <button class="-pointer -row -left" style="color:@FONT;background:@GREEN_SEA;padding:.5em;border-radius:.5em" onclick="
+                                const v = this.parent(2).$('textarea')[0].value ;;
+                                if(!v) fw.warning('Missing message ...')
+                                else {
+                                    makeframe(fdate.as('Y-m-d h:i:s'), v, '@WET_ASPHALT', role='user')
+                                    const data = fw.get('.--config form')[0].json() ;;
+                                    // data.messages = [ { role:'user', content: v } ]
+                                    data.prompt = v
+                                    sock('ai/prompt', { data: {data}, callback: res => {
+                                        try {
+                                            makeframe(fdate.as() + ` (token count: ${res?.response?.usage?.total_tokens||'n/c'})`, res.response.choices[0].text.trim(), '@BACKGROUND', 'system')
+                                        } catch(e) {
+                                            console.trace(e);
+                                            fw.warning('No response from request ...')
+                                        }
+                                    } })
+                                }
+                            ">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+                <nav class="-bar" style="width:16.6vw;padding:.5em .5em .5em 0">
+                    <form class='-wrapper' style="color:@FONT;background:@LIGHT1;border-radius:.5em" action="javascript:void(0)">
+                        <!-- REFRESH -->
+                        <div class="-row" style="padding:.5em">
+                            <div class="-pointer -right" style="background:@FONT12;border-radius:.5em" onclick="this.parent(2).$('select, input').forEach(e => {
+                                if(e.dataset.reset !== undefined) {
+                                    e.value = isNaN(e.dataset.reset) ? e.dataset.reset : e.dataset.reset * 1
+                                    // ;e.onchange && e.onchange();
+                                    e.dispatchEvent((new Event('change')))
+                                }
+                            })" >
+                                <img src="assets/img/icons/historic.svg" class="-inverted -avoid-pointer" style="width:2em;height:2em;padding:.5em;opacity:.5">
+                            </div>
+                        </div>
+                        <!-- MODELS -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="opacity:.12;padding:.25em 0">model</label>
+                            <select name="model" class="--field --models" data-reset="gpt-3.5-turbo"></select>
+                        </div>
+                        <!-- TEMPERATURE -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">temperature</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
+                            <input type="range" min="0" max="20" value="10" data-reset="10" onchange="this.parent().$('i')[0].html(this.value/10)">
+                            <input type="hidden" class='--field' name="temperature" value="1"/>
+                        </div>
+                        <!-- TOP_P -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">top_p</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
+                            <input type="range" min="0" max="10" value="10" data-reset="1" onchange="this.parent().$('i')[0].html(this.value/10)">
+                            <input type="hidden" class='--field' name="top_p" value="1"/>
+                        </div>
+                        <!-- N -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">n</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
+                            <input class='--field' name="n" type="range" min="0" max="10" value="1" data-reset="1" onchange="this.parent().$('i')[0].html(this.value)">
+                        </div>
+                        <!-- PRESENCE PENALTY -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">presence_penalty</span><i class="-right" style="padding:0 .5em;opacity:.24">0</i></label>
+                            <input type="range" min="0" max="40" value="20" data-reset="20" onchange="const v = (this.value-20)/10; this.parent().$('.--field')[0].value = v; this.parent().$('i')[0].html(v)">
+                            <input type="hidden" class='--field' name="presence_penalty" value="0"/>
+                        </div>
+                        <!-- FREQUENCE PENALTY -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">frequency_penalty</span><i class="-right" style="padding:0 .5em;opacity:.24">0</i></label>
+                            <input type="range" min="0" max="40" value="20" data-reset="20" onchange="const v = (this.value-20)/10; this.parent().$('.--field')[0].value = v; this.parent().$('i')[0].html(v)">
+                            <input type="hidden" class='--field' name="frequency_penalty" value="0"/>
+                        </div>
+                        <!-- MAX TOKENS -->
+                        <div class="-row" style="padding:.5em">
+                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">max_tokens</span><i class="-right" style="padding:0 .5em;opacity:.24">2048</i></label>
+                            <input class="--field" name="max_tokens" type="range" min="0" max="4096" value="2048" data-reset="2048" onchange="this.parent().$('i')[0].html(this.value)">
+                        </div>
+                    </form>
+                </nav>
+            </div>
+            <div class='-row -scrolls --stream' style="background:@DARK4;color:@LIME;padding:.5em;height:12%"></div>
+        </main>
+    </div>
+    <style>
+        .--config input[type=text], .--config select, .--config textarea {
+            width:100%;
+            color:@FONTAA;
+            padding:.5em;
+            background:@LIGHT1;
+            border:none;
+            border-radius:.5em;
+        }
+        .--config select option {
+            background-color: @BACKGROUND;
+        }
+
+        .--config input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 1em;
+            background: @FONT12;
+            outline: none;
+            border-radius:.5em;
+        }
+        .--config input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1em;
+            height: 1em;
+            background: @FONTAA;
+            cursor: pointer;
+            border-radius:.5em
+        }
+        .--config input[type=range]::-moz-range-thumb {
+            width: 1em;
+            height: 1em;
+            background: @FONTAA;
+            cursor: pointer;
+            border-radius:.5em
+        }
+
+    </style>
+    <script>
+        const
+        select_models = $('select.--models')[0]
+        ;;
+        sock('ai/models', res => res?.data?.sort((a, b) => b.created - a.created)?.forEach((item, i) => select_models.app(TAG("option").attr({ value: item.id }).html(item.id))))
+    </script>
+</template>

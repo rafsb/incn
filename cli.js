@@ -19,7 +19,7 @@ global.ROOT             = __dirname + '/src/'
 
 
 const
-fio = require('./src/lib/utils/io')
+fio = require('./src/lib/utils/fio')
 , text = require('./src/lib/utils/ftext')
 ;;
 

@@ -126,19 +126,20 @@ blend(HTMLCollection.prototype, {
 
 blend(HTMLFormElement.prototype, {
     json: function () {
-        let tmp = {};
-        this.get("input, textarea, select, .-value").each(o => {
+        let tmp = {} ;;
+        this.get("input, textarea, select, .-value, .--field").each(o => {
             if (!o.has("-skip") && (o.name || o.dataset.name)) {
                 let
                 name = o.name || o.dataset.name
                 , value = o.value || o.dataset.value || o.textContent
                 ;;
-                if (o.has("-list")) value = value.split(/\s+/gi).filter(i=>i);
+                if (o.has("-list")) value = value.split(/\s+/gi).filter(i=>isNaN(i) ? i : i*1);
                 if (o.has("-hash")) value = Array.isArray(value) ? value.extract(x => { return x.hash() }) : value.hash();
+                if(typeof value == 'string') value = isNaN(value) ? value : value*1
                 tmp[name] = value;
             }
-        });
-        return tmp;
+        })
+        return tmp
     }
     , stringify: function () {
         return JSON.stringify(this.json())
@@ -903,14 +904,12 @@ class fdate extends Date {
 }
 
 class pool {
-    add(x = null, v = null) {
+    add(x = null) {
         if (x) {
-            if (Array.isArray(x)) this.sort(x);
-            if (typeof x === 'function') {
-                this.execution.push(x);
-                if (this.execution.length > this.timeline.length) this.at(v)
-            }
-            else this.conf(x, v)
+            const pool = this ;;
+            if (Array.isArray(x)) x.forEach(y => pool.add(y))
+            if (typeof x === 'function') this.execution.push(x)
+            else this.conf(x)
         }
         return this;
     }
@@ -918,82 +917,42 @@ class pool {
         this.add(x);
         return this
     }
-    sort(x) {
-        let
-            pool = this;
-        if (Array.isArray(x)) {
-            x.each(z => pool.add(z))
+    conf(o = null) {
+        if(o) {
+            if (typeof o == 'object') blend(this.setup, o)
+            else this.setup[fw.nuid(8)] = o
         }
-        return this;
-    }
-    conf(k = null, v = null) {
-        if (k !== null) {
-            if (v !== null) this.setup[k] = v;
-        }
-        return this
-    }
-    at(t = null) {
-        this.moment = t && parseInt(t) ? t : this.moment + 1;
-        this.timeline.push(this.moment);
         return this
     }
 
-    plus(t = 0) { return this.at(this.moment + t) }
     fire(x = null) {
         if (typeof x == "function") {
-            this.add(x, this.moment + 1);
+            this.add(x);
             x = null
         }
-        let
-            pool = this;
-
         const
-            o = new Promise(function (pass, deny) {
-                pool.execution.each((z, i) => {
-                    if (z) pool.timeserie[i] = setTimeout(z, pool.timeline[i], x, pool.setup);
-                })
-                setTimeout(function (ok) { return pass(ok) }, pool.timeserie.calc(MAX) + ANIMATION_LENGTH / 4, true)
-            })
+        pool = this
+        , initlen = pool.execution.length
+        , fn = i => {
+            if(i < initlen) Promise.resolve(pool.execution[i](pool.setup, i)).then(_ => fn(++i))
+        }
 
-        return o
+        return fn(0)
     }
-    stop(i = null) {
-        if (i !== null) { if (this.timeserie[i]) clearInterval(this.timeserie[i]) }
-        else this.timeserie.each(x => clearInterval(x))
+    stop() {
+        this.stop_flag = true
         return this
     }
     clear() {
-        this.stop();
-        this.moment = 0;
-        this.timeline = [];
-        this.timeserie = [];
-        this.execution = [];
-        this.setup = {};
+        this.stop()
+        this.execution = []
+        this.setup = {}
         return this
-    }
-    debug() {
-        console.log("CONFIGURATION");
-        console.log(this.setup);
-        console.log("TIMESERIE");
-        this.timeline.each((x, i) => { console.log("AT:" + x + " => DO:" + this.execution[i]) })
-    }
-    after(fn = null) {
-        if (fn && typeof fn == 'function') setTimeout(fn, this.moment + 1);
-        return this
-    }
-    drop(e) {
-        if (!e) return this;
-        const
-            i = this.execution.indexOf(e);
-        if (i + 1) this.execution[i] = null;
     }
     constructor(x) {
-        this.moment = 0;
-        this.timeline = [];
-        this.timeserie = [];
         this.execution = [];
         this.setup = {};
-        return this.add(x)
+        this.add(x)
     }
 };
 
@@ -1100,7 +1059,7 @@ class throttle {
 class loader {
 
     loadLength() {
-        return Object.values(this.loaders).filter(n => n * 1 ? true : null).length / Array.from(this.dependencies).length;
+        return Object.keys(this.loaders).length / Object.values(this.loaders).filter(i => i).length
     }
 
     check(scr) {
@@ -1117,8 +1076,8 @@ class loader {
 
         if (!this.alreadyLoaded && perc >= 1) {
             this.alreadyLoaded = true;
-            setTimeout(boot => boot.onFinishLoading.fire(), AL, this);
-        } else if (!this.alreadyLoaded) setTimeout((x, perc) => x.onReadyStateChange.fire(perc), AL / 4, this, perc);
+            this.onFinishLoading.fire()
+        } else if (!this.alreadyLoaded) this.onReadyStateChange.fire(perc)
 
         return this.alreadyLoaded || false;
     }
@@ -1845,23 +1804,23 @@ class fw {
     }
 };
 
-blend(window, {
-    maxis: { x: 0, y: 0 }
-    , initpool: new pool()
-    , $: fw.$
-    , bootloader: new loader()
-    , app: fw
-    , GET: async (url, callback, args, head) => {
-        var res = await fw.call(url + (args ? `?${new URLSearchParams(args).toString()}` : ''), null, 'GET', head) ;;
-        try { res = JSON.parse(res.data) } catch(e) { res = res.data }
-        return callback ? callback(res) : res
-    }
-    , POST: async (url, args, callback, head) => {
-        var res = await fw.call(url, args, 'POST', head) ;;
-        try { res = JSON.parse(res.data) } catch(e) { res = res.data }
-        return callback ? callback(res) : res
-    }
-})
+const
+maxis= { x: 0, y: 0 }
+, initpool= new pool()
+, $ = fw.$
+, bootloader= new loader()
+, app= fw
+, GET = async (url, callback, args, head) => {
+    var res = await fw.call(url + (args ? `?${new URLSearchParams(args).toString()}` : ''), null, 'GET', head) ;;
+    try { res = JSON.parse(res.data) } catch(e) { res = res.data }
+    return callback ? callback(res) : res
+}
+, POST = async (url, args, callback, head) => {
+    var res = await fw.call(url, args, 'POST', head) ;;
+    try { res = JSON.parse(res.data) } catch(e) { res = res.data }
+    return callback ? callback(res) : res
+}
+;;
 
 window.onmousemove = e => window.maxis = e
 window.oncontextmenu = e => {

@@ -1,0 +1,199 @@
+Setor europeu de telecomunicações enfrenta “tempestade perfeita”, diz presidente da Telecom Italia  InfoMoney
+
+Evento de telecom começa pedindo dinheiro de big techs  folha.uol.com.br
+
+Telecom Italia reorganiza unidade de negócios corporativos | Empresas | Valor Econômico  Valor Econômico
+
+Oi entra com pedido de nova recuperação judicial  TELETIME News
+
+Google Cloud lança solução de IA e analytics voltada para telecom  Tele.Síntese
+
+Rede 5G mudará o mundo, mas sua rápida expansão preocupa operadoras de Telecom  Folha Vitória
+
+Teles voltam a questionar aumento de ICMS em telecom no STF  Minha Operadora
+
+Axxel Telecom cresce 131% no Paraná com internet de fibra óptica  Gazeta do Povo
+
+Presidente da Apex quer big techs pagando pelo uso das redes  Tele.Síntese
+
+LOADING... Faça login e . comente Registrar e . publicar Você está quase pronto! Agora definir o seu nome de usuário e senha. » Anuncie » Envie uma dica Ei, você á um redator, programador ou web designer? Estamos contratando! MWC 2023: Google Cloud anuncia novos serviços em nuvem com IA para empresas de telecom 27 de fevereiro de 2023 0 O Google anunciou nesta sexta-feira (27) três novos serviços de computação em nuvem para empresas provedoras de serviços de comunicação (CSPs). Durante sua apresentação na MWC de 2023, a big tech forneceu detalhes de suas novidades que prometem acelerar o desenvolvimento de novas tecnologias no segmento de telecom. Já disponíveis em modo de pré-visualização, as soluções vão oferecer aos provedores uma solução unificada para contribuir com a construção, implementação e operação de suas redes nativas em nuvem híbrida e melhorar a experiência de seus consumidores através de recursos de inteligência artificial e analytics.(Imagem: Reprodução)O Telecom Network Automation é um dos novos serviços oferecidos na nuvem do Google. Essa plataforma permite acelerar a rede e implementações edge de companhias de serviços de comunicação com ferramentas de automação nativas de nuvem. O programa se beneficia de tecnologias assinadas pelo Google, como o sistema Kubernetes e o Nephio, um projeto de código aberto da gigante das buscas elaborado em parceria com a Fundação Linux em 2022. Além disso, o Telecom Network Automation contribui com a interoperabilidade entre provedores e redução de custos operacionais. Google Cloud anuncia novos recursos baseados em Inteligência Artificial para varejistas 0 Economia e mercado 18 Jan MWC 2023: Google anuncia ferramenta que facilita a troca de eSIM 0 Economia e mercado 27 Fev O Telecom Data Fabric, por sua vez, é uma forma de obter insights de dados mais rapidamente. O serviço garante coleta, normalização e correlação de informações por um adaptador de framework mais simples. Com inteligência artificial embarcada, o programa tem gerenciamento de dados otimizado pelas arquiteturas de malha do BigQuery e DataPlex. Uma das maiores vantagens do Telecom Data Fabric é o Vertex AI, um módulo que utiliza os serviços do Google para processar funções de machine learning de aplicações desenvolvidas pelas provedoras de serviços de comunicação. O Telecom Data Fabric junto com o Vertex AI permite que desenvolvedores de CSPs e ISVs criem aplicativos analíticos de IA e ML para oferecer suporte a operações de rede entre domínios, eficiência energética, experiência do assinante e monetização. Por fim, o Telecom Subscriber Insights é descrito como um serviço para obtenção de insights utilizando fontes de dados existentes. Esse programa analisa dados com modelos de inteligência artificial e fornece ações recomendadas, ajudando as provedoras de telecom a interagir com seus assinantes em múltiplos canais. De acordo com o Google, o Telecom Subscriber Insights permite que as CSPs tenham melhor entendimento sobre o comportamento de seus assinantes, trazendo possibilidades de aplicação de cross-sell (venda cruzada) e upsell (venda de serviços mais sofisticados), gerenciar rotatividade e obter novos clientes com muito mais eficiência.(Imagem: Reprodução)“Ao aplicar os princípios das nativas em nuvem para as arquiteturas de rede, e acelerar o crescimento de assinantes por uma fonte holística de gerenciamento de dados, os CSPs têm a oportunidade de construir uma ponte entre o espaço que separa a conectividade de hoje, da conectividade do futuro”, comenta Thomas Kurian, CEO do Google Cloud. Curtir - 0 Tweet - 0 0 Fernando Meliani Mistério! Vídeo no YouTube faz com que o Google Pixel 7 reinicie instantaneamente 0 28 Fevereiro 2023 MWC 2023: Google lança novos recursos para interface de Android e Wear OS 1 27 Fevereiro 2023 Gboard: teclado do Google deve ganhar ferramenta que cria imagens com inteligência artificial 1 27 Fevereiro 2023 Google Drive pretende aprimorar recursos de seleção de múltiplos arquivos 0 27 Fevereiro 2023 Comentários MWC 2023: Google Cloud anuncia novos serviços em nuvem com IA para empresas de telecom Android Celular com a melhor bateria! Ranking TudoCelular com todos os testes de autonomia Android Celular mais rápido! Ranking TudoCelular com gráficos de todos os testes de desempenho Economia e mercado Motorola lança primeira conta digital do mundo integrada a um smartphone Asus ASUS lança novo celular gamer ROG Phone 5s e 5s Pro no Brasil; confira os preços
+
+Contas de telecom entram no programa federal de renegociações ...  Convergência Digital
+
+SEDUC alinha parcerias com G3 Telecom para formação técnica de ...  Seduc - PI
+
+Telecom Brasil: Data Expert | Monitor Anatel; Resultados de Janeiro ...  Expert XP
+
+Recomendação de produtos e linguagem natural são oportunidades para setor de telecom, aponta Google Cloud  TI Inside
+
+Operadoras voltam ao STF para adiar aumentos de ICMS em telecom  Convergência Digital
+
+Oi formaliza pedido da segunda recuperação judicial  Convergência Digital
+
+Presidente da Apex sugere que big techs paguem pedágio para usar redes de telecom  TELETIME News
+
+Deslizamentos afetam serviços de telecom no litoral Norte de SP  Tele.Síntese
+
+TIM investe US$ 50 milhões em fundo voltado ao universo 5G; As ...  Expert XP
+
+Kleber Fernandes é o novo diretor comercial da Seal Telecom; confira outras movimentações  Mercado e Consumo
+
+Bolsas da Ásia fecham em alta, com chinesas impelidas por telecom e tecnologia  CNN Brasil
+
+Telecom é menor índice nacional no volume de serviços em 2022  Tele.Síntese
+
+Enea integra produtos de telecom ao Microsoft Azure Operator ...  Mobile Time
+
+Brasil enterra discussão por uso da faixa 6GHz  Convergência Digital
+
+PLs prioritários para telecom entram na fase decisiva em 2023  Tele.Síntese
+
+Reeleição de presidentes no Congresso revela primeiros impactos para telecom  Tele.Síntese
+
+KKR estende oferta por unidade da Telecom Italia para 24 de março  Valor Econômico
+
+Mercado de telecom no Brasil será impulsionado por redes privativas, cloud e 5G, diz IDC  TELETIME News
+
+Algar Telecom reporta lucro 44,4% menor no 4TRI22  Eu Quero Investir
+
+Como a startup Nomo planeja movimentar o setor de telecom  Consumidor Moderno
+
+iez! Telecom, ex-Cloud2U, começa a ofertar FWA ainda este ano  Tele.Síntese
+
+Quais serão os desafios e oportunidades de TI e Telecom para 2023  Consumidor Moderno
+
+Levantamento da EY revela os desafios das empresas de telecom ...  InforChannel
+
+Apesar de essenciais, energia e telecom têm ICMS majorado em ao menos 3 estados  JOTA
+
+Fundo americano KKR faz oferta pela rede fixa da Telecom Italia  Convergência Digital
+
+Algar Telecom lança hub de soluções para gestão de MPEs  InforChannel
+
+Um Telecom participa de encontro com executivos da Fortinet  InforChannel
+
+Ministro pede aprovação do PL que criminaliza uso de equipamentos de telecom piratas  TELETIME News
+
+Associação questiona decretos estaduais que elevaram ICMS sobre energia e telecom  JOTA
+
+Má gestão da agenda ESG e ameaças cibernéticas afetam mercado de telecom  Exame Notícias
+
+Entidade brasileira quer que big techs paguem por rede 5G; Netflix discorda  UOL
+
+Maximiliano Martinhão assume Secretaria de Telecom do MCom  Convergência Digital
+
+Lucro da Telecom Italia cai 10,6% em 2022, diz empresa  CNN Brasil
+
+Novas políticas para telecom, Internet, TV paga e radiodifusão em debate no dia 15 em Brasília  TELETIME News
+
+Telecom Brasil: Destaques da XP Telecom Week 2023  Expert XP
+
+Receita do setor de telecom aumentou com o 5G, segundo Ericsson  TELETIME News
+
+Nuvem é usada para espionar operadoras de telecom  CISO Advisor
+
+Forte Telecom lança empresa de rede neutra  Tele.Síntese
+
+Mineradoras impulsionam ações europeias, mas queda nos papéis da Telecom Italia limita ganhos  UOL Economia
+
+Fibra invisível rende prêmio internacional de inovação à Oi  Convergência Digital
+
+Frear avanço da tecnologia com impostos significa tolher o futuro do país  JOTA
+
+Provedor regional já é 20% da receita da Huawei com operadoras  Valor Econômico
+
+Algar Telecom aprova nova emissão de debêntures; conheça os valores  TELETIME News
+
+Ataques DDoS atingem provedores de internet cariocas, deixando clientes sem conexão  Olhar Digital
+
+Lockheed Martin quer fazer estação na Lua com ajuda das teles  Tele.Síntese
+
+Setor de Telecom rejeita emenda que esvazia agências reguladoras  Convergência Digital
+
+Além da Vivo, Winity busca acordos com mais 10 empresas de ...  Minha Operadora
+
+Empresas de tecnologia, mídia e telecom ampliam práticas ESG, diz consultoria  TELETIME News
+
+Seal Telecom contrata Kleber Fernandes como diretor comercial  DatacenterDynamics
+
+Jogos da 9ª rodada do 20° Campeonato Municipal de Futsal – 3ª ...  Prefeitura de Nova Santa Rosa
+
+Livetech da Bahia (LVTC3) tem baixa de 93,5% no lucro no 4º tri, para R$ 1,6 milhão  InfoMoney
+
+Justiça penhora ações de Nelson Tanure na TIM por dívida de R ...  Convergência Digital
+
+Congresso RTI Provedores de internet 2023 debate os rumos do setor  Portal Radar
+
+Criptomoeda apoiada por gigante da telefonia chinesa subiu 960% em 2023  Portal do Bitcoin
+
+EXCLUSIVO: TIM vai ancorar fundo da Upload voltado ao universo 5G  Pipeline
+
+Setor de tecnologia emprega 7% de mulheres no Brasil, mostra ...  Propmark
+
+Coreia do Sul terá rede 5G dedicada a veículos aéreos  Mobile Time
+
+Campos sedia encontro de provedores de Internet da região – ISP ...  NF Notícias
+
+Grande meteoro cruza o céu de dois estados da Região Nordeste ...  Clima ao vivo
+
+ZTE realiza Fórum de Inovação Industrial Global no MWC 2023, moldando a inovação digital  Yahoo Finanças
+
+É normal que as operações de consolidação nas telecom se multipliquem, diz CEO da Altice  Jornal de Negócios
+
+Com foco na banda larga, Anatel analisa ambiente para ...  Minha Operadora
+
+Anatel vai discutir o compartilhamento de receita ou o "fair share"  Tele.Síntese
+
+Auxiliar de Eletrônica - Vaga de emprego em Umuarama/PR | Portal ...  ® Portal da Cidade | Umuarama
+
+Alloha Fibra é a operadora de banda larga fixa que mais cresceu no ...  Focus.jor
+
+Huawei: Brasil digital passa pela massificação da banda larga fixa 5G  Convergência Digital
+
+O que falta para o 5G chegar mais cedo  Diário do Comércio
+
+CEO do BH Airport é o novo porta-voz de programa da ONU  Diário do Comércio
+
+Telecoms querem facilitar conexões a rede para empresas  Diário do Comércio
+
+Anatel descarta intervenção na Oi por possível pedido de nova ...  Convergência Digital
+
+Justiça bloqueia chips por não identificar quem fez postagens ...  Convergência Digital
+
+Dividendos em dólar: 10 BDRs com retorno em proventos de até 24% projetado nos próximos 12 meses  InfoMoney
+
+Empresas de telecom seguram repasses de ICMS menor, e Anatel questiona  JOTA
+
+PPPs se unem e formam nova operadora de celular, a 'Tá telecom'  TELETIME News
+
+Oi depende do TCU para usar R$ 1,69 bilhão das torres vendidas à ...  Convergência Digital
+
+Com expansão do 5G, setor de telecom deve movimentar mais de R$ 35 bi em 2023  JOTA
+
+Quem é quem: nomes da inovação digital e telecom em 20 dias de novo governo  Tele.Síntese
+
+Como as possíveis mudanças na Lei da Arbitragem poderiam afetar telecom  TELETIME News
+
+Nomo: vanguarda da nova indústria de telecom brasileira  Projeto Draft
+
+Novo presidente da Ligga Telecom deve comandar abertura de capital  TELETIME News
+
+Reclamações de usuários de telecom caem 29% em novembro  Tele.Síntese
+
+Ir para o conteúdo Menu Linkedin Facebook Twitter Instagram Youtube Tiktok Rss Portal de Telecomunicações, Internet e TICs Menu Operadoras Um Telecom vai investir R$ 40 milhões em data center Da Redação 31 agosto 2022 Desembolso deve totalizar R$150 milhões em dez anos. Obras serão iniciadas ainda este ano e o início da operação está previsto para final de 2023A Um Telecom vai construir data center no Parque Tecnológico de Eletroeletrônicos e Tecnologias Associadas de Pernambuco (Parqtel). O empreendimento deverá ocupar uma área de 1,3 hectare, localizado no município do Recife, e prevê investimentos iniciais da ordem de R$40 milhões com geração de 64 empregos diretos e qualificados depois de concluído. Esta primeira etapa terá obras iniciadas ainda este ano e conclusão prevista para o final de 2023.Ao todo deverão ser investidos R$150 milhões no projeto, composto por três fases, no prazo total de dez anos. O data center da UM Telecom será o primeiro de classificação TIER 3 de Pernambuco. Essa classificação diz respeito a critérios avançados sobretudo de redundância de energia, segurança, climatização e telecomunicações.“O data center da Um Telecom irá transformar Pernambuco em um Hub de Dados para a região, já que Recife está estrategicamente bem localizado em relação ao Nordeste, situando-se a um raio de 800 km de 90% da população e do PIB da Região, iremos trazer o conteúdo e os serviços digitais mais para próximo do usuário mudando a forma de distribuição de dados no Nordeste”, avalia Rui Gomes, CEO da operadora.A Um Telecom conta com mais de 16.000 Km de fibra óptica instalados em toda a região Nordeste, passando por todas as capitais e com acesso a mais de 200 importantes cidades, com toda essa conectividade faz muito sentido termos um Data Center em Recife.“E como Pernambuco já exerce um papel importante na logística da região Nordeste através de um hub de companhia aérea, de centrais de distribuição de empresas do segmento de varejo, bem como de transportadoras, a partir desse novo equipamento, o Estado também exercerá a sua vocação para a infraestrutura digital, através da distribuição de conteúdo em toda a região usando Recife como centro”, explica Daniel Gomes, COO da Um Telecom.(Com assessoria de imprensa) data center, operadoras, um telecom Da Redação A Momento Editorial nasceu em 2005. É fruto de mais de 20 anos de experiência jornalística nas áreas de Tecnologia da Informação e Comunicação (TIC) e telecomunicações. Foi criada com a missão de produzir e disseminar informação sobre o papel das TICs na sociedade. Ver mais artigos PrevAnteriorIBM mira orquestração de aplicações na borda das redes 5G PróximoPIB cresce 1,2% no segundo trimestre e 2,5% no primeiro semestreNextTEMAS RELACIONADOS Satélite: Telebras desmente notícia de interferência de ex-assessor em licitação 21 de julho de 2016 Governo Em três anos, uso do smartphone no Brasil sobe de 29% para 80% 17 de outubro de 2016 Futurecom Anatel vai manter regulação sobre atendimento ao consumidor 6 de dezembro de 2016 Encontro TeleSíntese “Voz no mundo do fixo está morta”, diz presidente da TIM 3 de agosto de 2011 Plantão, Sem categoria ARTIGOS SUGERIDOS Inadimplência alcança 6,3 milhões de empresas brasileiras, revela Serasa Experian 27 de outubro de 2022 Negócios DMI IBGE: cai número de pessoas desocupadas 27 de outubro de 2022 Pesquisa DMI Pesquisa PopularCategoriasPesquisa não encontrada Ver Tudo . Destaques Publieditorial Servidores OCP reduzem custos em data centers . Datacom desenvolveu e está produzindo no Brasil os equipamentos que trazem economia de energia e simplificam a operação . . . . . . . . . . . . . . Copyright ©. Direitos reservados.Manage Cookie Consent Para fornecer as melhores experiências, usamos tecnologias como cookies. De acordo com a nossa Política de Privacidade e, ao continuar navegando, você concorda com estas condições. Functional Functional Sempre ativo The technical storage or access is strictly necessary for the legitimate purpose of enabling the use of a specific service explicitly requested by the subscriber or user, or for the sole purpose of carrying out the transmission of a communication over an electronic communications network. Preferências Preferências O armazenamento ou acesso técnico é necessário para o propósito legítimo de armazenar preferências que não são solicitadas pelo assinante ou usuário. Statistics Statistics The technical storage or access that is used exclusively for statistical purposes. O armazenamento técnico ou acesso que é usado exclusivamente para fins estatísticos anônimos. Sem uma intimação, conformidade voluntária por parte de seu provedor de serviços de Internet ou registros adicionais de terceiros, as informações armazenadas ou recuperadas apenas para esse fim geralmente não podem ser usadas para identificá-lo. Marketing Marketing The technical storage or access is required to create user profiles to send advertising, or to track the user on a website or across several websites for similar marketing purposes. Gerenciar opções Gerenciar serviços Gerenciar fornecedores Leia mais sobre esses propósitos View preferences {title} {title} {title}
+
+Ir para o conteúdo Menu Linkedin Facebook Twitter Instagram Youtube Tiktok Rss Portal de Telecomunicações, Internet e TICs Menu Gente Martinhão será secretário de Telecom e Wellisch, de Radiodifusão Miriam Aquino 5 janeiro 2023 O bolsa Internet será o carro-chefe do MCom e o desafio de encontrar recursos perenes deverá ser grande.As indicações precisam passar pelo trâmite do Planalto. Crédito-Agência BrasilMaximiliano Martinhão e Wilson Wellisch ficam no MCom. O ministro das Comunicações, Juscelino Filho , preferiu manter quadros técnicos com consolidada trajetória no setor e no governo para compor o seu ministério, o MCom, e assim ter mais tempo para atuar politicamente para unir o seu partido (o União Brasil) no Congresso Nacional em prol das ações do governo Lula. Assim, já está sacramentado que Maximiliano Martinhão, será o Secretário de Telecomunicações e Wilson Wellisch assume a secretaria de Radiodifusão.Martinhão, que era o secretário de Radiodifusão no governo Bolsonaro, tem a sua origem profissional na Anatel, já sentou na cadeira de secretário de Telecomunicações no Governo Dilma Rousseff, na gestão do ex-ministro petista, Paulo Bernardo. Wellisch, por sua vez, que já chegou a presidir a Anatel por um breve período, saiu da agência reguladora para a administração direta já na gestão do ex-ministro de Bolsonaro, Fábio Faria, e atualmente ocupava uma diretoria na área de telecomunicações, mas já chegou a atuar também em uma diretoria da radiodifusão no mesmo governo.Bolsa InternetUm dos principais projetos a ser tocado por Martinhão no segmento de telecomunicações será a Bolsa Internet, recursos a serem distribuídos para famílias de baixa renda terem acesso ininterrupto à internet. Essa foi uma das bandeiras de Lula na campanha. O financiamento do consumo é uma bandeira, inclusive, que já ingressou na pauta das maiores operadoras do país, e diferentes CEOs dessas empresas já expressaram, em entrevista ao Tele.Síntese, a defesa dessa causa.O grande desafio de Martinhão será equacionar os recursos para que essa ideia prospere e consiga ter a segurança de sua perenidade. Durante a pandemia do Covid-19, constatou-se uma enorme barreira social e de renda nesse quesito, pois, com os alunos em casa, e com as aulas ministradas on line, os alunos das escolas públicas não tinham como acompanhar as aulas, por que seus planos de franquias de celular normalmente só duram 15 dias.No GT da Transição de Comunicações o financiamento do acesso à internet para a população de baixa renda também foi uma das bandeiras defendidas, mas lá, a opção é pela oferta através da rede fixa, e não pelo celular.Já no caso de Wellisch, não deve haver significativa mudança no que já ocorre hoje na gestão e o maior programa deverá ser o avanço da TV digital para o interior do país, que enfrenta grandes dificuldades já que as emissoras, em sua maioria, foram instaladas com recursos das prefeituras. maximiliano martinhão, Quadros, secretaria de radiodifusão, secretaria de Telecom, Wilson Welisch Miriam Aquino Jornalista há mais de 30 anos, é diretora da Momento Editorial e responsável pela sucursal de Brasília. Especializou-se nas áreas de telecomunicações e de Tecnologia da Informação, e tem ampla experiência no acompanhamento de políticas públicas e dos assuntos regulatórios. [email protected] Ver mais artigos PrevAnteriorTerra Fibra aumentou número de clientes em 2022 PróximoGoverno de Goiás sanciona lei de antenas modelo para todos os municípiosNextTEMAS RELACIONADOS Satélite: Telebras desmente notícia de interferência de ex-assessor em licitação 21 de julho de 2016 Governo Em três anos, uso do smartphone no Brasil sobe de 29% para 80% 17 de outubro de 2016 Futurecom Anatel vai manter regulação sobre atendimento ao consumidor 6 de dezembro de 2016 Encontro TeleSíntese “Voz no mundo do fixo está morta”, diz presidente da TIM 3 de agosto de 2011 Plantão, Sem categoria ARTIGOS SUGERIDOS Inadimplência alcança 6,3 milhões de empresas brasileiras, revela Serasa Experian 27 de outubro de 2022 Negócios DMI IBGE: cai número de pessoas desocupadas 27 de outubro de 2022 Pesquisa DMI Pesquisa PopularCategoriasPesquisa não encontrada Ver Tudo . Destaques Publieditorial Servidores OCP reduzem custos em data centers . Datacom desenvolveu e está produzindo no Brasil os equipamentos que trazem economia de energia e simplificam a operação . . . . . . . . . . . . . . Copyright ©. Direitos reservados.Manage Cookie Consent Para fornecer as melhores experiências, usamos tecnologias como cookies. De acordo com a nossa Política de Privacidade e, ao continuar navegando, você concorda com estas condições. Functional Functional Sempre ativo The technical storage or access is strictly necessary for the legitimate purpose of enabling the use of a specific service explicitly requested by the subscriber or user, or for the sole purpose of carrying out the transmission of a communication over an electronic communications network. Preferências Preferências O armazenamento ou acesso técnico é necessário para o propósito legítimo de armazenar preferências que não são solicitadas pelo assinante ou usuário. Statistics Statistics The technical storage or access that is used exclusively for statistical purposes. O armazenamento técnico ou acesso que é usado exclusivamente para fins estatísticos anônimos. Sem uma intimação, conformidade voluntária por parte de seu provedor de serviços de Internet ou registros adicionais de terceiros, as informações armazenadas ou recuperadas apenas para esse fim geralmente não podem ser usadas para identificá-lo. Marketing Marketing The technical storage or access is required to create user profiles to send advertising, or to track the user on a website or across several websites for similar marketing purposes. Gerenciar opções Gerenciar serviços Gerenciar fornecedores Leia mais sobre esses propósitos View preferences {title} {title} {title}
+
+Veja quanto as Americanas devem às operadoras de telecom e fabricantes de aparelhos  TELETIME News
+
+O mercado brasileiro de telecom passa por uma desorganização estrutural, avalia presidente da Claro  Tele.Síntese
+
+Unifique fecha mais uma aquisição, a Tknet Telecom  TELETIME News
+
+IPCA cai pelo 3º mês seguido, com influência de telecom  Tele.Síntese
+
+Telecom não pode subsidiar setor de energia, dizem conselheiros; agência quer regular preços de postes  TELETIME News
+
+Algar Telecom, Brain e Multivision firmam parceria internacional  InforChannel
+
+Fortaleza recebe congresso de provedores de internet  O POVO

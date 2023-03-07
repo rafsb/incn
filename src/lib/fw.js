@@ -110,6 +110,10 @@ class fw {
         return  rgb ? [ parseInt(rgb[1] || 255, 16), parseInt(rgb[2] || 255, 16), parseInt(rgb[3] || 255, 16), parseInt(rgb[3] || 255, 16) ] : null;
     }
 
+    static async delay(ms=1000) {
+        return new Promise(res => setTimeout(res, ms));
+    }
+
     constructor() {
         this.initial_pragma = 0
         this.current        = 0

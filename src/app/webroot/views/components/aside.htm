@@ -1,11 +1,77 @@
 <template>
     <!-- ASIDE -->
-    <aside id="menu" class='-fixed -zero -bar -scrolls -col-2 -left' style="padding:1em">
-        <div class='-wrapper -content-left' style="background: @FOREGROUND;border-radius:.5em">
-            <label class='-row' style="font-weight:bolder;padding:1em">TESTS</label>
+    <aside id="menu" class='-bar -scrolls -col-2 -left' style="padding:.5em">
+        <div class='-wrapper -content-left' style="background: @FOREGROUND;border-radius:.5em;padding:.5em;filter:grayscale(.5)">
+
+            <!-- SEARCH -->
+            <i class="-row -content-left" style="color:@BACKGROUND;font-size:1.5em;padding:.5em;">__Search</i>
+            <div class='-row'>
+                <img src="assets/img/icons/search.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
+                <input type="text" class='-row -content-left --search-query' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em;margin-bottom:.5em"/>
+            </div>
+            <div class="'-row -flex --search-buttons" style="margin-bottom:.25em">
+                <div class="-left -col-6" style="padding:0 .25 0 0"><button class="-row -pointer" style="background:@ALIZARIN;padding:.5em;border-radius:.5em">Google</button></div>
+                <div class="-left -col-6" style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@PETER_RIVER;padding:.5em;border-radius:.5em">Bing</button></div>
+            </div>
+
+            <!-- SUMMARIZE -->
+            <i class="-row -content-left" style="color:@BACKGROUND;font-size:1.5em;padding:.5em;margin-top:1.5em">__Summarize</i>
+            <div class='-row'>
+                <img src="assets/img/icons/file.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
+                <textarea class='-row -content-left --summarize-query' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em;margin-bottom:.5em" rows="10"></textarea>
+            </div>
+            <div class="'-row -flex -content-center --summarize-button" style="margin-bottom:.25em">
+                <div class='-col-1'></div>
+                <div class='-col-2' style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@GREEN_SEA;padding:.5em;border-radius:.5em">Sumarize</button></div>
+                <div class='-col-1'></div>
+            </div>
+
+            <!-- WEB_SCRAP -->
+            <i class="-row -content-left" style="color:@BACKGROUND;font-size:1.5em;padding:.5em;margin-top:1.5em">__Web_Scrapper</i>
+            <div class='-row'>
+                <img src="assets/img/icons/network.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
+                <input type="text" class='-row -content-left --srcrapper-query' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em;margin-bottom:.5em" placeholder="https://example.com/feed"/>
+            </div>
+            <div class="'-row -flex --scrapper-buttons" style="margin-bottom:.25em">
+                <div class="-left -col-6" style="padding:0 .25 0 0"><button class="-row -pointer" style="background:@GREEN_SEA;padding:.5em;border-radius:.5em">Crawler</button></div>
+                <div class="-left -col-6" style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@GREEN_SEA;padding:.5em;border-radius:.5em">RSS</button></div>
+            </div>
+
+            <div class="-absolute -zero -wrapper" style="background: @DARK4;cursor:not-allowed"></div>
+
         </div>
     </aside>
     <script>
-        bootloader.ready("aside")
+        const
+        searchers = $('.--search-buttons button')
+        , query_elmnt = $('input.--search-query')[0]
+        ;;
+        // google
+        searchers[0].on('click', function() {
+            if(query_elmnt.value) {
+                sock('search/google', { data: { q: query_elmnt.value }, cb: res => {
+                    let str = '' ;;
+                    if(res.data?.data?.items) res.data.data.items.forEach(item => {
+                        str += (item?.document?.data?.data?.content || item?.contentSnippet) + '\n\n' ;;
+                    })
+                    makeframe(res.q, str, '@ALIZARIN')
+                    fw.tooltips()
+                } })
+            }
+        })
+        // bing
+        searchers[1].on('click', function() {
+            if(query_elmnt.value) {
+                sock('search/bing', { data: { q: query_elmnt.value }, cb: res => {
+                    let str = '' ;;
+                    console.log({res})
+                    if(res.data?.data?.items) res.data.data.items.forEach(item => {
+                        str += item.name + ': ' + item.snippet + '\n\n' ;;
+                    })
+                    makeframe(res.q, str, '@PETER_RIVER')
+                    fw.tooltips()
+                } })
+            }
+        })
     </script>
 </template>

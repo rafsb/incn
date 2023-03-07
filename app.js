@@ -16,7 +16,7 @@ global.ROOT             = __dirname + '/src/'
 
 const
 io          = require('./src/lib/utils/fio')
-, fstr     = require('./src/lib/utils/fstr')
+, ftext      = require('./src/lib/utils/ftext')
 , fdate     = require('./src/lib/utils/fdate')
 , express   = require('express')
 , parser    = require('body-parser')
@@ -27,7 +27,7 @@ global.KEY = io.read('/etc/keys/private.key')
 require('./src/lib/constants');
 
 console.log()
-console.log(fstr.fill("", "-", Math.min(process.stdout.columns, 64)))
+console.log(ftext.fill("", "-", Math.min(process.stdout.columns, 64)))
 console.log(
     ETerminalColors.BOLD + ' ENV VARS: \n   ' + ETerminalColors.BOLD_OFF
     + io.read("../.env")
@@ -37,7 +37,7 @@ console.log(
         .map(line => ETerminalColors.FT_BLUE + line.replace('=', ETerminalColors.FT_BLACK+'='+ETerminalColors.BOLD + ETerminalColors.FT_WHITE) + ETerminalColors.BOLD_OFF + ETerminalColors.RESET)
         .join("\n   ")
 )
-console.log(fstr.fill("", "-", Math.min(process.stdout.columns, 64)))
+console.log(ftext.fill("", "-", Math.min(process.stdout.columns, 64)))
 console.log()
 
 // *---------------------------------------------------*
