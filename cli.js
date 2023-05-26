@@ -58,7 +58,7 @@ let found = false ;;
         found = true
         const tmp = require(prefix + classname) ;;
         try{
-            Promise.resolve(tmp[action](...argv)).then(console.log)
+            Promise.resolve(tmp[action]({argv})).then(console.log)
         } catch(e){
             console.error(`app`, `error`, classname + '::' + action + '(' + argv.join(',') + ')' + e.toString())
             if(VERBOSE>2) console.trace(e)

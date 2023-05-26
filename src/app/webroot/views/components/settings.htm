@@ -1,0 +1,105 @@
+<template>
+
+    <script>
+
+        window.fillsettings = jsonform => {
+            jsonform = blend({
+                model               : fw.storage('model')             || "gpt-3.5-turbo"
+                , temperature       : fw.storage('temperature')       || 1
+                , top_p             : fw.storage('top_p')             || 1
+                , n                 : fw.storage('n')                 || 2
+                , presence_penalty  : fw.storage('presence_penalty')  || 20
+                , frequency_penalty : fw.storage('frequency_penalty') || 20
+            }, jsonform)
+            $("#@UID select, #@UID input").forEach(e => {
+                const name = e.getAttribute('name') ;;
+                if(jsonform[name]) {
+                    e.value = isNaN(jsonform[name]) ? jsonform[name] : jsonform[name] * 1
+                    e.dispatchEvent((new Event('change')))
+                }
+            })
+        }
+
+    </script>
+
+    <nav class="--config -bar -right" style="width:3em;z-index:10000">
+        <img src="assets/img/icons/nav-back.svg" class="-inverted -left -pointer" style="width:3em;padding:1.25em;" onclick="{
+            this.parent().$('.--plate')[0].anime({ transform: 'translateX(0)' })
+        }">
+        <form id='@UID' class='-fixed -zero-top-right --plate' style="background: @FOREGROUND;border-radius:.5em;padding:.5em;transform:translateX(120%);margin:.5em;border:1px solid @LIGHT4;width:20vw" saction="javascript:void(0)">
+            <div class='-row'><img src="assets/img/icons/nav-back.svg" class="-inverted -right --close -pointer" style="width:3em;padding:.5em 1.25em;transform:rotate(180deg)" onclick="{
+                this.parent(2).anime({ transform: 'translateX(120%)' })
+            }"></div>
+            <!-- REFRESH -->
+            <div class="-row" style="padding:.5em">
+                <div class="-pointer -right" style="background:@FONT12;border-radius:.5em" onclick="{
+                    fillsettings({
+                        model               : 'gpt-3.5-turbo'
+                        , temperature       : 10
+                        , top_p             : 1
+                        , n                 : 1
+                        , presence_penalty  : 0
+                        , frequency_penalty : 0
+                    })
+                }">
+                    <img src="assets/img/icons/historic.svg" class="-inverted -avoid-pointer" style="width:2em;height:2em;padding:.5em;opacity:.5">
+                </div>
+            </div>
+            <!-- MODELS -->
+            <div class="-row" style="padding:.5em">
+                <label class="-row -content-left" style="opacity:.12;padding:.25em 0">model</label>
+                <select name="model" class="--models" data-reset="gpt-3.5-turbo"></select>
+            </div>
+            <!-- TEMPERATURE -->
+            <div class="-row" style="padding:.5em">
+                <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">temperature</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
+                <input type="range" name="temperature" min="0" max="20" step="1" value="2" data-reset="2" class="--field"/>
+            </div>
+            <!-- TOP_P -->
+            <div class="-row" style="padding:.5em">
+                <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">top_p</span><i class="-right" style="padding:0 .5em;opacity:.24">0.1</i></label>
+                <input type="range" name="top_p" min="0" max="10" value="1" data-reset="1" class="--field">
+            </div>
+            <!-- N -->
+            <div class="-row" style="padding:.5em">
+                <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">n</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
+                <input type="range" name="n" min="10" max="200" step="10" value="10" data-reset="10" class="--field">
+            </div>
+            <!-- PRESENCE PENALTY -->
+            <div class="-row" style="padding:.5em">
+                <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">presence_penalty</span><i class="-right" style="padding:0 .5em;opacity:.24">0</i></label>
+                <input type="range" name="presence_penalty" min="-20" max="20" value="0" step="2" data-reset="0" class="--field">
+            </div>
+            <!-- FREQUENCE PENALTY -->
+            <div class="-row" style="padding:.5em">
+                <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">frequency_penalty</span><i class="-right" style="padding:0 .5em;opacity:.24">0</i></label>
+                <input type="range" name="frequency_penalty" min="-20" max="20" value="0" step="2" data-reset="0" class="--field">
+            </div>
+        </form>
+    </nav>
+
+    <script>
+        (function(){
+
+            $('#@UID .--field').forEach(el => el.on('change', function(){
+                this.parent().$('i')[0].html(this.value/10)
+                fw.storage(this.getAttribute('name'), this.value)
+            }))
+
+            const
+            select_models = $('select.--models')[0]
+            ;;
+
+            fillsettings()
+
+            sock('ai/models', res => {
+                res?.data?.sort((a, b) => b.created - a.created)?.forEach((item, i) => {
+                    select_models.app(TAG("option").attr({ value: item.id }).html(item.id))
+                }) || null
+            })
+
+        })()
+
+    </script>
+
+</template>

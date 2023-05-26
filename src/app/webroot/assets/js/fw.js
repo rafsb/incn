@@ -278,7 +278,7 @@ blend(Element.prototype, {
             where: (me.offsetTop - parent.scrollTop) / parent.clientHeight
         } : false
     }
-    , scrollTo: function(el,fn=null) {
+    , scrolls: function(el,fn=null) {
         if (!el) return -1;
         let
         length = 0;
@@ -436,13 +436,11 @@ blend(String.prototype, {
         return x.firstChild.tagName.toLowerCase() == "template" ? x.firstChild.content.children : x.children;;
     }
     , prepare: function (obj = null) {
-        if (!obj) return this;
-        let
-            str = this.trim();
-        Object.keys(obj).each(x => {
-            let
-                rgx = new RegExp("@" + x, "g");
-            str = str.replace(rgx, obj[x]);
+        if (!obj) return this
+        let str = this.trim() ;;
+        Object.keys(obj).map(x => {
+            let rgx = new RegExp("@" + x, "g") ;;
+            str = str.replace(rgx, obj[x])
         })
         return str;
     }
@@ -1059,7 +1057,7 @@ class throttle {
 class loader {
 
     loadLength() {
-        return Object.keys(this.loaders).length / Object.values(this.loaders).filter(i => i).length
+        return Object.values(this.loaders).filter(i => i).length / Object.keys(this.loaders).length
     }
 
     check(scr) {
@@ -1068,8 +1066,7 @@ class loader {
 
     ready(scr) {
         const tmp = this ;;
-
-        Array.from(this.dependencies).map(x => { tmp.loaders[x] = tmp.loaders[x] ? 1 : 0 });
+        this.dependencies.forEach(x => tmp.loaders[x] = tmp.loaders[x]*1 ? 1 : 0)
         if (scr!=null&&scr!=undefined) this.loaders[scr] = 1;
 
         let perc = this.loadLength();
@@ -1308,7 +1305,7 @@ class fw {
         })
     }
 
-    static nuid(n = 32, prefix = "e") {
+    static nuid(n = 32, prefix = "f") {
         let a = prefix + "";
         n -= a.length;
         const keyspace = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split('')

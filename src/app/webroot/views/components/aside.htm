@@ -1,32 +1,65 @@
 <template>
     <!-- ASIDE -->
-    <aside id="menu" class='-bar -scrolls -col-2 -left' style="padding:.5em">
-        <div class='-wrapper -content-left' style="background: @FOREGROUND;border-radius:.5em;padding:.5em;filter:grayscale(.5)">
+    <aside id="menu" class='-bar -scrolls -left' style="width:3em;z-index:10000;">
+
+        <img src="assets/img/icons/nav-back.svg" class="-inverted -left -pointer" style="width:3em;padding:1.25em;transform: rotate(180deg)" onclick="{
+            this.parent().$('.--plate')[0].anime({ transform: 'translateX(0)' })
+        }">
+
+        <div class='-fixed -zero -content-left --plate' style="background: @FOREGROUND;border-radius:.5em;padding:.5em;transform:translateX(-120%);margin:.5em;border:1px solid @LIGHT4;width:20vw">
+
+            <div class='-row'><img src="assets/img/icons/nav-back.svg" class="-inverted -right --close -pointer" style="width:3em;padding:.5em 1.25em" onclick="{
+                this.parent(2).anime({ transform: 'translateX(-120%)' })
+            }"></div>
 
             <!-- SEARCH -->
             <i class="-row -content-left" style="color:@BACKGROUND;font-size:1.5em;padding:.5em;">__Search</i>
+
+            <div class='-row -flex'>
+                <div class='-col-4' style="padding:.5em .25em .5em 0">
+                    <input type="number" class='-row -content-center --search-len' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em" value="16">
+                </div>
+                <div class='-col-8' style="padding:.5em 0 .5em .25em">
+                    <input type="date" class='-row -content-center --search-date' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em">
+                </div>
+            </div>
+
             <div class='-row'>
                 <img src="assets/img/icons/search.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
                 <input type="text" class='-row -content-left --search-query' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em;margin-bottom:.5em"/>
             </div>
             <div class="'-row -flex --search-buttons" style="margin-bottom:.25em">
-                <div class="-left -col-6" style="padding:0 .25 0 0"><button class="-row -pointer" style="background:@ALIZARIN;padding:.5em;border-radius:.5em">Google</button></div>
-                <div class="-left -col-6" style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@PETER_RIVER;padding:.5em;border-radius:.5em">Bing</button></div>
+                <div class="-col-3"></div>
+                <div class="-left -col-6" style="padding:0 .25 0 0"><button class="-row -pointer --google-search" style="background:@ALIZARIN;padding:.5em;border-radius:.5em">Google</button></div>
+                <!-- <div class="-left -col-6" style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@PETER_RIVER;padding:.5em;border-radius:.5em">Bing</button></div> -->
+                <div class="-col-3"></div>
             </div>
 
             <!-- SUMMARIZE -->
             <i class="-row -content-left" style="color:@BACKGROUND;font-size:1.5em;padding:.5em;margin-top:1.5em">__Summarize</i>
             <div class='-row'>
                 <img src="assets/img/icons/file.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
+                <textarea class='-row -content-left --summarize-cloud' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em;margin-bottom:.5em" rows="3"></textarea>
+            </div>
+            <div class='-row'>
+                <img src="assets/img/icons/file.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
                 <textarea class='-row -content-left --summarize-query' style="padding:.5em;background:@LIGHT2;border:none;border-radius:.5em;margin-bottom:.5em" rows="10"></textarea>
             </div>
             <div class="'-row -flex -content-center --summarize-button" style="margin-bottom:.25em">
                 <div class='-col-1'></div>
-                <div class='-col-2' style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@GREEN_SEA;padding:.5em;border-radius:.5em">Sumarize</button></div>
+                <div class='-col-2' style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@GREEN_SEA;padding:.5em;border-radius:.5em" onclick="{
+                    const cloud = this.upFind('-wrapper').$('.--summarize-cloud')[0]?.value || '' ;;
+                    const query_elmnt = this.upFind('-wrapper').$('.--summarize-query')[0] ;;
+                    const text = query_elmnt?.value || '' ;;
+                    if(!text) return fw.error('Missing text to be summarized...')
+                    // query_elmnt.value = ''
+                    sock('summarize', { data: { text, cloud, tokens: 2048 }, callback: res => makeframe(res.q, res.text, '@MIDNIGHT_BLUE', 'user') && console.log({res}) })
+                    this.upFind('aside').$('.--close')[0].dispatchEvent(new Event('click'))
+                }">Sumarize</button></div>
                 <div class='-col-1'></div>
             </div>
 
-            <!-- WEB_SCRAP -->
+            <!-- WEB_SCRAP -- >
             <i class="-row -content-left" style="color:@BACKGROUND;font-size:1.5em;padding:.5em;margin-top:1.5em">__Web_Scrapper</i>
             <div class='-row'>
                 <img src="assets/img/icons/network.svg" class="-inverted -icon -absolute -avoid-pointer" style="top:.5em;right:.75em;opacity:.25">
@@ -37,7 +70,7 @@
                 <div class="-left -col-6" style="padding:0 0 0 .25em"><button class="-row -pointer" style="background:@GREEN_SEA;padding:.5em;border-radius:.5em">RSS</button></div>
             </div>
 
-            <div class="-absolute -zero -wrapper" style="background: @DARK4;cursor:not-allowed"></div>
+            <! -- <div class="-absolute -zero -wrapper" style="background: @DARK4;cursor:not-allowed"></div> -->
 
         </div>
     </aside>
@@ -48,30 +81,56 @@
         ;;
         // google
         searchers[0].on('click', function() {
-            if(query_elmnt.value) {
-                sock('search/google', { data: { q: query_elmnt.value }, cb: res => {
+            $('.--progress').anime({ width: '10%', background: app.pallete.LIME })
+            if(query_elmnt.value.trim()) {
+                const
+                date = $('.--search-date')[0]?.value    || null
+                , len = $('.--search-len')[0]?.value*1 || null
+                ;;
+                sock('search/google', { data: { q: query_elmnt.value, date, len }, cb: res => {
                     let str = '' ;;
-                    if(res.data?.data?.items) res.data.data.items.forEach(item => {
-                        str += (item?.document?.data?.data?.content || item?.contentSnippet) + '\n\n' ;;
-                    })
-                    makeframe(res.q, str, '@ALIZARIN')
+                    if(res.items) res.items.forEach(item => str += (item?.document?.content || item?.contentSnippet) + '\n')
+                    makeframe(res.q, str, '@POMEGRANATE', 'user').app(DIV('-absolute -zero-bottom-right').app(
+                        DIV('-pointer', {
+                            background     : "@BACKGROUND"
+                            , padding      : '0.5em 2em'
+                            , borderRadius : '0.5em'
+                            , margin       : '0.75em 2em'
+                        }).html('to summarize').on('click', function(){
+                            $('.--summarize-query')[0].value = str
+                            $('#menu > img.-pointer')[0].dispatchEvent(new Event('click'))
+                        })
+                    ))
                     fw.tooltips()
+                    query_elmnt.value = ''
                 } })
+                this.upFind('aside').$('.--close')[0].dispatchEvent(new Event('click'))
+            } else {
+                app.warning('Input missing')
+                $('.--progress').anime({ width: '100%', background: app.pallete.SUN_FLOWER })
             }
         })
+
+        $(".--summarize-cloud")[0].on('change', function(){ fw.storage('sumcloud', this.value) }).value = fw.storage('sumcloud')
+        $(".--summarize-query")[0].on('change', function(){ fw.storage('sumquery', this.value) }).value = fw.storage('sumquery')
+        $(".--search-query")[0].on('keyup', function(k){
+            if((k.keyCode || k.which) == 13) this.upFind('aside').$('.--google-search')[0].dispatchEvent(new Event('click'))
+        })
+
         // bing
-        searchers[1].on('click', function() {
-            if(query_elmnt.value) {
-                sock('search/bing', { data: { q: query_elmnt.value }, cb: res => {
-                    let str = '' ;;
-                    console.log({res})
-                    if(res.data?.data?.items) res.data.data.items.forEach(item => {
-                        str += item.name + ': ' + item.snippet + '\n\n' ;;
-                    })
-                    makeframe(res.q, str, '@PETER_RIVER')
-                    fw.tooltips()
-                } })
-            }
-        })
+        // searchers[1].on('click', function() {
+        //     return app.working('WIP')
+        //     if(query_elmnt.value) {
+        //         sock('search/bing', { data: { q: query_elmnt.value }, cb: res => {
+        //             let str = '' ;;
+        //             console.log({res})
+        //             if(res.data?.data?.items) res.data.data.items.forEach(item => {
+        //                 str += item.name + ': ' + item.snippet + '\n\n' ;;
+        //             })
+        //             makeframe(res.q, str, '@BELIZE_HOLE', 'user')
+        //             fw.tooltips()
+        //         } })
+        //     }
+        // })
     </script>
 </template>

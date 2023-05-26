@@ -1,30 +1,83 @@
 <template>
-    <div class='-fixed -zero -row' style="padding:.125em"><div class='-left --progress' style="height:.25em;background:@LIME;width:0"></div></div>
-    <div class="-bar -col-10 -left --config" style="padding: .5em .5em .5em 0">
+    <div class="-bar -left --config" style="width:calc(100% - 6em);padding: .5em 0">
         <main class="-wrapper" style="background:@FOREGROUND;color:@LIME;border-radius:.5em;">
-            <div class="-row" style="height:88%">
-                <div class='-bar -left -scrolls' style="width:calc(100% - 16.6vw);padding:.5em">
-                    <div class='-row --stage -scrolls' style="height:78%"></div>
-                    <div class='-row --ai -flex' style="height:22%;background:@LIGHT1;border-radius: 0.5em;">
-                        <div class="-col-11 -bar" style="padding:.5em">
-                            <textarea height="100%" class="-wrapper" style="margin-bottom:.5em" placeholder="hello world!">is this a test?</textarea>
+            <div class="-wrapper" style="height:calc(100% - 6em)">
+                <div class='-bar -left -row -scrolls' style="padding:.5em">
+                    <div class='-row --stage -scrolls' style="height:70%;padding: 1em 4em"></div>
+
+                    <!-- FLOATING -->
+                    <div class="-absolute -zero -hover" style="top:25%;padding:.25em;opacity:.32;transform:translateY(-50%)">
+                        <!-- BACK TO TOP -->
+                        <div class="-pointer" style="background:@FONT22;border-radius:1.5em;height:3em;width:3em;margin:.25em;transform:rotate(90deg)"  onclick="{
+                                const wrap = this.upFind('-wrapper'), stag = wrap.$('.--stage')[0] ;;
+                                stag.scrollTo({ top: 0, behavior: 'smooth' })
+                            }">
+                            <img src="assets/img/icons/forward.svg" class="-inverted -centered" style="height:1em;">
                         </div>
-                        <div class="-col-1 -bar" style="padding:.5em .5em 0 0 ">
-                            <button class="-pointer -row -left" style="color:@FONT;background:@GREEN_SEA;padding:.5em;border-radius:.5em" onclick="
-                                const v = this.parent(2).$('textarea')[0].value + '' ;;
-                                this.parent(2).$('textarea')[0].value = ''
+                        <br>
+                        <!-- BACK TO TOP -->
+                        <div class="-pointer" style="background:@FONT22;border-radius:1.5em;height:3em;width:3em;margin:.25em;transform:rotate(90deg)"  onclick="{
+                                const wrap = this.upFind('-wrapper'), stag = wrap.$('.--stage')[0], rows = wrap.$('.--tile-row.--user') ;;
+                                let i = 0 ;;
+                                while(rows[i] && rows[i].getBoundingClientRect().y<100) ++i
+                                if(rows[i-2]) stag.scrolls(rows[i-2])
+                            }">
+                            <img src="assets/img/icons/nav-back.svg" class="-inverted -centered" style="height:1em;">
+                        </div>
+                        <br>
+                        <div class="-pointer" style="background:@FONT22;border-radius:1.5em;height:3em;width:3em;margin:.25em;transform:rotate(-90deg)" onclick="{
+                                const wrap = this.upFind('-wrapper'), stag = wrap.$('.--stage')[0], rows = wrap.$('.--tile-row.--user') ;;
+                                let i = 0 ;;
+                                while(rows[i] && rows[i].getBoundingClientRect().y<100) ++i
+                                if(rows[i]) stag.scrolls(rows[i])
+                            }">
+                            <img src="assets/img/icons/nav-back.svg" class="-inverted -centered" style="height:1em;">
+                        </div>
+                        <br>
+                        <!-- GO TO BOTTOM -->
+                        <div class="-pointer" style="background:@FONT22;border-radius:1.5em;height:3em;width:3em;margin:.25em;transform:rotate(-90deg)"  onclick="{
+                            const wrap = this.upFind('-wrapper'), stag = wrap.$('.--stage')[0] ;;
+                            stag.scrollTo({ top: Number.MAX_SAFE_INTEGER, behavior: 'smooth' })
+                        }">
+                            <img src="assets/img/icons/forward.svg" class="-inverted -centered" style="height:1em;">
+                        </div>
+                    </div>
+                    <div class='-row --ai -flex' style="height:30%;background:@BACKGROUND;border-radius: 0.5em;padding-right:.5em">
+                        <div class="-col-11 -left -bar" style="padding:.5em">
+                            <textarea height="100%" data-storage='actor_preset' class="-row --ai-system" style="height:calc(20% - .5em);margin-bottom:.5em" placeholder="act like a king!"></textarea>
+                            <textarea height="100%" data-storage='question' class="-row --ai-user" style="height:calc(80% - .5em);margin-bottom:.5em" placeholder="hello world!"></textarea>
+                        </div>
+                        <div class="-col-1 -bar -left">
+                            <button class="-pointer -col-10 -centered --ai-sender" style="color:@FONT;background:@GREEN_SEA;padding:.5em;border-radius:.5em" onclick="
+
+                                const
+                                system = this.parent(2).$('textarea')[0].value.trim()
+                                , v = this.parent(2).$('textarea')[1].value.trim()
+                                ;;
+                                this.parent(2).$('textarea')[1].value = ''
                                 if(!v) fw.warning('Missing message ...')
                                 else {
-                                    const
-                                    data = fw.get('.--config form')[0].json()
-                                    // , messages = Array.from(document.querySelectorAll('.--message'))?.sort((a, b) => a.dataset.ts*1 - b.dataset.ts*1).map(e => new Object({ role: e.dataset.role, cotent: e.dataset.content })).reverse().slice(0,4).reverse() || []
-                                    ;;
-                                    // messages.push({ role:'user', content: v })
-                                    data.messages = [{ role:'user', content: v }]
-
+                                    const data = fw.get('.--config form')[0].json() ;;
+                                    Object.keys(data).forEach(k => !isNaN(data[k]) ? data[k]/=10 : null)
+                                    if(!data.messages) data.messages = []
+                                    fw.get('.--tile-row .--message').map(e => {
+                                        const role = e.dataset.role ;;
+                                        const content = e.textContent ;;
+                                        return { role, content }
+                                    }).reverse().slice(0, 10).reverse().forEach(message => {
+                                        if(data.messages.reduce((x, e) => x += e.content.length, 0)/4 < 2048) data.messages.push(message)
+                                    })
+                                    data.messages = [ { role:'system', content: system || 'you are a helpfull assistant' } ].concat(data.messages).concat([ { role:'user', content: v } ])
                                     sock('ai/chat', { data: {data}, callback: res => {
+                                        if(res?.response?.error) {
+                                            makeframe(res.response.error.code, res.response.error.message, '@BACKGROUND').$('div')[0].css({ border: '.25em solid @ALIZARIN' })
+                                            return
+                                        }
                                         try {
-                                            makeframe(fdate.as() + ` (token count: ${res?.response?.usage?.total_tokens||'n/c'})`, res.response.choices[0].message.content, '@BACKGROUND')
+                                            let cost = 0.002 / 1000 * (res?.response?.usage?.total_tokens||0) ;;
+                                            let acc = (fw.storage('acc')*1 || 0) + cost ;;
+                                            fw.storage('acc', acc)
+                                            makeframe(fdate.as() + ` (tokens: ${res?.response?.usage?.total_tokens||'n/c'}, cost U$: ${cost.toFixed(6)}, accumulated U$: ${acc.toFixed(3)}`, res.response.choices[0].message.content, '@BACKGROUND')
                                         } catch(e) {
                                             console.trace(e);
                                             fw.warning('No response from request ...')
@@ -36,71 +89,18 @@
                         </div>
                     </div>
                 </div>
-                <nav class="-bar" style="width:16.6vw;padding:.5em .5em .5em 0">
-                    <form class='-wrapper' style="color:@FONT;background:@LIGHT1;border-radius:.5em" action="javascript:void(0)">
-                        <!-- REFRESH -->
-                        <div class="-row" style="padding:.5em">
-                            <div class="-pointer -right" style="background:@FONT12;border-radius:.5em" onclick="this.parent(2).$('select, input').forEach(e => {
-                                if(e.dataset.reset !== undefined) {
-                                    e.value = isNaN(e.dataset.reset) ? e.dataset.reset : e.dataset.reset * 1
-                                    // ;e.onchange && e.onchange();
-                                    e.dispatchEvent((new Event('change')))
-                                }
-                            })" >
-                                <img src="assets/img/icons/historic.svg" class="-inverted -avoid-pointer" style="width:2em;height:2em;padding:.5em;opacity:.5">
-                            </div>
-                        </div>
-                        <!-- MODELS -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="opacity:.12;padding:.25em 0">model</label>
-                            <select name="model" class="--field --models" data-reset="gpt-3.5-turbo"></select>
-                        </div>
-                        <!-- TEMPERATURE -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">temperature</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
-                            <input type="range" min="0" max="20" value="10" data-reset="10" onchange="this.parent().$('i')[0].html(this.value/10)">
-                            <input type="hidden" class='--field' name="temperature" value="1"/>
-                        </div>
-                        <!-- TOP_P -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">top_p</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
-                            <input type="range" min="0" max="10" value="10" data-reset="1" onchange="this.parent().$('i')[0].html(this.value/10)">
-                            <input type="hidden" class='--field' name="top_p" value="1"/>
-                        </div>
-                        <!-- N -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">n</span><i class="-right" style="padding:0 .5em;opacity:.24">1</i></label>
-                            <input class='--field' name="n" type="range" min="0" max="10" value="1" data-reset="1" onchange="this.parent().$('i')[0].html(this.value)">
-                        </div>
-                        <!-- PRESENCE PENALTY -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">presence_penalty</span><i class="-right" style="padding:0 .5em;opacity:.24">0</i></label>
-                            <input type="range" min="0" max="40" value="20" data-reset="20" onchange="const v = (this.value-20)/10; this.parent().$('.--field')[0].value = v; this.parent().$('i')[0].html(v)">
-                            <input type="hidden" class='--field' name="presence_penalty" value="0"/>
-                        </div>
-                        <!-- FREQUENCE PENALTY -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">frequency_penalty</span><i class="-right" style="padding:0 .5em;opacity:.24">0</i></label>
-                            <input type="range" min="0" max="40" value="20" data-reset="20" onchange="const v = (this.value-20)/10; this.parent().$('.--field')[0].value = v; this.parent().$('i')[0].html(v)">
-                            <input type="hidden" class='--field' name="frequency_penalty" value="0"/>
-                        </div>
-                        <!-- MAX TOKENS -->
-                        <div class="-row" style="padding:.5em">
-                            <label class="-row -content-left" style="padding:.25em 0"><span style="opacity:.12">max_tokens</span><i class="-right" style="padding:0 .5em;opacity:.24">2048</i></label>
-                            <input class="--field" name="max_tokens" type="range" min="0" max="4096" value="2048" data-reset="2048" onchange="this.parent().$('i')[0].html(this.value)">
-                        </div>
-                    </form>
-                </nav>
+
             </div>
-            <div class='-row -scrolls --stream' style="background:@DARK4;color:@LIME;padding:.5em;height:12%"></div>
+            <div class='-row -scrolls --stream' style="font-weight:lighter;background:@DARK4;color:@LIME;padding:.5em;height:6em"></div>
         </main>
     </div>
+    <div class='-fixed -zero -row' style="padding:.125em"><div class='-left --progress' style="height:.25em;background:@LIME;width:0"></div></div>
     <style>
         .--config input[type=text], .--config select, .--config textarea {
             width:100%;
             color:@FONTAA;
             padding:.5em;
-            background:@LIGHT1;
+            background:@FONT0F;
             border:none;
             border-radius:.5em;
         }
@@ -132,15 +132,23 @@
             cursor: pointer;
             border-radius:.5em
         }
+        .--stream {
+            font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+        }
 
     </style>
     <script>
-        const
-        select_models = $('select.--models')[0]
-        ;;
-        sock('ai/models', res => {
-            res?.data?.sort((a, b) => b.created - a.created)?.forEach((item, i) => select_models.app(TAG("option").attr({ value: item.id }).html(item.id)))
-            // select_models.value = "text-davinci-003"
-        })
+        (function(){
+            fw.load('views/components/settings.htm', null, $('#home')[0])
+            const e = $("textarea.--ai-system")[0] ;;
+            const tmp = fw.storage(e.dataset.storage) ;;
+            if(tmp) e.value = tmp
+            e.on('change', function() { fw.storage(this.dataset.storage, this.value) })
+            $('textarea.--ai-user')[0].on('keydown', function(k) {
+                const code = (k.keyCode||k.which) ;;
+                if(code == 13 && this.lk == 17) $('button.--ai-sender')[0].dispatchEvent(new Event('click'))
+                this.lk = code
+            }).on('change', function(){ fw.storage('aiuser', this.value) }).value = fw.storage('aiuser')
+        })()
     </script>
 </template>

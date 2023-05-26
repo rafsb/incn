@@ -171,6 +171,8 @@ blur
 .-bold 			{ font-weight: bolder }
 .-inverted 		{ filter:invert(1) }
 .-flip 			{ transform: scaleX(-1); }
+.-hover 		{ opacity: .32 !important; }
+.-hover:hover 	{ opacity: 1 !important; }
 
 /* SPECIALS */
 .-zero-top-left,.-zero-bottom-right,.-zero-bottom-left,.-zero-top-right, .-zero, .-zero-top, .-zero-bottom, .-zero-tl, .-zero-tr, .-zero-bl, .-zero-br, .-zero-bottom-left { margin: 0; }

@@ -11,7 +11,6 @@ global.DB_NAME          = process.env.DB_NAME     || "core"
 global.DB_PK            = process.env.DB_PK       || "part"
 global.DB_KEY           = process.env.DB_KEY      || ""
 global.DB_ENDPOINT      = process.env.DB_ENDPOINT || ""
-global.SESSION_DURATION = process.env.SESSION_DURATION || 24 * 60
 global.ROOT             = __dirname + '/src/'
 
 const

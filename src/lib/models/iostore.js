@@ -1,13 +1,15 @@
 const
-emitter = require("events")
-, io    = require("../utils/fio")
+io    = require("../utils/fio")
 , date  = require("../utils/fdate")
-, fw    = require("../fw")
 ;;
 
 class iostore {
 
     static db_name = global.DB_NAME || `store_db`
+
+    static load(name){
+        return new iostore(name)
+    }
 
     static cast(name) {
         return new iostore(name)
@@ -107,4 +109,4 @@ class iostore {
 
 }
 
-module.exports = iostore;
+module.exports = iostore

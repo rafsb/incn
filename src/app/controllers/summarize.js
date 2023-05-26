@@ -13,7 +13,10 @@ fw          = require('../../lib/fw')
 module.exports = class summarize extends initiator {
 
     static async init(args) {
-        args.text = text.summarize(args.text)
+        console.log(args.cloud)
+        args.log&&args.log({ stream: `initializing summarization for ${text.nerdify(args.text.length/4)} tokens`, progress:0 })
+        args.text = text.summarize(args.text, args.tokens||2048, null, null, args.cloud || null)
+        args.log&&args.log({ stream: 'finalized', progress:1 })
         return args
     }
 

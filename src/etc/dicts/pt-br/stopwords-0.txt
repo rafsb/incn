@@ -1,122 +1,3 @@
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-90
-100
-103
-105
-118
-190
-200
-294
-425
-500
-504
-516
-538
-550
-887
-1988
-1989
-1990
-1991
-1992
-1993
-1994
-1995
-1996
-1997
-1998
-1999
-2000
-2001
-2002
-2003
-2004
-2005
-2006
-2007
-2008
-2009
-2010
-2011
-2012
-2013
-2014
-2015
-2016
-2017
-2018
-2019
-2020
-2021
-2675
-2848
-3028
-3056
-3355
-8340
-99903
-99958
-27745337
-1123681294
 a
 ante
 após
@@ -136,8 +17,11 @@ sobre
 trás
 ao
 aos
+a
 o
+em
 na
+de
 do
 da
 nos
@@ -159,7 +43,10 @@ elas
 me
 te
 se
+o
+a
 lhe
+nos
 vos
 os
 as
@@ -215,6 +102,7 @@ tanto
 bastante
 pouco
 todo
+nenhum
 algo
 cada
 certo
@@ -228,19 +116,44 @@ tantos
 várias
 uns
 umas
+a
 agora
 ainda
 além
+ambos
 antes
+ao
+aos
 apenas
+após
+aquela
+aquelas
+aquele
+aqueles
+aquilo
+as
+até
 através
+cada
 coisa
 coisas
+com
+como
+contra
 contudo
+da
 daquele
 daqueles
 das
+de
+dela
+delas
+dele
+deles
+desde
+desta
 destas
+deste
 deste
 destes
 deve
@@ -259,20 +172,32 @@ disto
 dito
 diz
 dizem
+do
 dos
 e
 é
+eles
+em
 enquanto
+entre
 era
 eram
+essa
+essas
+esse
+esses
+esta
 está
 estamos
 estão
+estas
 estava
 estavam
+este
 esteja
 estejam
 estejamos
+estes
 estiver
 estiveram
 estiverem
@@ -282,6 +207,7 @@ estivessem
 estivéramos
 estivéssemos
 estou
+eu
 fará
 faremos
 faz
@@ -308,53 +234,263 @@ grandes
 há
 hora
 horas
+isso
+isto
 já
 lá
+lhe
+lhes
 lo
 local
 maioria
 mais
 mas
+me
 mesma
 mesmas
+mesmo
 mesmos
+meu
 meus
 mim
+muito
+na
 não
 nas
 nem
 nesse
+neste
 nesta
 ninguém
+no
+nos
+nós
+a
+ao
+aos
+aquela
+aquelas
+aquele
+aqueles
+aquilo
+as
+até
+com
+como
+da
+das
+de
+dela
+delas
+dele
+deles
+desde
+do
+dos
+e
+ela
+elas
+ele
+eles
+em
+entre
+era
+eram
+essa
+essas
+esse
+esses
+esta
+estas
+este
+estes
+eu
+foi
+foram
+há
+isso
+isto
+já
 la
+lá
+lhe
+lhes
+lo
+mas
+me
+mesmo
+meu
+meus
+minha
 minhas
+muito
+na
+não
+nas
+nem
+no
+nos
+nós
+o
+os
 ou
+para
 pela
 pelas
 pelo
 pelos
+por
+que
+quem
+se
 seja
 sejam
+sem
 ser
+seu
 seus
+sobre
+sua
 suas
 também
+te
 tem
 tinha
 tinham
 toda
+todas
+todo
+todos
+tu
+um
+uma
+umas
+uns
+você
+vocês
+a
+ao
+aos
+aquela
+aquelas
+aquele
+aqueles
+as
+até
+com
+como
+da
+das
+de
+dela
+delas
+dele
+deles
+do
+dos
+e
+ela
+elas
+ele
+eles
+em
+entre
+era
+eram
+essa
+essas
+esse
+esses
+esta
+estas
+este
+estes
+eu
+foi
+foram
+há
+isso
+isto
+já
+lhe
+lhes
+mais
+mas
+me
+mesmo
+meu
+meus
+minha
+minhas
+muito
+na
+nas
+não
+no
+nos
+nossa
+nossas
+nosso
+nossos
+o
+os
+ou
+para
+pela
+pelas
+pelo
+pelos
+por
+que
+quem
+se
+sem
+ser
+seu
+seus
+sua
+suas
+também
+te
+tem
+tido
+tinha
+tinham
+toda
+todas
+todo
 todos
 um
 uma
-você
-vocês
-nossas
-nossos
-tido
+umas
+uns
 cookies
 br
+de
+o
+e
+a
+do
+que
+no
+mais
+para
+com
+em
+da
+é
+por
+uma
+um
+os
+dos
+não
+foi
 of
+ao
+se
 the
+ou
 às
 outros
 ano
@@ -371,6 +507,7 @@ Obtivéssemos
 começarem
 real
 lg
+19
 Pensa
 Tivermos
 começávames
@@ -380,6 +517,8 @@ Seguimos
 deveríamos
 Obterem
 foste
+seus
+tem
 etc
 Viste
 RIO
@@ -404,10 +543,13 @@ começasses
 estiveste
 de fora
 são paulo
+em
 chegarão
 Houveras
 CANAL
 Haveríeis
+2012
+nada
 Pensemos
 de quando em quando
 ultimamente
@@ -419,12 +561,16 @@ assim
 nela
 Ponham
 Sido
+deviam
 acabareis
 Queríeis
 XL
 pessoas
 deverás
 deixe
+uma
+para
+2005
 Verem
 pequena
 Obtivestes
@@ -435,6 +581,7 @@ i
 acabarão
 Tiveste
 com efeito
+55
 Pensaremos
 Haveriam
 naqueles
@@ -442,13 +589,16 @@ polícia
 à tarde
 twitter
 começava
+27
 doze
+1996
 chegue
 iPhone
 ora
 Passo
 Vem
 deveram
+54
 surtada
 Houvestes
 bANHO
@@ -460,12 +610,15 @@ homem
 havei
 poderão
 Tentares
+outros
 Olhava
 deixardes
 Permite
+disso
 Tornai
 Viram
 dezoito
+tudo
 haviam
 1990 QUANTA
 Trouxésseis
@@ -484,12 +637,14 @@ ontem
 Saibam
 Precisei
 Obteriam
+isto
 Deligar
 III
 Hajais
 Olhar
 Poderíamos
 houvemos
+2003
 Posso
 boas
 poderás
@@ -499,21 +654,26 @@ pois
 Fizéreis
 Trouxera
 fan
+estamos
+2017
 curtir isso · asilo
 It
 Queiramos
 sei
 Pensaram
 constantemente
+este
 Obtivera
 Façamos
 Irão
 Pois
 Tentemos
+disse
 Quereríeis
 VOU
 Ouviríamos
 pistola
+deverão
 sábado
 Veres
 não obstante
@@ -522,16 +682,21 @@ Trazeres
 Doar-Me
 Sabemos
 convosco
+2008
 Olharas
 compartilhando
 Você
+nossos
 conquanto
 Dávamos
+antes
 houvesses
 Vez
+6
 Está
 começasse
 chegavam
+deste
 nestas
 Quiçá
 Suave
@@ -544,9 +709,11 @@ dezembro
 provisoriamente
 Rio
 Tivesses
+17
 Tragais
 Vou
 grupo
+todos
 viagem
 pontos
 chegásseis
@@ -561,6 +728,7 @@ exclusivamente
 exceto
 Porão
 Ficássemos
+51
 Estejas
 Ouvia
 SP
@@ -569,6 +737,7 @@ começado
 Quererem
 Vir
 Olharás
+pouco
 logo que
 deixáveis
 houvera
@@ -592,10 +761,13 @@ Pensássemos
 j
 03
 poc
+22
 Senhor(es)
 Estaria
 Verá
 Estivéramos
+nós
+tantos
 Estarão
 por ali
 realmente
@@ -612,12 +784,14 @@ si
 Éreis
 web
 tereis
+5
 10ª
 música
 dessa
 Tivemos
 sou
 acabares
+aquele
 tuas
 Haverá
 Quiséramos
@@ -632,6 +806,7 @@ t
 Passaríeis
 por demais
 usamos
+como
 doravante
 …aos
 Estarmos
@@ -647,6 +822,7 @@ anjo
 Houveste
 acabáveis
 página · 1
+2018
 Senhora(s)
 jogo
 noventa
@@ -655,7 +831,10 @@ deixámos
 estivera
 …Aos
 enfim
+todas
 XLI
+estivermos
+nenhum
 Podem
 Houvemos
 Estiveram
@@ -673,10 +852,12 @@ coragem
 sexta feira
 curtir isso · organização
 deixastes
+estava
 pudera
 amplas
 seremos
 Pensarão
+até
 cedo
 Éramos
 a não ser que
@@ -686,6 +867,7 @@ Pudéssemos
 Soubesses
 Foram
 compartilhar
+fossem
 podias
 12º
 estar
@@ -698,6 +880,7 @@ Mt
 Tentara
 Haverdes
 deixarás
+através
 devíamos
 tomara
 Vossa Senhoria
@@ -729,6 +912,7 @@ Vindo
 Obtivéreis
 somente
 Saberiam
+estiverem
 Ariana
 Tornara
 Vierdes
@@ -755,16 +939,19 @@ parça
 deixamos
 devêssemos
 poderia
+foi
 região
 Quererias
 deixasse
 isso · Asilo
 lei
+era
 XXXVIII
 porfa
 idosos ဨဨဨ
 Quererei
 504 curtiram
+toda
 Vamos
 insta
 Serias
@@ -785,13 +972,16 @@ Seriam
 começara
 parabéns
 tivéreis
+quais
 usava
+várias
 podido
 durante
 Usava
 Tô
 grandemente
 Olhávamos
+estiver
 Pensásseis
 apoio
 deusa
@@ -799,11 +989,14 @@ Quererdes
 
 Use
 Fiquei
+elas
 Obtende
 terão
+forma
 queremas
 Sei
 deixaria
+estivessem
 deixarias
 por que
 Haja
@@ -816,17 +1009,25 @@ Ouviam
 Fazeis
 sul
 intensamente
+mim
 Sejais
+disto
 naquele
 n
 XIX
+horas
 pfvr
+nosso
 use
 isso · Serviços
+59
 plmdds
 d
 zero
+ante
 nenhuma
+estavam
+1997
 Passeis
 guerra
 isso · Negócio
@@ -836,10 +1037,13 @@ certa
 Solicito
 Hajam
 máximo
+47
 Chega
 Pedi
+1993
 Pusessem
 per
+tinha
 Quisesse
 curtiram isso · Organização religiosa
 àquele
@@ -851,6 +1055,7 @@ Punham
 Estaríamos
 Teus
 XLV
+entre
 paucas
 houveram
 Pueda
@@ -862,10 +1067,15 @@ a sós
 o mais das vezes
 portuguesa
 poderdes
+dele
+forem
+37
 Sereis
 oitavo
+3355
 Põe
 flopada
+sua
 hajais
 quinze
 sinceramente
@@ -876,6 +1086,7 @@ Penses
 capital
 terceira
 setenta
+grandes
 Vínhamos
 is
 Fordes
@@ -883,6 +1094,7 @@ Tornáreis
 Passávamos
 entretanto
 Passares
+26
 Tínhamos
 conosco
 deverias
@@ -908,6 +1120,7 @@ aquém
 de todo
 In
 força
+29
 Estivéssemos
 Ouvissem
 Haverias
@@ -925,19 +1138,23 @@ Uhuuuuu
 Fizésseis
 Trazerdes
 detrás
+8
 PAULO
 cheguemos
 Estivera
 afinal
 on fire
 Vêm
+br
 maior
 zap
 XLII
+pode
 Seremos
 Pusésseis
 Porás
 mas ainda
+2006
 tenhamos
 Puderem
 chegáveis
@@ -965,16 +1182,19 @@ Traremos
 Pensarem
 tivessem
 Vossa Magnificência
+1994
 Houvéreis
 seis
 anos
 iphone
 Usou
+coisas
 Vamo
 Estardes
 amada
 cho
 Estais
+mas
 situação
 1123681294 centrodia
 Obtinha
@@ -985,15 +1205,19 @@ Obtenhamos
 ministério
 Tornem
 Trouxesses
+mesma
 Podíeis
 mana
 uma vez que
+105
 Quiseram
 peço
 generosamente
 Ficaremos
+lhes
 Ficarmos
 aos poucos
+feita
 houveremos
 onze
 começáramos
@@ -1005,6 +1229,7 @@ Vossa Excelência
 Aq
 estivestes
 quiçá
+nossas
 top
 Olhas
 Queria
@@ -1012,6 +1237,7 @@ própria
 08
 Mlk
 alguém
+eu
 defronte
 podes
 miga
@@ -1027,6 +1253,7 @@ ver
 começou
 curtiram isso · Organização
 eh
+36
 Tornáramos
 cada vez que
 Puséssemos
@@ -1056,10 +1283,12 @@ Houvessem
 Estes
 Víamos
 deixassem
+milhões
 acabei
 chegassem
 Iriam
 debalde
+dever
 curtiram isso · Agência
 Hehe
 Tiverdes
@@ -1074,15 +1303,18 @@ Trariam
 Passai
 ֲ     diadoidoso
 bit ly
+eles
 Hum
 Terdes
 Esse
+quanto
 dessas
 ne nao
 pudestes
 internacional
 até que
 teus
+mesmo
 Vias
 chegasse
 ola
@@ -1092,10 +1324,15 @@ especial ֲ     diadoidoso
 Quisesses
 PRO
 Olhou
+25
 começamos
+esses
+de
+já
 curtir isso · negócio
 por fora
 Queirais
+vosso
 …que
 Dera
 Vinde
@@ -1106,6 +1343,7 @@ próprias
 Conseguiu
 Vista
 alto
+nossa
 Pusemos
 casa
 tweet
@@ -1134,11 +1372,15 @@ Fui
 daquelas
 Havereis
 têm
+90
 Lindaaaa
 janete carvalhogrupo
 at
 Tornastes
+ninguém
 connosco
+28
+2009
 Haverás
 Tenho
 Pôs
@@ -1176,14 +1418,20 @@ Vossa Eminência
 amorosamente
 isso · asilo
 Poderíeis
+no
 2001 Invocações
+35
+56
 Obtiver
 curtir isso · site
 outrora
+umas
 Android
 tivéramos
+estiveram
 deixávamos
 Fiques
+certas
 Deixará
 fim
 Obtiveres
@@ -1194,6 +1442,7 @@ Ficava
 vlw
 Sejamos
 Virão
+1989
 devi
 Veria
 ao lado
@@ -1202,13 +1451,16 @@ VIII
 houvéreis
 Tenhas
 monstro
+53
 Faríamos
 usadas
 Irei
 Puser
 7ª
+2019
 Podíamos
 ACCOUNT
+ano
 outubro
 Tentariam
 página · 111
@@ -1227,15 +1479,18 @@ Dane
 àquelas
 fev
 empresas
+7
 Vindes
 chegaras
 lado
 Nao
+1991
 XXVI
 Farei
 chegarmos
 Tornarias
 Queres
+2013
 Ouves
 idade 👩‍👩‍👦‍👦❤️
 Ficaríamos
@@ -1249,6 +1504,7 @@ Fôramos
 Ponhais
 Passarmos
 Pusermos
+maioria
 três
 Viu
 de repente
@@ -1274,11 +1530,15 @@ Pensáveis
 p
 bom
 Estarias
+das
+2021
 treze
 jan
 Terás
 Viéssemos
 flopei
+estivéramos
+2675
 Ficariam
 quinta
 Troquei
@@ -1303,6 +1563,8 @@ pôde
 a distância
 poderem
 Há
+13
+of
 tiveres
 Fiquem
 Fores
@@ -1313,12 +1575,14 @@ Sejam
 Tentardes
 Afirma
 Teríamos
+a
 Estarei
 deves
 rua
 Tornado
 Compartilhe
 bjs
+você
 Pores
 Serei
 Tinhas
@@ -1347,6 +1611,7 @@ haveis
 vindo
 Páginas
 Vínheis
+20
 504 curtir isso · asilo
 FOTOS
 Salve-Se
@@ -1364,6 +1629,7 @@ Ficastes
 Ouvias
 Msg
 Obterias
+uns
 b
 Ouvi
 Vejam
@@ -1380,6 +1646,7 @@ isso · serviços médico
 vais
 Fazemos
 Consigo
+fazer
 Puseres
 devias
 Víeis
@@ -1390,12 +1657,14 @@ Pordes
 Vossa Santidade
 quase
 nenhures
+esta
 Vos
 adeus
 Ta
 Tiverem
 parou
 pudésseis
+1995
 Sabei
 mai
 27745337 centrodia envelhecimento
@@ -1415,10 +1684,12 @@ Ponhas
 chegarei
 Dás
 Temos
+1988
 Estiveste
 flw
 devêramos
 tv
+é
 dessa maneira
 duas
 it
@@ -1428,6 +1699,7 @@ Tivéreis
 muitas
 fostes
 acabaremos
+2020
 Souberas
 Account
 basta
@@ -1455,6 +1727,8 @@ c
 Estivesse
 Poder
 Saberei
+devem
+com
 a qual
 Tinha
 havia
@@ -1473,6 +1747,7 @@ Obtinhas
 Puderdes
 Tecnologia
 …um
+feitas
 Tornasse
 I
 fomos
@@ -1494,6 +1769,7 @@ sempre
 tínhamos
 Tnc
 www youtube
+1999
 Página · 2
 esteve
 Ouvirem
@@ -1504,6 +1780,7 @@ h
 09
 agr
 to mijando
+2014
 Saberão
 lisboa
 usavam
@@ -1546,6 +1823,8 @@ Hás
 começavam
 Vierem
 alguma
+8340
+deles
 Passava
 TO
 próximos
@@ -1559,8 +1838,11 @@ irão
 cheguei
 chegarás
 da…
+887
+24
 Quiseres
 bicho
+o
 Deixaram
 XXXV
 opá
@@ -1569,6 +1851,7 @@ Dar
 contos
 Querer
 Tá
+ela
 fotos
 Deram
 dizer
@@ -1579,6 +1862,7 @@ Tornas
 central
 Brazil
 Obterdes
+estivesse
 sois
 z
 quem sabe
@@ -1600,13 +1884,16 @@ Podia
 You
 Quereríamos
 she
+me
 tag
 Venhais
+dos
 Pusesses
 mesmo que
 Estarás
 Kkkkkkkkk
 and
+2010
 poderias
 Olhastes
 Obtivesse
@@ -1615,6 +1902,7 @@ frente a frente
 moro
 kbça
 kkkkkk
+2011
 De boa
 deixo
 Pudessem
@@ -1628,8 +1916,10 @@ chegais
 Viras
 gente
 heis
+504
 to
 8ª
+teu
 obras
 chegámos
 jul
@@ -1649,9 +1939,11 @@ Fazerem
 Passaríamos
 diva
 …de
+
 tivesse
 nenhuns
 novos
+16
 visualizações
 possivelmente
 deixaste
@@ -1660,6 +1952,7 @@ Virem
 viada
 Estou
 parcero
+pro
 Olharem
 segunda feira
 Quiser
@@ -1676,10 +1969,12 @@ bb
 amado
 maio
 Leia
+118
 Fizeras
 Podereis
 Portuguese
 pudermos
+550
 Obtivessem
 Ficáramos
 Venhamos
@@ -1699,12 +1994,16 @@ vem de zap
 acabasses
 Filtros Publicações
 Tornarmos
+4
 bondosamente
 fazem
+ele
 curtir isso · local
 mercado
+minhas
 loca
 quarta
+200
 direito
 ao fundo
 fiel 504
@@ -1712,6 +2011,7 @@ Soubermos
 01
 be
 Fazerdes
+99903
 Aqls
 Olho
 por certo
@@ -1728,7 +2028,9 @@ Passassem
 Olharíamos
 Tentais
 sexta
+12
 XXXIX
+um
 Qu
 Saberíamos
 efetivamente
@@ -1748,6 +2050,7 @@ g
 nesses
 ao vivo
 começa
+onde
 Viermos
 idoso ဨဨဨ
 YouTube
@@ -1764,6 +2067,7 @@ gatilho
 Passavam
 Vi
 consigo
+cujo
 Tive
 07 2009
 Será
@@ -1775,7 +2079,9 @@ Olhes
 Passará
 Pfvr
 Viésseis
+for
 haverás
+daquele
 curtir isso · comunidade portal
 XXVIII
 havíeis
@@ -1796,28 +2102,38 @@ nunca
 devo
 Olha
 boM
+suas
 debaixo
 chego
+44
 rsrsrsrs
+esse
 Poderiam
 à
+cada
 Ficarei
 Sério
 adrede
 1990 quantum
 ter
+pelas
 70anos porecatu70anos cidadelinda
 acabámos
 Obtenha
 teria
 04
+9
 demais
 11º
+34
+hora
 Sabias
 passo a passo
 começaria
 lenda
 Quereremos
+tu
+57
 Darmos
 thread
 deixavas
@@ -1840,8 +2156,10 @@ Têm
 isso · centro
 vária
 vc
+500
 Ficarem
 poucas
+mil
 Olháreis
 Tereis
 Fomos
@@ -1855,6 +2173,7 @@ Terá
 Saberá
 visualização secretariar
 surto
+33
 Terem
 Podido
 05
@@ -1864,6 +2183,8 @@ youtu
 Ficámos
 rsrsrsrsrs
 Ficáreis
+lo
+estejam
 nelas
 começais
 última
@@ -1879,7 +2200,9 @@ zona
 lugar
 possamos
 XVIII
+vário
 pois que
+2848
 Possam
 cerca
 de propósito
@@ -1892,11 +2215,13 @@ chegareis
 fmz
 kkkkkkkk
 Pensará
+ser
 externamente
 acaba
 Ficarias
 Vieram
 ARIANA
+48
 Soubéreis
 Trarás
 sociedade
@@ -1909,14 +2234,18 @@ deveríeis
 Saberias
 cá
 poder
+2015
 Sabia
 Venham
 acabarás
 Foras
 Poderás
+algum
 acima
+aquelas
 outras
 Olhaste
+21
 Pensarmos
 account
 Ficávamos
@@ -1925,6 +2254,7 @@ k
 twitei
 acabou
 havemos
+meu
 Ireis
 Trarão
 Estava
@@ -1941,7 +2271,9 @@ sério
 Fizesse
 casualmente
 sempre que
+perante
 mal
+certo
 Passaria
 deixaremos
 numa
@@ -1964,7 +2296,9 @@ Puderas
 deixem
 Ficaras
 Tri
+538
 Vires
+feito
 99958 8340
 chegávamos
 isso · Centro
@@ -1972,12 +2306,14 @@ telefone 27745337
 X
 Tornou-Se
 público
+2
 domingo
 ao contrário
 houverá
 portanto
 Tenha
 de dia
+sem
 de tempos em tempos
 Estivésseis
 processo
@@ -1990,6 +2326,7 @@ Passáveis
 Ouviriam
 Trouxestes
 Tentásseis
+vários
 RUA
 curtiram isso · Comunidade Portal
 houvéramos
@@ -2002,6 +2339,7 @@ Recarreguei
 curtir isso · centro
 curtir isso · agência
 isso · negócio
+muito
 tendes
 Torneis
 chegaríeis
@@ -2015,6 +2353,9 @@ my
 Obtive
 Passar
 Viéramos
+39
+apenas
+grande
 4ª
 Foi
 melhor
@@ -2023,10 +2364,12 @@ VC
 tô
 pudéramos
 Destruir
+40
 BRASIL
 Soubemos
 muita
 isso · Site
+2004
 Pudéreis
 tão
 yes
@@ -2036,8 +2379,10 @@ naum
 deixado
 desse modo
 vai
+10
 Fiel 504
 quanto mais
+deve
 abç
 próprio
 crush
@@ -2049,6 +2394,8 @@ Pusesse
 Web App
 mano
 falta
+ao
+dito
 Obtiveram
 apesar de que
 vou
@@ -2065,6 +2412,7 @@ chegaríamos
 Vieras
 Qdo
 Tornaríeis
+também
 põem
 porventura
 usem
@@ -2078,13 +2426,17 @@ Vc
 conta
 Queriam
 Tivéssemos
+1123681294
 She
+3
 amplo
 Tentei
 Sobretudo
+43
 Poderem
 tecnologias
 tecnologia
+vós
 português
 Passaras
 FLAMENGO
@@ -2095,6 +2447,7 @@ Tornará
 às escondidas
 Oq
 começai
+não
 Olhariam
 Ver
 francamente
@@ -2130,6 +2483,7 @@ curtir isso · empresa
 abr
 Tentaste
 Sao
+por
 pequenas
 Tornam
 São
@@ -2137,9 +2491,11 @@ dezessete
 chegaria
 Vcs
 VIDEOS
+estejamos
 partir
 Tivesse
 houvéssemos
+os
 acabo
 comecem
 APP
@@ -2151,6 +2507,8 @@ Faria
 haha
 naquela
 Veremos
+2016
+fosse
 às claras
 tampouco
 podei
@@ -2166,13 +2524,16 @@ houveriam
 tenham
 aleluia
 Obtêm
+pelos
 10º
 programa
 usada
 houvésseis
+depois
 Déssemos
 Paulo
 nele
+da
 Recebi
 ministro
 Fizermos
@@ -2182,19 +2543,25 @@ Fazia
 livro
 vamo
 devagar
+formos
 dá-ihe
 fazendo
 Querias
 sétima
 rapaiz
+quem
 vez
+minha
 seriam
 Saibas
+essas
 Trouxéreis
 segurança
 SÃO
 Fiquemos
+49
 beloved
+the
 Saiba
 deveis
 vossas
@@ -2213,28 +2580,34 @@ Qq
 Dão
 Se
 poxa
+pela
 Puseram
 Embora
 Obteve
 trilhão
 Ficamos
+deverá
 app
 Pensas
 Pensavas
 psiu
 quer
 segunda
+te
 quarta feira
 cem
+mais
 Ficareis
 Vejo
 filtro redefinir
 Haverei
+foram
 mês
 claro
 Ouve
 Pomos
 ih
+local
 Vistes
 Estiveres
 Vais
@@ -2270,6 +2643,7 @@ república
 acabarias
 conselho
 empresa
+fora
 todavia
 r
 começámos
@@ -2277,14 +2651,17 @@ Fazendo
 Trouxesse
 vamos
 Tivessem
+devendo
 indubitavelmente
 sim
 vir
 Souberam
+30
 de certeza
 saúde
 dezesseis
 comecei
+58
 Ok
 Obteríeis
 Pelo
@@ -2292,12 +2669,15 @@ Tentássemos
 Quererá
 acabava
 Estivestes
+425
 tchau
 Estado
 flamengo
 desde que
 Uso
+agora
 Dava
+nem
 usado
 começarás
 chegássemos
@@ -2306,18 +2686,22 @@ Passou
 bons
 sem que
 teríamos
+41
 Seria
+2001
 embora
 grito
 termos
 podermos
 Vão
 9ª
+vos
 deixou
 Tentarem
 Anos
 Man
 Mds
+bastante
 Poderei
 Idade Página · 10
 Novo
@@ -2333,10 +2717,14 @@ houve
 à vontade
 13º
 longe
+do
 Quiserdes
 Passáreis
 Tivésseis
+42
+destes
 vão
+após
 Trazeis
 Façam
 Trouxe
@@ -2386,15 +2774,19 @@ publicação
 GENTE
 eua
 deixassemos
+aquilo
 Usá
 cara
 Veríeis
 Doar
 comece
 dantes
+nesse
+faz
 novembro
 Estão
 parca
+daqueles
 terça-feira
 AND
 Ficam
@@ -2404,6 +2796,7 @@ acabastes
 Quiserem
 08 2009
 Essas
+sobre
 à toa
 Para que
 podiam
@@ -2423,13 +2816,16 @@ vens
 Olháveis
 Fará
 Ficasses
+estivéssemos
 Punhas
 kg
 Max
 NOVO
+ou
 XII
 ariana
 terem
+46
 possuo
 Houvera
 Sabido
@@ -2439,6 +2835,8 @@ Flamengo
 de longe
 Realmente
 Web
+dizem
+enquanto
 isso · Comunidade
 XXI
 deixares
@@ -2452,6 +2850,8 @@ Passaremos
 Estivesses
 Usei
 Puder
+3056
+cujos
 Tentáveis
 Trareis
 Iríamos
@@ -2486,6 +2886,7 @@ Tornei
 Contratei
 Fan
 tiveste
+tua
 VII
 simplesmente
 Poremos
@@ -2497,6 +2898,7 @@ dão
 Possamos
 Viemos
 Viríamos
+meus
 sistema
 aqui
 5ª
@@ -2509,6 +2911,7 @@ XVI
 9º
 Der
 à distância de
+desde
 Mar
 fevereio
 Tentaríeis
@@ -2518,6 +2921,7 @@ dezanove
 primeiros
 Sabes
 primeiramente
+mesmos
 nova
 D
 Pelamor
@@ -2526,6 +2930,7 @@ Iria
 Dariam
 começardes
 Tornarás
+diz
 porém
 Tenhais
 II
@@ -2552,11 +2957,13 @@ depressa
 irra
 Estiveras
 Verei
+vossa
 Tecnologias
 migo
 103 comentário
 pudesse
 Obtém
+estou
 devesses
 Sabiam
 Pensaríamos
@@ -2564,12 +2971,14 @@ devesse
 Obtivéramos
 Faremos
 XLIII
+2002
 TA
 gado
 tivera
 Passarem
 ali
 Poríeis
+cujas
 Estariam
 Passássemos
 seríamos
@@ -2580,7 +2989,10 @@ Vens
 Virá
 Página · 1
 liguei
+32
+38
 quão
+esteja
 duma
 Pensasse
 Fazei
@@ -2602,6 +3014,7 @@ Olhásseis
 Olhasses
 vdd
 Traríamos
+nas
 Virdes
 3028 2848
 SÉRIO
@@ -2609,12 +3022,14 @@ de…
 Quer
 portugueses
 Janete CarvalhoGRUPO
+destas
 teve
 IA
 credo
 425 visualizações
 Estai
 FAN
+45
 área
 Vossa Reverendíssima
 Saberem
@@ -2628,6 +3043,7 @@ fada sensata
 meio
 tínheis
 Ligo
+eram
 Pensáramos
 Usam
 Hajamos
@@ -2650,6 +3066,7 @@ Quiseras
 acabássemos
 Fizestes
 Fosse
+tido
 haveríeis
 podia
 chegou
@@ -2680,16 +3097,22 @@ flop
 1123681294 centrodia convivenciaparaidosos
 Pensares
 devera
+ainda
 acabassem
 Via
 acabáreis
 carlos
+1
 Tenham
 Faz
 deixava
+50
 fazeis
 XXXVI
+estão
 visto
+27745337
+geral
 INSTA
 Viriam
 oitava
@@ -2701,11 +3124,13 @@ curtir
 ia
 Faço
 Púnheis
+tinham
 13ª
 2ª
 Tornardes
 cima
 Trazer
+deveriam
 Elevar
 acolá
 centro
@@ -2714,8 +3139,10 @@ los
 Fazes
 Pra
 N
+2000
 Vê
 Viam
+1992
 chegar
 haverdes
 COMPARTILHA
@@ -2730,6 +3157,7 @@ TornÃ¡veis
 quáis
 Teriam
 terias
+aquela
 à distância
 porque
 Aguento
@@ -2738,6 +3166,7 @@ quando
 podíamos
 Puséreis
 Faziam
+vocês
 Bom
 fazemos
 Trouxéssemos
@@ -2757,12 +3186,15 @@ Tornaram
 t co
 outrem
 Fizeram
+pelo
 houvessem
 Passarás
 Fizéramos
 comentário página · 1
 deixa
 Ficásseis
+e
+nesta
 IN
 Ouvem
 Pudesses
@@ -2772,7 +3204,9 @@ puderes
 Oii
 Pensavam
 curtiram isso · Centro
+qualquer
 Tentaram
+mesmas
 Youtube
 x
 Ouvirias
@@ -2783,6 +3217,7 @@ Quiséssemos
 Obtiveste
 Vieste
 puderdes
+as
 Nuss
 és
 Désseis
@@ -2796,20 +3231,25 @@ dezasseis
 Poderão
 Vier
 Fazias
+14
 Acabei
 uso
 Dará
 semana
 Possais
+além
 assim que
 tém
 devam
 Quererão
 Twitter
+delas
 chegado
+3028
 Twitter Web App
 os quais
 ñ
+23
 Presciso
 Tragas
 fazes
@@ -2819,10 +3259,13 @@ chegarem
 Formos
 próximo
 deverem
+todo
 havereis
 quaisquer
 Olháramos
 Viessem
+está
+99958
 cidade
 Pensaria
 acabado
@@ -2832,6 +3275,7 @@ ui
 chegaste
 Vedes
 Obterá
+31
 Agradeço
 dois
 menos
@@ -2840,6 +3284,7 @@ propositadamente
 Olhai
 Porá
 hemos
+15
 na verdade
 tenhas
 Perante
@@ -2857,12 +3302,15 @@ deixareis
 Dei
 Houve
 acabas
+0
 Víramos
 00
 LG
 Conseguinte
 problema
+cuja
 o qual
+sejam
 Treze
 diante
 chegaremos
@@ -2872,6 +3320,7 @@ Ouvíamos
 começam
 ta voando
 Puderes
+isso
 15º
 Pensarás
 Trazes
@@ -2881,6 +3330,7 @@ Fazermos
 Eh
 acaso
 P
+100
 sucessivamente
 Prefiro
 Ouviram
@@ -2911,6 +3361,7 @@ G
 fla
 in
 milhão
+estes
 y
 Dá
 Solicitei
@@ -2923,6 +3374,7 @@ Olhará
 deixemos
 anja
 06
+aqueles
 Sabeis
 acabaria
 sabe
@@ -2947,7 +3399,9 @@ Reduz
 Traga
 nacional
 hajas
+neste
 Trazemos
+52
 Saber
 Souber
 Pudemos
@@ -2958,6 +3412,7 @@ IDADE 👩‍👩‍👦‍👦❤️
 Obtemos
 Tornareis
 Puserem
+contra
 Ser
 Houveres
 houvermos
@@ -2967,10 +3422,13 @@ muitos
 haver
 bixo
 usa
+estas
 então
 Br
 Obteria
 ti
+103
+se
 deverei
 acabarem
 Ouviríeis
@@ -2980,12 +3438,14 @@ iupi
 bem
 Haveria
 BR
+tanto
 vem
 Viesses
 devíeis
 Yes
 Souberes
 acabarei
+2007
 -
 Poderias
 Tornavas
@@ -3018,15 +3478,18 @@ Tivéramos
 acabáramos
 Fazíeis
 PQ
+contudo
 acabavas
 Tentarei
 Vereis
+na
 Deis
 Estar
 Obterás
 tivestes
 pequeno
 chegarias
+algo
 Forma
 custa
 portuguese
@@ -3081,8 +3544,13 @@ Hey
 de fato
 acabes
 Houverem
+la
+devia
+que
+11
 cento
 Ahh
+às
 deveu
 preços
 bem que
@@ -3110,11 +3578,15 @@ Haveríamos
 UCvphc
 acabavam
 Trouxemos
+aos
 mau
+há
 Pensávamos
 Quereres
 deixaríamos
+deveria
 por perto
+desta
 dúvida
 Quero
 XXII
@@ -3124,6 +3596,7 @@ Pondes
 Vês
 Pensava
 Vireis
+516
 besta
 parcera
 nov
@@ -3141,6 +3614,7 @@ setembro
 possa
 nove
 Tentareis
+nos
 À medida que
 estás
 Trazei
@@ -3155,6 +3629,7 @@ Soubeste
 segunda-feira
 acabaríamos
 todas as vezes que
+lhe
 foto
 Quisessem
 conquanto que
@@ -3165,13 +3640,20 @@ caramba
 chegavas
 ena
 amanhã
+coisa
 quinta-feira
+pra
+294
+lá
 quarenta
 Teria
+outro
+essa
 Pudermos
 Querereis
 Veem
 Pusera
+dela
 Fica
 Estaremos
 àqueles
@@ -3192,6 +3674,7 @@ alguem
 berro
 Publicação
 Viesse
+190
 àquela
 Ficai
 aí
@@ -3207,6 +3690,7 @@ Pusestes
 Púnhamos
 caso
 IV
+seu
 Pensai
 XLVII
 quereis
@@ -3221,6 +3705,7 @@ posso
 1990 quantum saudade
 tuitei
 Taaaao
+feitos
 Obteremos
 Pensassem
 Quisemos
@@ -3235,6 +3720,7 @@ quê
 Tornariam
 podem
 visita 1123681294
+1998
 ֲ     DiaDoIdoso 1deOutubro
 à direita
 Passais
@@ -3243,6 +3729,7 @@ começarei
 Esqueça
 idoso ဨဨဨ espaco
 Fizeste
+1990
 Esteja
 isso · Organização
 DOMINGO
@@ -3256,6 +3743,7 @@ Estavam
 Feito
 Somos
 Passes
+18
 houverei
 Poderá
 Podei
@@ -3271,6 +3759,7 @@ Pareço
 de maneira nenhuma
 Tornaríamos
 começas
+seja
 poderemos
 deixarei
 quanta
@@ -3290,6 +3779,7 @@ Torne
 Pqp
 Poderdes
 Veio
+sob
 tristemente
 acabásseis
 devido
@@ -3302,6 +3792,7 @@ acabarmos
 Ouvirmos
 Havido
 Pudestes
+dum
 Dane-Se
 deixeis
 Tornavam
@@ -3311,6 +3802,7 @@ Pudésseis
 algumas
 Hahahaha
 novo
+fui
 Fizesses
 Olharei
 em cima
@@ -3324,18 +3816,3 @@ curtiram isso · Site
 solicitei
 obrigada
 Ficavas
-open
-artigo
-conteúdo
-data
-minuto
-relacionado
-relacionados
-notícia
-t22
-update
-teletime
-telesíntese
-xp
-companhia
-imagem

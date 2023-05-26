@@ -26,12 +26,13 @@ const start= true
     , EN            : "en_us"
     , ES            : "es_es"
 })
+
 ;;
 
 const
-makeframe = (name=fdate.as(), content=' ', color=app.pallete.BACKGROUND, role='assistant') => {
-    const el = DIV('-row --tile-row', { padding:'.5em', marginBottom:"2em", color: app.pallete.FONT }).app(
-        DIV(`-col-8 -${role == 'assistant' ? 'left' : 'right'}`, { background:color, borderRadius:'.5em' }).app(
+makeframe = (name=fdate.as(), content='', color=app.pallete.BACKGROUND, role='assistant') => {
+    const el = DIV('-row --tile-row ' + (role == 'assistant' ? '--assistant' : '--user'), { padding:'.5em', marginBottom:"2em", color: app.pallete.FONT }).app(
+        DIV(`-col-10 ${role == 'assistant' ? '-left' : '-right'}`, { background:color, borderRadius:'.5em' }).app(
             TAG('header', '-row -content-left', { padding:'.5em' }).app(SPAN(name, '-left', { opacity:.25 })).app(
                 TAG('nav', '-absolute -zero-top-right', { padding:'.5em' }).app(
                     // REMOVE
@@ -44,30 +45,46 @@ makeframe = (name=fdate.as(), content=' ', color=app.pallete.BACKGROUND, role='a
                         IMG('assets/img/icons/file.svg', '-inverted -avoid-pointer', { height:'1em', transform:'translateY(-.125em)' })
                     ).data({ tip: 'Clique para copiar o conteúdo!' }).on('click', function() { fw.copy2clipboard(content); app.success('Conteúdo copiado com sucesso') })
                 ).app(
-                    // SUMMARIZE
-                    DIV('-right --tooltip', { opacity:.25, cursor:'not-allowed', padding:'0 .5em' }).app(
-                        IMG('assets/img/icons/gas.svg', '-inverted -avoid-pointer', { height:'1em', transform:'translateY(-.125em)' })
-                    ).data({ tip: 'Sumarize' }).on('click', function(){ return app.warning('WIP'); sock('summarize', { data: { text: content }, cb: res => {
-                        console.log(res)
-                        if(res?.data?.text) makeframe(name, res.data.text)
-                        else fw.error('error summarizing')
-                    } }) })
+                    // AMPLIFY
+                    DIV('-right -pointer --tooltip', { opacity:.25, padding:'0 .5em' }).app(
+                        IMG('assets/img/icons/square.svg', '-inverted -avoid-pointer', { height:'1em', transform:'translateY(-.125em)' })
+                    ).data({ tip: 'Visualizar' }).on('click', function(){
+                        $('body')[0].app(
+                            DIV('-fixed -wrapper --popup', { background:'#000e', zIndex:100000, padding:'2em 24%' }).app(
+                                DIV('-wrapper', { background: color, borderRadius:'.5em', padding:".5em" }).app(
+                                    DIV("-wrapper -scrolls -content-left", { padding:'1em', background: app.pallete.FONT+'12' }).html(
+                                        "<pre class='-row'>"+content+"</pre>"//.split(/\n+/g).filter(i=>i.trim().length).map(i=>i.trim()).join('<br>')
+                                    )
+                                )
+                            ).app(
+                                DIV('-absolute -zero-top-right -only-pointer', { margin:'1em calc(24% - 2em)', background: app.pallete.BACKGROUND, borderRadius: '2em' }).app(
+                                    IMG('assets/img/icons/cross.svg', '-inverted -avoid-pointer', { height:'4em', width:'4em', padding:'1em' })
+                                ).on('click', function(){ this.upFind('--popup').remove() })
+                            )
+                        )
+                    })
                 )
             )
         ).app(DIV('-row', { padding: '0 .5em .5em' }).app(
-            DIV('-row -content-left -roboto-light --message', { padding:'.5em', background:'@DARK3', borderRadius:'.5em' }).data({ role, content, ts: fdate.time() })
+            DIV('-row -content-left -roboto-light -scrolls --message', {
+                padding         : '.5em'
+                , background    : '@DARK3'
+                , borderRadius  : '.5em'
+                , maxHeight     : role=='user' ? '20em': null
+            }).data({ role, ts: fdate.time() })
         ))
     ) ;;
-    el.$('.--message')[0].html(content.trim().replace(/\n/gui, '<br/>'))
-    $(".--stage")[0].app(el).scrollTop = Number.MAX_SAFE_INTEGER;
+    el.$('.--message')[0].html(content.split(/\n+/g).filter(i=>i.trim().length).map(i=>i.trim()).join('<br>'))
+    $(".--stage")[0].app(el).scrollTop = Number.MAX_SAFE_INTEGER
     app.tooltips()
     return el
 }
 ;;
 
 const
-ws = new WebSocket('ws://localhost:4000')
-, socket_callbacks = {}
+wsport = (location.port + "").slice(0, 2) + (location.port + "").slice(0, 2)
+, ws = new WebSocket('ws://' + location.hostname + ':' + wsport)
+, socket_callbacks = { }
 , sock_sender = req => {
     if(ws.readyState === 1) ws.send(req)
     else setTimeout(_ => sock_sender(req), AL/2)
@@ -92,11 +109,17 @@ ws.onmessage = function(res) {
     stream = res.stream
     , progress = res.progress
     , data = typeof res == 'string' ? res : res.data
+    , error = data?.error
     ;;
+
+    if(error) {
+        $(".--progress").forEach(e => e.stop().anime({ width: '100%', background: 'red' }))
+        app.error(error)
+    }
 
     if(progress !== undefined) {
         let p = Math.min(progress, 1) * 100 ;;
-        $(".--progress").forEach(e => e.anime({ width: p+'%' }).then(e => p==100 ? e.css({ width:0 }) : null))
+        $(".--progress").forEach(e => e.stop().anime({ width: p+'%', background: p >= 100 ? 'transparent' : app.pallete.LIME }))
     }
 
     if(stream !== undefined) {
@@ -172,7 +195,7 @@ bootloader.loadComponents.add(async _ => {
         bootloader.dependencies.add("theme")
         const paint = _ => [ "background", "foreground" ].map(x => $(".--"+x).css({ background: app.pallete[x.toUpperCase()], color: app.pallete.FONT })) ;;
         try {
-            sock(`theme`, { data: { theme: app.theme }, cb: res => {
+            sock(`theme`, { data: { theme: 'dark' }, cb: res => {
                 blend(app.pallete, res)
                 paint()
                 bootloader.ready("theme")
@@ -211,7 +234,6 @@ bootloader.onFinishLoading.add(function() {
 
     /*** HOME ***/
     {
-        bootloader.dependencies.add("home")
         app.load("views/home.htm")
     }
 

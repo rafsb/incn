@@ -2,7 +2,6 @@ const
 zlib = require('zlib')
 , crypto = require('crypto')
 , io = require('./fio')
-, fObject = require('./fobject')
 ;;
 
 module.exports = class fText {
@@ -11,29 +10,29 @@ module.exports = class fText {
 
 	static flex = [ 's', '(a|á|à|ã)s', '(e|é|ê)s', '(i|í)s', '(o|ó|ô|õ)s', '(u|ú)s'	]
 
-    static phrase_boundaries = ".;?!|\n"
+    static phrase_boundaries = "[§|•.;?!\\n]"
 
     rx(wrule=2, b="\\b", asrx=true, flags="guim"){
         const
-        midrule = ".{1," + wrule + "}"//"([^-'0-9a-zÀ-ÿ]{0,2}[-'0-9a-zÀ-ÿ]+[^-'0-9a-zÀ-ÿ]{0,2}){0," + wrule + "}"
-        , replaced = this.value.trim()
-            // , replaced = `([ .,?!:;(]{1,}` + w.trim()
+        midrule = ".{1," + wrule + "}"
+        , replaced = '(' + this.value
             .replace(/[^-'0-9a-zÀ-ÿ ]/gui, " ")
             .replace(/\s+/giu, " ")
+            .trim()
             .replace(/(a|á|à|ã)/giu, "(a|á|à|ã)")
             .replace(/(e|é|ê)/giu,	 "(e|é|ê)")
             .replace(/(i|í)/giu,	 "(i|í)")
             .replace(/(o|ó|ô|õ)/giu, "(o|ó|ô|õ)")
             .replace(/(u|ú)/giu,	 "(u|ú)")
             .replace(/(c|ç)/giu,	 "(c|ç)")
-            .replace(/\s+/giu, `(${fText.flex.join('|')}){0,}${b})${midrule}(`) + `(${fText.flex.join('|')}){0,}`
+            .replace(/\s+/giu, `(${fText.flex.join('|')}){0,})${midrule}(`) + `(${fText.flex.join('|')}){0,})(${b}|\s+)`
 		;;
-        return asrx ? new RegExp(`${b}${replaced}${b}`, flags) : `${b}${replaced}${b}`
-        // return asrx ? new RegExp(`((^|[ .,?!:;('>\`])${replaced})`, flags) : `((^|[ .,?!:;('>\`])${replaced})`
+        // console.log('\n', replaced, '\n')
+        return asrx ? new RegExp(replaced, flags) : replaced
     }
 
     clear() {
-        return this.value.replace(/[^-0-9a-zÀ-ÿ]/gui, ' ').replace(/\s+/gui, ' ').trim()
+        return this.value.toLowerCase().replace(/<[^>]*>/g, "").replace(/[^0-9a-zÀ-ÿ ]/g, '').replace(/\s+/gui, ' ').trim()
     }
 
     compress(){
@@ -100,89 +99,96 @@ module.exports = class fText {
     }
 
     sanitized_compare(w) {
-        return (new RegExp(
-            this.value
-                .trim()
-                .replace(/\s+/giu, ' ')
-                .replace(/(a|á|à|ã)/giu, "(a|á|à|ã)")
-                .replace(/(e|é|ê)/giu,   "(e|é|ê)")
-                .replace(/(i|í)/giu,     "(i|í)")
-                .replace(/(o|ó|ô|õ)/giu, "(o|ó|ô|õ)")
-                .replace(/(u|ú)/giu,     "(u|ú)")
-                .replace(/(c|ç)/giu,     "(c|ç)")
-            , 'giu')).test(w.trim().replace(/\s+/gi, ' ')) ? true : false
+        return this.rx().test(w.replace(/\s+/gi, ' ').trim())
     }
 
-    summarize(conf){
-
-        if(typeof conf == 'string') conf = { text: conf}
-
-        if(conf?.text) this.value = conf.text
-        if(conf?.maxTokens) this.maxTokens = conf.maxTokens
-        if(conf?.sentenseThreshold) this.sentenseThreshold = conf.sentenseTheshold
-        if(conf?.wordThreshold) this.wordThreshold = conf.wordThreshold
+    words_frequancy(word_threshold=1) {
 
         const
-        me = this
-        , sentences = this.value.split(new RegExp("["+fText.phrase_boundaries+"]", "gui")).filter(sentense => sentense.split(/\s+/g).length > me.sentenseThreshold)
-        , freq = {}
+        text = this.value.replace()
+        , cleanText = text.replace(/[^0-9a-zA-ZÀ-ÿ]/g, ' ')
+        , words = cleanText.split(/\s+/)
+        , freqMap = {}
+        , stops = fText.stopwords.join(' ').toLowerCase()
         ;;
 
-        io.jin('var/sentences.json', sentences)
-
-        for (const sentence of sentences) {
-            const words = sentence.split(/[^\w']/u) ;;
-            for (const word of words) {
-                const lword = word.toLowerCase() ;;
-                if (!freq[lword]) freq[lword] = 0
-                ++freq[lword]
+        words.forEach(word => {
+            if(word.length > word_threshold && isNaN(word) && !stops.match(fText.rx(word.toLowerCase()))) {
+                if (!freqMap[word.toLowerCase()]) freqMap[word.toLowerCase()] = 1
+                freqMap[word.toLowerCase()]++
+                if(word[0].match(/[A-Z]/g)) freqMap[word.toLowerCase()]++
             }
-        }
+        })
 
-        Object.keys(freq).forEach(word => {
-            for(let stop of fText.stopwords) {
-                if(!isNaN(word) || fText.sanitized_compare(word, stop)) {
-                    freq[word] = 0
-                    continue
+        return Object.keys(freqMap).sort((a, b) => freqMap[b] - freqMap[a]).slice(0, this.frequancy_tokens);
+    }
+
+    summarize(maxtokens, wordthreshold, sentensethreshold, advanced_query) {
+
+        if(maxtokens) this.maxTokens = maxtokens
+        if(sentensethreshold) this.sentence_tokens = sentensethreshold
+
+        const
+        text = this.value
+        , relevantWords = this.words_frequancy(wordthreshold)
+        , sentences = text.split(new RegExp(fText.phrase_boundaries)).map(s => fText.clear(s)).filter(i => i)
+        , scores = {}
+        , maxTokens = this.maxTokens
+        ;;
+
+        sentences.forEach(sentence => {
+            if(!advanced_query || fText.cast(sentence).advanced_query(advanced_query)) {
+                const words = sentence.split(/\W+/).filter(i => i) ;;
+                if(words.length >= 16 && words.length <= 32) {
+                    let count = 0 ;;
+                    words.forEach(word => { if(relevantWords.join(' ').match(fText.rx(word))) count += 1 + (relevantWords.length - relevantWords.indexOf(word)) / relevantWords.length })//count++ })
+                    scores[sentence] = count // / Math.max(24, words.length)
                 }
             }
         })
 
-        io.jin('var/freq.json', freq)
+        const sortedSentences = Object.keys(scores).sort((a, b) => scores[b] - scores[a])
+
+        let reached = 0 ;;
+        return sortedSentences.map(sentence => {
+            sentence = sentence
+            const len = sentence.split(/\W+/g).length ;;
+            if(len > this.sentence_tokens) {
+                reached += len
+                if(reached < maxTokens) return sentence
+            }
+        }).filter(i => i).join('\n')
+
+    }
+
+    advanced_query(query){
 
         let
-        sortedWords = Object.keys(freq).sort((a, b) => freq[b] - freq[a])
-        , summary = []
+        v = this.value
+        , pass = true
         ;;
 
-        io.jin('var/sortedWords.json', sortedWords)
+        query.match(/(-\w*(\s+|\b))/gmi)?.forEach(n => {
+            query = query.replace(n, '')
+            if(v.match(fText.rx(n.slice(1)))) pass = false
+        })
 
-        for (const sentence of sentences) {
-            const words = sentence.split(/[^\w']/u).filter(i => i) ;;
-            const meta = [] ;;
-            let sentenceScore = 0;
-            for (const word of words) {
-                const lword = word.toLowerCase();
-                if (sortedWords.indexOf(lword) < me.wordThreshold) ++sentenceScore
-                // sentenceScore += freq[lword] || 0
-                if(freq[lword]) meta.push([ lword, freq[lword] ])
+        if(pass && query.trim()) {
+
+            query.split(/OR|AND|\(|\)|\||&/g).filter(i=>i).forEach(w => {
+                if(v.match(fText.cast(w).rx())) query = query.replace(fText.rx(w), '1')
+                else query = query.replace(fText.rx(w), '0')
+            })
+
+            try { pass = true && eval(query.replaceAll('AND', '&&').replaceAll('OR', '||')) } catch(e) {
+                if(VERBOSE>3) console.trace(e)
+                pass=false
             }
-            summary.push({ sentence: sentence.trim(), score: sentenceScore, meta })
+
         }
 
-        let
-        tmp = summary.sort((a, b) => b.score - a.score)
-        , topSentences = []
-        ;;
+        return pass
 
-        let i = 0 ;;
-        while(topSentences.map(t => t.sentence).join(' ').split(/\s+/g).length < ntokens && i < tmp.length) topSentences.push(tmp[i++])
-
-        io.jin('var/summary.json', topSentences)
-
-        topSentences.sort((a, b) => sentences.indexOf(a.sentence) - sentences.indexOf(b.sentence))
-
-        return topSentences.map(s => s.sentence).join('.\n')
     }
 
     toString(encode='utf-8') {
@@ -194,10 +200,10 @@ module.exports = class fText {
     }
 
     constructor(value) {
-        this.value              = value||""
-        this.maxTokens          = 2048
-        this.sentenseThreshold  = 10
-        this.wordThreshold      = 10
+        this.value            = value || ""
+        this.maxTokens        = 3200
+        this.frequancy_tokens = 32
+        this.sentence_tokens  = 10
     }
 
     static cast(str) { return new fText(str) }
@@ -222,7 +228,9 @@ module.exports = class fText {
 
     static sanitized_compare(str1, str2) { return (new fText(str1)).sanitized_compare(str2) }
 
-    static summarize(str, ns, wt) { return (new fText(str)).summarize(ns, wt) }
+    static advanced_query(query, str) { return (new fText(str)).advanced_query(query) }
+
+    static summarize(str, ns, wt, st, wc) { return (new fText(str)).summarize(ns, wt, st, wc) }
 
     static json(o) {
         let res = null ;;
